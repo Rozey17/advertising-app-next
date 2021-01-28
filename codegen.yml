@@ -1,0 +1,17 @@
+overwrite: true
+schema:
+  - 'https://hc7ptqtja5bzpg576iov7527pm.appsync-api.eu-west-2.amazonaws.com/graphql':
+     headers:
+        'X-Api-Key': 'da2-3ajduac2xnhq7pg4i4d6sznx7i'
+documents: ./src/graphql/**/*.ts
+generates:
+  src/apollo-components/index.tsx:
+    config:
+      noNamespaces: true
+      withHOC: false
+      withHooks: true
+      withComponent: false
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
