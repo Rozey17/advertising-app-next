@@ -273,6 +273,18 @@ export type Subscription = {
   onDeleteAd?: Maybe<Ad>;
 };
 
+export type ModelFloatInput = {
+  ne?: Maybe<Scalars['Float']>;
+  eq?: Maybe<Scalars['Float']>;
+  le?: Maybe<Scalars['Float']>;
+  lt?: Maybe<Scalars['Float']>;
+  ge?: Maybe<Scalars['Float']>;
+  gt?: Maybe<Scalars['Float']>;
+  between?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  attributeExists?: Maybe<Scalars['Boolean']>;
+  attributeType?: Maybe<ModelAttributeTypes>;
+};
+
 export type ModelBooleanInput = {
   ne?: Maybe<Scalars['Boolean']>;
   eq?: Maybe<Scalars['Boolean']>;
@@ -288,18 +300,6 @@ export type ModelIntInput = {
   ge?: Maybe<Scalars['Int']>;
   gt?: Maybe<Scalars['Int']>;
   between?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  attributeExists?: Maybe<Scalars['Boolean']>;
-  attributeType?: Maybe<ModelAttributeTypes>;
-};
-
-export type ModelFloatInput = {
-  ne?: Maybe<Scalars['Float']>;
-  eq?: Maybe<Scalars['Float']>;
-  le?: Maybe<Scalars['Float']>;
-  lt?: Maybe<Scalars['Float']>;
-  ge?: Maybe<Scalars['Float']>;
-  gt?: Maybe<Scalars['Float']>;
-  between?: Maybe<Array<Maybe<Scalars['Float']>>>;
   attributeExists?: Maybe<Scalars['Boolean']>;
   attributeType?: Maybe<ModelAttributeTypes>;
 };

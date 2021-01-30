@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ButtonAppBar() {
+export default function Layout({children}) {
   const classes = useStyles();
 
   return (
@@ -42,6 +42,7 @@ export default function ButtonAppBar() {
           <Button color='inherit'>Login</Button>
         </Toolbar>
       </AppBar>
+      {children}
     </div>
   );
 }

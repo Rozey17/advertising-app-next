@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@apollo": ["src/apollo-components"]},
     "target": "es5",
     "lib": [
       "dom",
