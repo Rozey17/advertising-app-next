@@ -1,12 +1,12 @@
-import { CreateAdForm } from 'components/ads/CreateAdForm';
 import { Container } from '@material-ui/core';
 import Layout from 'components/Layout/Layout';
+import { CreateAdCategoryForm } from 'components/adsCategories/createAdCategoryForm';
 
-export default function CreateAd() {
+export default function CreateAdCategory() {
   return (
     <Layout>
       <Container>
-        <CreateAdForm />
+        <CreateAdCategoryForm />
       </Container>
     </Layout>
   );

@@ -1,13 +1,11 @@
 import { useCreateAdMutation, Ad, CreateAdInput } from '@apollo';
 import { Button, Input, Typography, TextField } from '@material-ui/core';
 import { Formik, Form, Field } from 'formik';
-import { nanoid } from 'nanoid';
 import { string, object } from 'yup';
 import Link from 'next/link';
 import { FC } from 'react';
 
 const initialValues: CreateAdInput = {
-  id: nanoid(),
   title: '',
   adCategoryID: '',
 };
@@ -23,7 +21,7 @@ const CreateAdForm: FC = () => {
   });
 
   return (
-    <Formik
+    <Formik<CreateAdInput>
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (input, { resetForm }) => {
@@ -57,6 +55,7 @@ const CreateAdForm: FC = () => {
               helperText={touched.title ? errors.title : ''}
               error={touched.title && Boolean(errors.title)}
               label='Title'
+              variant='outlined'
               value={values.title}
               // onChange={handleChange}
             />
@@ -68,11 +67,12 @@ const CreateAdForm: FC = () => {
               helperText={touched.adCategoryID ? errors.adCategoryID : ''}
               error={touched.adCategoryID && Boolean(errors.adCategoryID)}
               label='Ad Category ID'
+              variant='outlined'
               value={values.adCategoryID}
               // onChange={handleChange}
             />
 
-            <Field
+            {/* <Field
               as={TextField}
               id='id'
               name='categoryID'
@@ -80,8 +80,8 @@ const CreateAdForm: FC = () => {
               error={touched.id && Boolean(errors.id)}
               label='Category ID'
               value={values.id}
-              onChange={handleChange}
-            />
+              // onChange={handleChange}
+            /> */}
             <div>
               <Button
                 variant='contained'
