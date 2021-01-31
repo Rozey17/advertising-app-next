@@ -1,23 +1,20 @@
-import { ListAdsQueryVariables, useListAdsQuery } from 'src';
+import { ListAdCategorysQueryVariables, useListAdCategorysQuery } from 'src';
 import { AdCategory } from './AdCategory';
 
 const AdCategoriesList = () => {
-  const variables: ListAdsQueryVariables = { limit: 100 };
+  const variables: ListAdCategorysQueryVariables = { limit: 100 };
 
-  const { data, loading } = useListAdsQuery({
+  const { data, loading } = useListAdCategorysQuery({
     variables,
   });
 
-  const Ads = data && data.listAds ? data.listAds.items : [];
+  const AdCategories =
+    data && data.listAdCategorys ? data.listAdCategorys.items : [];
 
   return (
     <div>
-      {Ads.map((x) => (
-        <AdCategory
-          title={x.title}
-          categoryName={x.adCategory.name}
-          key={x.id}
-        />
+      {AdCategories.map((x) => (
+        <AdCategory name={x.name} key={x.id} />
       ))}
     </div>
   );

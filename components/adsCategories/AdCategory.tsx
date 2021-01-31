@@ -1,23 +1,19 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import styles from './Ad.module.css';
+import styles from './AdCategory.module.css';
 import { Paper } from '@material-ui/core';
 
 interface Props {
-  title: string;
-  categoryName: string;
+  name: string;
 }
 
-const AdCategory = ({ title, categoryName }: Props) => {
+const AdCategory = ({ name }: Props) => {
   return (
     <div className={styles.paper}>
       <Paper elevation={3}>
         <Card className={styles.card} variant='outlined'>
           <p>
-            <b>AdCategory:</b> {title}
-          </p>
-          <p>
-            Category : <b>{categoryName}</b>
+            <b> {name}</b>
           </p>
         </Card>
       </Paper>

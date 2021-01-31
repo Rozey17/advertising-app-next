@@ -2,6 +2,8 @@ import Layout from 'components/Layout/Layout';
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
 import { AdsList } from 'components/ads/AdsList';
+import Categories from './categories';
+import { AdCategoriesList } from 'components/adsCategories/AdCategoriesList';
 export default function Home() {
   return (
     <div>
@@ -13,7 +15,7 @@ export default function Home() {
           <Button variant='outlined'>CREATE AD CATEGORY</Button>
         </Link>
       </Layout>
-      <AdsList />
+      <AdCategoriesList />
     </div>
   );
 }
