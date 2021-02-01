@@ -17,6 +17,16 @@ export const getAdCategory = /* GraphQL */ `
         }
         nextToken
       }
+      subCategories {
+        items {
+          id
+          name
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -33,6 +43,9 @@ export const listAdCategorys = /* GraphQL */ `
         id
         name
         ads {
+          nextToken
+        }
+        subCategories {
           nextToken
         }
         createdAt
@@ -54,6 +67,9 @@ export const getAd = /* GraphQL */ `
         ads {
           nextToken
         }
+        subCategories {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -68,6 +84,53 @@ export const listAds = /* GraphQL */ `
       items {
         id
         title
+        adCategoryID
+        adCategory {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAdSubCategory = /* GraphQL */ `
+  query GetAdSubCategory($id: ID!) {
+    getAdSubCategory(id: $id) {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAdSubCategorys = /* GraphQL */ `
+  query ListAdSubCategorys(
+    $filter: ModelAdSubCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAdSubCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
         adCategoryID
         adCategory {
           id

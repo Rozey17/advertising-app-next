@@ -14,6 +14,9 @@ export default function Home() {
         <Link href='/createAdCategory'>
           <Button variant='outlined'>CREATE AD CATEGORY</Button>
         </Link>
+        <Link href='/createAdSubCategory'>
+          <Button variant='outlined'>CREATE AD SUBCATEGORY</Button>
+        </Link>
       </Layout>
       <AdCategoriesList />
     </div>

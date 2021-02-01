@@ -20,6 +20,16 @@ export const createAdCategory = /* GraphQL */ `
         }
         nextToken
       }
+      subCategories {
+        items {
+          id
+          name
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -37,6 +47,16 @@ export const updateAdCategory = /* GraphQL */ `
         items {
           id
           title
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      subCategories {
+        items {
+          id
+          name
           adCategoryID
           createdAt
           updatedAt
@@ -66,6 +86,16 @@ export const deleteAdCategory = /* GraphQL */ `
         }
         nextToken
       }
+      subCategories {
+        items {
+          id
+          name
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -81,6 +111,9 @@ export const createAd = /* GraphQL */ `
         id
         name
         ads {
+          nextToken
+        }
+        subCategories {
           nextToken
         }
         createdAt
@@ -103,6 +136,9 @@ export const updateAd = /* GraphQL */ `
         ads {
           nextToken
         }
+        subCategories {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -121,6 +157,87 @@ export const deleteAd = /* GraphQL */ `
         id
         name
         ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAdSubCategory = /* GraphQL */ `
+  mutation CreateAdSubCategory(
+    $input: CreateAdSubCategoryInput!
+    $condition: ModelAdSubCategoryConditionInput
+  ) {
+    createAdSubCategory(input: $input, condition: $condition) {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAdSubCategory = /* GraphQL */ `
+  mutation UpdateAdSubCategory(
+    $input: UpdateAdSubCategoryInput!
+    $condition: ModelAdSubCategoryConditionInput
+  ) {
+    updateAdSubCategory(input: $input, condition: $condition) {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAdSubCategory = /* GraphQL */ `
+  mutation DeleteAdSubCategory(
+    $input: DeleteAdSubCategoryInput!
+    $condition: ModelAdSubCategoryConditionInput
+  ) {
+    deleteAdSubCategory(input: $input, condition: $condition) {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
           nextToken
         }
         createdAt

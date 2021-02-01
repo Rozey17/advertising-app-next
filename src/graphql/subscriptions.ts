@@ -17,6 +17,16 @@ export const onCreateAdCategory = /* GraphQL */ `
         }
         nextToken
       }
+      subCategories {
+        items {
+          id
+          name
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -31,6 +41,16 @@ export const onUpdateAdCategory = /* GraphQL */ `
         items {
           id
           title
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      subCategories {
+        items {
+          id
+          name
           adCategoryID
           createdAt
           updatedAt
@@ -57,6 +77,16 @@ export const onDeleteAdCategory = /* GraphQL */ `
         }
         nextToken
       }
+      subCategories {
+        items {
+          id
+          name
+          adCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -72,6 +102,9 @@ export const onCreateAd = /* GraphQL */ `
         id
         name
         ads {
+          nextToken
+        }
+        subCategories {
           nextToken
         }
         createdAt
@@ -94,6 +127,9 @@ export const onUpdateAd = /* GraphQL */ `
         ads {
           nextToken
         }
+        subCategories {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -112,6 +148,78 @@ export const onDeleteAd = /* GraphQL */ `
         id
         name
         ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateAdSubCategory = /* GraphQL */ `
+  subscription OnCreateAdSubCategory {
+    onCreateAdSubCategory {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAdSubCategory = /* GraphQL */ `
+  subscription OnUpdateAdSubCategory {
+    onUpdateAdSubCategory {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAdSubCategory = /* GraphQL */ `
+  subscription OnDeleteAdSubCategory {
+    onDeleteAdSubCategory {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        ads {
+          nextToken
+        }
+        subCategories {
           nextToken
         }
         createdAt

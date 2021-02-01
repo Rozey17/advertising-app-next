@@ -29,6 +29,8 @@ export type Query = {
   listAdCategorys?: Maybe<ModelAdCategoryConnection>;
   getAd?: Maybe<Ad>;
   listAds?: Maybe<ModelAdConnection>;
+  getAdSubCategory?: Maybe<AdSubCategory>;
+  listAdSubCategorys?: Maybe<ModelAdSubCategoryConnection>;
 };
 
 
@@ -55,11 +57,24 @@ export type QueryListAdsArgs = {
   nextToken?: Maybe<Scalars['String']>;
 };
 
+
+export type QueryGetAdSubCategoryArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryListAdSubCategorysArgs = {
+  filter?: Maybe<ModelAdSubCategoryFilterInput>;
+  limit?: Maybe<Scalars['Int']>;
+  nextToken?: Maybe<Scalars['String']>;
+};
+
 export type AdCategory = {
   __typename?: 'AdCategory';
   id: Scalars['ID'];
   name: Scalars['String'];
   ads?: Maybe<ModelAdConnection>;
+  subCategories?: Maybe<ModelAdSubCategoryConnection>;
   createdAt: Scalars['AWSDateTime'];
   updatedAt: Scalars['AWSDateTime'];
 };
@@ -67,6 +82,14 @@ export type AdCategory = {
 
 export type AdCategoryAdsArgs = {
   filter?: Maybe<ModelAdFilterInput>;
+  sortDirection?: Maybe<ModelSortDirection>;
+  limit?: Maybe<Scalars['Int']>;
+  nextToken?: Maybe<Scalars['String']>;
+};
+
+
+export type AdCategorySubCategoriesArgs = {
+  filter?: Maybe<ModelAdSubCategoryFilterInput>;
   sortDirection?: Maybe<ModelSortDirection>;
   limit?: Maybe<Scalars['Int']>;
   nextToken?: Maybe<Scalars['String']>;
@@ -158,6 +181,31 @@ export enum ModelSortDirection {
   Desc = 'DESC'
 }
 
+export type ModelAdSubCategoryConnection = {
+  __typename?: 'ModelAdSubCategoryConnection';
+  items?: Maybe<Array<Maybe<AdSubCategory>>>;
+  nextToken?: Maybe<Scalars['String']>;
+};
+
+export type AdSubCategory = {
+  __typename?: 'AdSubCategory';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  adCategoryID: Scalars['ID'];
+  adCategory?: Maybe<AdCategory>;
+  createdAt: Scalars['AWSDateTime'];
+  updatedAt: Scalars['AWSDateTime'];
+};
+
+export type ModelAdSubCategoryFilterInput = {
+  id?: Maybe<ModelIdInput>;
+  name?: Maybe<ModelStringInput>;
+  adCategoryID?: Maybe<ModelIdInput>;
+  and?: Maybe<Array<Maybe<ModelAdSubCategoryFilterInput>>>;
+  or?: Maybe<Array<Maybe<ModelAdSubCategoryFilterInput>>>;
+  not?: Maybe<ModelAdSubCategoryFilterInput>;
+};
+
 export type ModelAdCategoryConnection = {
   __typename?: 'ModelAdCategoryConnection';
   items?: Maybe<Array<Maybe<AdCategory>>>;
@@ -180,6 +228,9 @@ export type Mutation = {
   createAd?: Maybe<Ad>;
   updateAd?: Maybe<Ad>;
   deleteAd?: Maybe<Ad>;
+  createAdSubCategory?: Maybe<AdSubCategory>;
+  updateAdSubCategory?: Maybe<AdSubCategory>;
+  deleteAdSubCategory?: Maybe<AdSubCategory>;
 };
 
 
@@ -216,6 +267,24 @@ export type MutationUpdateAdArgs = {
 export type MutationDeleteAdArgs = {
   input: DeleteAdInput;
   condition?: Maybe<ModelAdConditionInput>;
+};
+
+
+export type MutationCreateAdSubCategoryArgs = {
+  input: CreateAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
+};
+
+
+export type MutationUpdateAdSubCategoryArgs = {
+  input: UpdateAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
+};
+
+
+export type MutationDeleteAdSubCategoryArgs = {
+  input: DeleteAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
 };
 
 export type CreateAdCategoryInput = {
@@ -263,6 +332,30 @@ export type DeleteAdInput = {
   id?: Maybe<Scalars['ID']>;
 };
 
+export type CreateAdSubCategoryInput = {
+  id?: Maybe<Scalars['ID']>;
+  name: Scalars['String'];
+  adCategoryID: Scalars['ID'];
+};
+
+export type ModelAdSubCategoryConditionInput = {
+  name?: Maybe<ModelStringInput>;
+  adCategoryID?: Maybe<ModelIdInput>;
+  and?: Maybe<Array<Maybe<ModelAdSubCategoryConditionInput>>>;
+  or?: Maybe<Array<Maybe<ModelAdSubCategoryConditionInput>>>;
+  not?: Maybe<ModelAdSubCategoryConditionInput>;
+};
+
+export type UpdateAdSubCategoryInput = {
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  adCategoryID?: Maybe<Scalars['ID']>;
+};
+
+export type DeleteAdSubCategoryInput = {
+  id?: Maybe<Scalars['ID']>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   onCreateAdCategory?: Maybe<AdCategory>;
@@ -271,18 +364,9 @@ export type Subscription = {
   onCreateAd?: Maybe<Ad>;
   onUpdateAd?: Maybe<Ad>;
   onDeleteAd?: Maybe<Ad>;
-};
-
-export type ModelFloatInput = {
-  ne?: Maybe<Scalars['Float']>;
-  eq?: Maybe<Scalars['Float']>;
-  le?: Maybe<Scalars['Float']>;
-  lt?: Maybe<Scalars['Float']>;
-  ge?: Maybe<Scalars['Float']>;
-  gt?: Maybe<Scalars['Float']>;
-  between?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  attributeExists?: Maybe<Scalars['Boolean']>;
-  attributeType?: Maybe<ModelAttributeTypes>;
+  onCreateAdSubCategory?: Maybe<AdSubCategory>;
+  onUpdateAdSubCategory?: Maybe<AdSubCategory>;
+  onDeleteAdSubCategory?: Maybe<AdSubCategory>;
 };
 
 export type ModelBooleanInput = {
@@ -304,6 +388,18 @@ export type ModelIntInput = {
   attributeType?: Maybe<ModelAttributeTypes>;
 };
 
+export type ModelFloatInput = {
+  ne?: Maybe<Scalars['Float']>;
+  eq?: Maybe<Scalars['Float']>;
+  le?: Maybe<Scalars['Float']>;
+  lt?: Maybe<Scalars['Float']>;
+  ge?: Maybe<Scalars['Float']>;
+  gt?: Maybe<Scalars['Float']>;
+  between?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  attributeExists?: Maybe<Scalars['Boolean']>;
+  attributeType?: Maybe<ModelAttributeTypes>;
+};
+
 export type CreateAdCategoryMutationVariables = Exact<{
   input: CreateAdCategoryInput;
   condition?: Maybe<ModelAdCategoryConditionInput>;
@@ -321,6 +417,13 @@ export type CreateAdCategoryMutation = (
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -344,6 +447,13 @@ export type UpdateAdCategoryMutation = (
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
     )> }
   )> }
 );
@@ -366,6 +476,13 @@ export type DeleteAdCategoryMutation = (
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
     )> }
   )> }
 );
@@ -387,6 +504,9 @@ export type CreateAdMutation = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -409,6 +529,9 @@ export type UpdateAdMutation = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -431,6 +554,84 @@ export type DeleteAdMutation = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type CreateAdSubCategoryMutationVariables = Exact<{
+  input: CreateAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
+}>;
+
+
+export type CreateAdSubCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { createAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type UpdateAdSubCategoryMutationVariables = Exact<{
+  input: UpdateAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
+}>;
+
+
+export type UpdateAdSubCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { updateAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type DeleteAdSubCategoryMutationVariables = Exact<{
+  input: DeleteAdSubCategoryInput;
+  condition?: Maybe<ModelAdSubCategoryConditionInput>;
+}>;
+
+
+export type DeleteAdSubCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -452,6 +653,13 @@ export type GetAdCategoryQuery = (
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -475,6 +683,9 @@ export type ListAdCategorysQuery = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )>>> }
   )> }
@@ -496,6 +707,9 @@ export type GetAdQuery = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -524,6 +738,53 @@ export type ListAdsQuery = (
   )> }
 );
 
+export type GetAdSubCategoryQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetAdSubCategoryQuery = (
+  { __typename?: 'Query' }
+  & { getAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type ListAdSubCategorysQueryVariables = Exact<{
+  filter?: Maybe<ModelAdSubCategoryFilterInput>;
+  limit?: Maybe<Scalars['Int']>;
+  nextToken?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ListAdSubCategorysQuery = (
+  { __typename?: 'Query' }
+  & { listAdSubCategorys?: Maybe<(
+    { __typename?: 'ModelAdSubCategoryConnection' }
+    & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+    & { items?: Maybe<Array<Maybe<(
+      { __typename?: 'AdSubCategory' }
+      & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      & { adCategory?: Maybe<(
+        { __typename?: 'AdCategory' }
+        & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      )> }
+    )>>> }
+  )> }
+);
+
 export type OnCreateAdCategorySubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -538,6 +799,13 @@ export type OnCreateAdCategorySubscription = (
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -558,6 +826,13 @@ export type OnUpdateAdCategorySubscription = (
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
     )> }
   )> }
 );
@@ -577,6 +852,13 @@ export type OnDeleteAdCategorySubscription = (
         { __typename?: 'Ad' }
         & Pick<Ad, 'id' | 'title' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
+    )>, subCategories?: Maybe<(
+      { __typename?: 'ModelAdSubCategoryConnection' }
+      & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      & { items?: Maybe<Array<Maybe<(
+        { __typename?: 'AdSubCategory' }
+        & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+      )>>> }
     )> }
   )> }
 );
@@ -595,6 +877,9 @@ export type OnCreateAdSubscription = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -614,6 +899,9 @@ export type OnUpdateAdSubscription = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -633,6 +921,75 @@ export type OnDeleteAdSubscription = (
       & { ads?: Maybe<(
         { __typename?: 'ModelAdConnection' }
         & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type OnCreateAdSubCategorySubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnCreateAdSubCategorySubscription = (
+  { __typename?: 'Subscription' }
+  & { onCreateAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type OnUpdateAdSubCategorySubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnUpdateAdSubCategorySubscription = (
+  { __typename?: 'Subscription' }
+  & { onUpdateAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
+      )> }
+    )> }
+  )> }
+);
+
+export type OnDeleteAdSubCategorySubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnDeleteAdSubCategorySubscription = (
+  { __typename?: 'Subscription' }
+  & { onDeleteAdSubCategory?: Maybe<(
+    { __typename?: 'AdSubCategory' }
+    & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
+    & { adCategory?: Maybe<(
+      { __typename?: 'AdCategory' }
+      & Pick<AdCategory, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+      & { ads?: Maybe<(
+        { __typename?: 'ModelAdConnection' }
+        & Pick<ModelAdConnection, 'nextToken'>
+      )>, subCategories?: Maybe<(
+        { __typename?: 'ModelAdSubCategoryConnection' }
+        & Pick<ModelAdSubCategoryConnection, 'nextToken'>
       )> }
     )> }
   )> }
@@ -648,6 +1005,16 @@ export const CreateAdCategoryDocument = gql`
       items {
         id
         title
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    subCategories {
+      items {
+        id
+        name
         adCategoryID
         createdAt
         updatedAt
@@ -700,6 +1067,16 @@ export const UpdateAdCategoryDocument = gql`
       }
       nextToken
     }
+    subCategories {
+      items {
+        id
+        name
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -740,6 +1117,16 @@ export const DeleteAdCategoryDocument = gql`
       items {
         id
         title
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    subCategories {
+      items {
+        id
+        name
         adCategoryID
         createdAt
         updatedAt
@@ -789,6 +1176,9 @@ export const CreateAdDocument = gql`
       ads {
         nextToken
       }
+      subCategories {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -833,6 +1223,9 @@ export const UpdateAdDocument = gql`
       id
       name
       ads {
+        nextToken
+      }
+      subCategories {
         nextToken
       }
       createdAt
@@ -881,6 +1274,9 @@ export const DeleteAdDocument = gql`
       ads {
         nextToken
       }
+      subCategories {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -915,6 +1311,153 @@ export function useDeleteAdMutation(baseOptions?: Apollo.MutationHookOptions<Del
 export type DeleteAdMutationHookResult = ReturnType<typeof useDeleteAdMutation>;
 export type DeleteAdMutationResult = Apollo.MutationResult<DeleteAdMutation>;
 export type DeleteAdMutationOptions = Apollo.BaseMutationOptions<DeleteAdMutation, DeleteAdMutationVariables>;
+export const CreateAdSubCategoryDocument = gql`
+    mutation CreateAdSubCategory($input: CreateAdSubCategoryInput!, $condition: ModelAdSubCategoryConditionInput) {
+  createAdSubCategory(input: $input, condition: $condition) {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type CreateAdSubCategoryMutationFn = Apollo.MutationFunction<CreateAdSubCategoryMutation, CreateAdSubCategoryMutationVariables>;
+
+/**
+ * __useCreateAdSubCategoryMutation__
+ *
+ * To run a mutation, you first call `useCreateAdSubCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAdSubCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAdSubCategoryMutation, { data, loading, error }] = useCreateAdSubCategoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      condition: // value for 'condition'
+ *   },
+ * });
+ */
+export function useCreateAdSubCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateAdSubCategoryMutation, CreateAdSubCategoryMutationVariables>) {
+        return Apollo.useMutation<CreateAdSubCategoryMutation, CreateAdSubCategoryMutationVariables>(CreateAdSubCategoryDocument, baseOptions);
+      }
+export type CreateAdSubCategoryMutationHookResult = ReturnType<typeof useCreateAdSubCategoryMutation>;
+export type CreateAdSubCategoryMutationResult = Apollo.MutationResult<CreateAdSubCategoryMutation>;
+export type CreateAdSubCategoryMutationOptions = Apollo.BaseMutationOptions<CreateAdSubCategoryMutation, CreateAdSubCategoryMutationVariables>;
+export const UpdateAdSubCategoryDocument = gql`
+    mutation UpdateAdSubCategory($input: UpdateAdSubCategoryInput!, $condition: ModelAdSubCategoryConditionInput) {
+  updateAdSubCategory(input: $input, condition: $condition) {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type UpdateAdSubCategoryMutationFn = Apollo.MutationFunction<UpdateAdSubCategoryMutation, UpdateAdSubCategoryMutationVariables>;
+
+/**
+ * __useUpdateAdSubCategoryMutation__
+ *
+ * To run a mutation, you first call `useUpdateAdSubCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAdSubCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAdSubCategoryMutation, { data, loading, error }] = useUpdateAdSubCategoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      condition: // value for 'condition'
+ *   },
+ * });
+ */
+export function useUpdateAdSubCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAdSubCategoryMutation, UpdateAdSubCategoryMutationVariables>) {
+        return Apollo.useMutation<UpdateAdSubCategoryMutation, UpdateAdSubCategoryMutationVariables>(UpdateAdSubCategoryDocument, baseOptions);
+      }
+export type UpdateAdSubCategoryMutationHookResult = ReturnType<typeof useUpdateAdSubCategoryMutation>;
+export type UpdateAdSubCategoryMutationResult = Apollo.MutationResult<UpdateAdSubCategoryMutation>;
+export type UpdateAdSubCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateAdSubCategoryMutation, UpdateAdSubCategoryMutationVariables>;
+export const DeleteAdSubCategoryDocument = gql`
+    mutation DeleteAdSubCategory($input: DeleteAdSubCategoryInput!, $condition: ModelAdSubCategoryConditionInput) {
+  deleteAdSubCategory(input: $input, condition: $condition) {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type DeleteAdSubCategoryMutationFn = Apollo.MutationFunction<DeleteAdSubCategoryMutation, DeleteAdSubCategoryMutationVariables>;
+
+/**
+ * __useDeleteAdSubCategoryMutation__
+ *
+ * To run a mutation, you first call `useDeleteAdSubCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAdSubCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAdSubCategoryMutation, { data, loading, error }] = useDeleteAdSubCategoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      condition: // value for 'condition'
+ *   },
+ * });
+ */
+export function useDeleteAdSubCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAdSubCategoryMutation, DeleteAdSubCategoryMutationVariables>) {
+        return Apollo.useMutation<DeleteAdSubCategoryMutation, DeleteAdSubCategoryMutationVariables>(DeleteAdSubCategoryDocument, baseOptions);
+      }
+export type DeleteAdSubCategoryMutationHookResult = ReturnType<typeof useDeleteAdSubCategoryMutation>;
+export type DeleteAdSubCategoryMutationResult = Apollo.MutationResult<DeleteAdSubCategoryMutation>;
+export type DeleteAdSubCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteAdSubCategoryMutation, DeleteAdSubCategoryMutationVariables>;
 export const GetAdCategoryDocument = gql`
     query GetAdCategory($id: ID!) {
   getAdCategory(id: $id) {
@@ -924,6 +1467,16 @@ export const GetAdCategoryDocument = gql`
       items {
         id
         title
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    subCategories {
+      items {
+        id
+        name
         adCategoryID
         createdAt
         updatedAt
@@ -968,6 +1521,9 @@ export const ListAdCategorysDocument = gql`
       id
       name
       ads {
+        nextToken
+      }
+      subCategories {
         nextToken
       }
       createdAt
@@ -1015,6 +1571,9 @@ export const GetAdDocument = gql`
       id
       name
       ads {
+        nextToken
+      }
+      subCategories {
         nextToken
       }
       createdAt
@@ -1099,6 +1658,103 @@ export function useListAdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Li
 export type ListAdsQueryHookResult = ReturnType<typeof useListAdsQuery>;
 export type ListAdsLazyQueryHookResult = ReturnType<typeof useListAdsLazyQuery>;
 export type ListAdsQueryResult = Apollo.QueryResult<ListAdsQuery, ListAdsQueryVariables>;
+export const GetAdSubCategoryDocument = gql`
+    query GetAdSubCategory($id: ID!) {
+  getAdSubCategory(id: $id) {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useGetAdSubCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetAdSubCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAdSubCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAdSubCategoryQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetAdSubCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetAdSubCategoryQuery, GetAdSubCategoryQueryVariables>) {
+        return Apollo.useQuery<GetAdSubCategoryQuery, GetAdSubCategoryQueryVariables>(GetAdSubCategoryDocument, baseOptions);
+      }
+export function useGetAdSubCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAdSubCategoryQuery, GetAdSubCategoryQueryVariables>) {
+          return Apollo.useLazyQuery<GetAdSubCategoryQuery, GetAdSubCategoryQueryVariables>(GetAdSubCategoryDocument, baseOptions);
+        }
+export type GetAdSubCategoryQueryHookResult = ReturnType<typeof useGetAdSubCategoryQuery>;
+export type GetAdSubCategoryLazyQueryHookResult = ReturnType<typeof useGetAdSubCategoryLazyQuery>;
+export type GetAdSubCategoryQueryResult = Apollo.QueryResult<GetAdSubCategoryQuery, GetAdSubCategoryQueryVariables>;
+export const ListAdSubCategorysDocument = gql`
+    query ListAdSubCategorys($filter: ModelAdSubCategoryFilterInput, $limit: Int, $nextToken: String) {
+  listAdSubCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      adCategoryID
+      adCategory {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+    `;
+
+/**
+ * __useListAdSubCategorysQuery__
+ *
+ * To run a query within a React component, call `useListAdSubCategorysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAdSubCategorysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAdSubCategorysQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      limit: // value for 'limit'
+ *      nextToken: // value for 'nextToken'
+ *   },
+ * });
+ */
+export function useListAdSubCategorysQuery(baseOptions?: Apollo.QueryHookOptions<ListAdSubCategorysQuery, ListAdSubCategorysQueryVariables>) {
+        return Apollo.useQuery<ListAdSubCategorysQuery, ListAdSubCategorysQueryVariables>(ListAdSubCategorysDocument, baseOptions);
+      }
+export function useListAdSubCategorysLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAdSubCategorysQuery, ListAdSubCategorysQueryVariables>) {
+          return Apollo.useLazyQuery<ListAdSubCategorysQuery, ListAdSubCategorysQueryVariables>(ListAdSubCategorysDocument, baseOptions);
+        }
+export type ListAdSubCategorysQueryHookResult = ReturnType<typeof useListAdSubCategorysQuery>;
+export type ListAdSubCategorysLazyQueryHookResult = ReturnType<typeof useListAdSubCategorysLazyQuery>;
+export type ListAdSubCategorysQueryResult = Apollo.QueryResult<ListAdSubCategorysQuery, ListAdSubCategorysQueryVariables>;
 export const OnCreateAdCategoryDocument = gql`
     subscription OnCreateAdCategory {
   onCreateAdCategory {
@@ -1108,6 +1764,16 @@ export const OnCreateAdCategoryDocument = gql`
       items {
         id
         title
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    subCategories {
+      items {
+        id
+        name
         adCategoryID
         createdAt
         updatedAt
@@ -1155,6 +1821,16 @@ export const OnUpdateAdCategoryDocument = gql`
       }
       nextToken
     }
+    subCategories {
+      items {
+        id
+        name
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -1190,6 +1866,16 @@ export const OnDeleteAdCategoryDocument = gql`
       items {
         id
         title
+        adCategoryID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    subCategories {
+      items {
+        id
+        name
         adCategoryID
         createdAt
         updatedAt
@@ -1234,6 +1920,9 @@ export const OnCreateAdDocument = gql`
       ads {
         nextToken
       }
+      subCategories {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -1273,6 +1962,9 @@ export const OnUpdateAdDocument = gql`
       id
       name
       ads {
+        nextToken
+      }
+      subCategories {
         nextToken
       }
       createdAt
@@ -1316,6 +2008,9 @@ export const OnDeleteAdDocument = gql`
       ads {
         nextToken
       }
+      subCategories {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -1345,3 +2040,135 @@ export function useOnDeleteAdSubscription(baseOptions?: Apollo.SubscriptionHookO
       }
 export type OnDeleteAdSubscriptionHookResult = ReturnType<typeof useOnDeleteAdSubscription>;
 export type OnDeleteAdSubscriptionResult = Apollo.SubscriptionResult<OnDeleteAdSubscription>;
+export const OnCreateAdSubCategoryDocument = gql`
+    subscription OnCreateAdSubCategory {
+  onCreateAdSubCategory {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useOnCreateAdSubCategorySubscription__
+ *
+ * To run a query within a React component, call `useOnCreateAdSubCategorySubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnCreateAdSubCategorySubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnCreateAdSubCategorySubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnCreateAdSubCategorySubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnCreateAdSubCategorySubscription, OnCreateAdSubCategorySubscriptionVariables>) {
+        return Apollo.useSubscription<OnCreateAdSubCategorySubscription, OnCreateAdSubCategorySubscriptionVariables>(OnCreateAdSubCategoryDocument, baseOptions);
+      }
+export type OnCreateAdSubCategorySubscriptionHookResult = ReturnType<typeof useOnCreateAdSubCategorySubscription>;
+export type OnCreateAdSubCategorySubscriptionResult = Apollo.SubscriptionResult<OnCreateAdSubCategorySubscription>;
+export const OnUpdateAdSubCategoryDocument = gql`
+    subscription OnUpdateAdSubCategory {
+  onUpdateAdSubCategory {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useOnUpdateAdSubCategorySubscription__
+ *
+ * To run a query within a React component, call `useOnUpdateAdSubCategorySubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnUpdateAdSubCategorySubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnUpdateAdSubCategorySubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnUpdateAdSubCategorySubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnUpdateAdSubCategorySubscription, OnUpdateAdSubCategorySubscriptionVariables>) {
+        return Apollo.useSubscription<OnUpdateAdSubCategorySubscription, OnUpdateAdSubCategorySubscriptionVariables>(OnUpdateAdSubCategoryDocument, baseOptions);
+      }
+export type OnUpdateAdSubCategorySubscriptionHookResult = ReturnType<typeof useOnUpdateAdSubCategorySubscription>;
+export type OnUpdateAdSubCategorySubscriptionResult = Apollo.SubscriptionResult<OnUpdateAdSubCategorySubscription>;
+export const OnDeleteAdSubCategoryDocument = gql`
+    subscription OnDeleteAdSubCategory {
+  onDeleteAdSubCategory {
+    id
+    name
+    adCategoryID
+    adCategory {
+      id
+      name
+      ads {
+        nextToken
+      }
+      subCategories {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useOnDeleteAdSubCategorySubscription__
+ *
+ * To run a query within a React component, call `useOnDeleteAdSubCategorySubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnDeleteAdSubCategorySubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnDeleteAdSubCategorySubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnDeleteAdSubCategorySubscription(baseOptions?: Apollo.SubscriptionHookOptions<OnDeleteAdSubCategorySubscription, OnDeleteAdSubCategorySubscriptionVariables>) {
+        return Apollo.useSubscription<OnDeleteAdSubCategorySubscription, OnDeleteAdSubCategorySubscriptionVariables>(OnDeleteAdSubCategoryDocument, baseOptions);
+      }
+export type OnDeleteAdSubCategorySubscriptionHookResult = ReturnType<typeof useOnDeleteAdSubCategorySubscription>;
+export type OnDeleteAdSubCategorySubscriptionResult = Apollo.SubscriptionResult<OnDeleteAdSubCategorySubscription>;

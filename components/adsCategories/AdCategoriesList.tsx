@@ -14,7 +14,7 @@ const AdCategoriesList = () => {
   return (
     <div>
       {AdCategories.map((x) => (
-        <AdCategory name={x.name} key={x.id} />
+        <AdCategory name={x.name} adCategoryID={x.id} key={x.id} />
       ))}
     </div>
   );
