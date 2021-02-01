@@ -34,7 +34,9 @@ const AdSubCategoriesList = ({ adCategoryID }: Props) => {
       {AdSubCategories.map((x) => (
         <ul>
           <li>
-            <Link href=''>{x.name}</Link>
+            <Link href='/adSubCategory' as={`/${x.name.toLowerCase()}`}>
+              {x.name}
+            </Link>
           </li>
         </ul>
       ))}

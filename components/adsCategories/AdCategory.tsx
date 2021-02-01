@@ -13,7 +13,7 @@ const AdCategory = ({ name, adCategoryID }: Props) => {
   return (
     <div className={styles.paper}>
       <Paper elevation={3}>
-        <Card className={styles.card} variant='outlined'>
+        <Card variant='outlined'>
           <p>
             <b> {name}</b>
           </p>

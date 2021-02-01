@@ -1,8 +1,15 @@
 .paper {
-  margin: auto;
+  /* margin: auto; */
   width: 250px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: medium;
+  margin-bottom: 30px;
 }
 
-.card {
+.paper b {
+  color: limegreen;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,
+    Courier, monospace;
+  font-size: large;
   padding-left: 30px;
 }
