@@ -1,5 +1,13 @@
 import { useCreateAdMutation, Ad, CreateAdInput } from '@apollo';
-import { Button, Input, Typography, TextField } from '@material-ui/core';
+import {
+  Button,
+  Select,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
 import Link from 'next/link';
@@ -8,6 +16,8 @@ import { FC } from 'react';
 const initialValues: CreateAdInput = {
   title: '',
   adCategoryID: '',
+  description: '',
+  adSubCategoryID: '',
 };
 
 const CreateAdForm: FC = () => {
@@ -18,6 +28,7 @@ const CreateAdForm: FC = () => {
       .min(2, 'Le nom trop court')
       .max(50, 'Le nom trop long'),
     adCategoryID: string().required().min(1).max(50),
+    description: string().required().min(10).max(50),
   });
 
   return (
@@ -71,17 +82,41 @@ const CreateAdForm: FC = () => {
               value={values.adCategoryID}
               // onChange={handleChange}
             />
-
-            {/* <Field
+            <Field
               as={TextField}
-              id='id'
-              name='categoryID'
-              helperText={touched.id ? errors.id : ''}
-              error={touched.id && Boolean(errors.id)}
-              label='Category ID'
-              value={values.id}
+              id='ad-subCategory'
+              name='adSubCategoryID'
+              helperText={touched.adSubCategoryID ? errors.adSubCategoryID : ''}
+              error={touched.adSubCategoryID && Boolean(errors.adSubCategoryID)}
+              label='Ad SubCategory ID'
+              variant='outlined'
+              value={values.adSubCategoryID}
               // onChange={handleChange}
-            /> */}
+            />
+            <Field
+              as={TextField}
+              id='ad-description'
+              name='description'
+              helperText={touched.description ? errors.description : ''}
+              error={touched.description && Boolean(errors.description)}
+              label='Ad Description'
+              variant='outlined'
+              value={values.description}
+              // onChange={handleChange}
+            />
+            {/* <FormControl variant='outlined'>
+              <InputLabel id='search-make'>Make</InputLabel>
+              <Field name='make' as={Select} labelId='search-make' label='Make'>
+                <MenuItem value='all'>
+                  <em>All Makes</em>
+                </MenuItem>
+                {makes.map((make) => (
+                  <MenuItem key={make.make} value={make.make}>
+                    {`${make.make} (${make.count})`}
+                  </MenuItem>
+                ))}
+              </Field>
+            </FormControl> */}
             <div>
               <Button
                 variant='contained'

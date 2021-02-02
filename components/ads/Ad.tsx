@@ -5,20 +5,20 @@ import { Paper } from '@material-ui/core';
 
 interface Props {
   title: string;
-  categoryName: string;
+  description: string;
+  adSubCategoryID: string;
 }
 
-const Ad = ({ title, categoryName }: Props) => {
+const Ad = ({ title, description, adSubCategoryID }: Props) => {
   return (
     <div className={styles.paper}>
       <Paper elevation={3}>
         <Card className={styles.card} variant='outlined'>
           <p>
-            <b>Ad:</b> {title}
+            <b>{title}</b>
           </p>
-          <p>
-            Category : <b>{categoryName}</b>
-          </p>
+          <br />
+          <p>{description}</p>
         </Card>
       </Paper>
     </div>

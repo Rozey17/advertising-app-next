@@ -6,11 +6,17 @@ type AdCategory @model {
     @connection(keyName: "byAdCategory", fields: ["id"])
 }
 
-type Ad @model @key(name: "byAdCategory", fields: ["adCategoryID"]) {
+type Ad
+  @model
+  @key(name: "byAdCategory", fields: ["adCategoryID"])
+  @key(name: "byAdSubCategory", fields: ["adSubCategoryID"]) {
   id: ID!
   title: String!
+  description: String!
   adCategoryID: ID!
   adCategory: AdCategory @connection(fields: ["adCategoryID"])
+  adSubCategoryID: ID!
+  adSubCategory: AdSubCategory @connection(fields: ["adSubCategoryID"])
 }
 
 type AdSubCategory @model @key(name: "byAdCategory", fields: ["adCategoryID"]) {
@@ -18,4 +24,5 @@ type AdSubCategory @model @key(name: "byAdCategory", fields: ["adCategoryID"]) {
   name: String!
   adCategoryID: ID!
   adCategory: AdCategory @connection(fields: ["adCategoryID"])
+  ads: [Ad] @connection(keyName: "byAdSubCategory", fields: ["id"])
 }

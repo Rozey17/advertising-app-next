@@ -6,6 +6,7 @@ import {
 } from 'src';
 import { AdSubCategory } from './AdSubCategory';
 import Link from 'next/link';
+import { AdsList } from 'components/ads/AdsList';
 
 interface Props {
   adCategoryID: string;

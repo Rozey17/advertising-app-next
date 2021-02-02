@@ -11,7 +11,9 @@ export const onCreateAdCategory = /* GraphQL */ `
         items {
           id
           title
+          description
           adCategoryID
+          adSubCategoryID
           createdAt
           updatedAt
         }
@@ -41,7 +43,9 @@ export const onUpdateAdCategory = /* GraphQL */ `
         items {
           id
           title
+          description
           adCategoryID
+          adSubCategoryID
           createdAt
           updatedAt
         }
@@ -71,7 +75,9 @@ export const onDeleteAdCategory = /* GraphQL */ `
         items {
           id
           title
+          description
           adCategoryID
+          adSubCategoryID
           createdAt
           updatedAt
         }
@@ -97,6 +103,7 @@ export const onCreateAd = /* GraphQL */ `
     onCreateAd {
       id
       title
+      description
       adCategoryID
       adCategory {
         id
@@ -105,6 +112,23 @@ export const onCreateAd = /* GraphQL */ `
           nextToken
         }
         subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      adSubCategoryID
+      adSubCategory {
+        id
+        name
+        adCategoryID
+        adCategory {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        ads {
           nextToken
         }
         createdAt
@@ -120,6 +144,7 @@ export const onUpdateAd = /* GraphQL */ `
     onUpdateAd {
       id
       title
+      description
       adCategoryID
       adCategory {
         id
@@ -128,6 +153,23 @@ export const onUpdateAd = /* GraphQL */ `
           nextToken
         }
         subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      adSubCategoryID
+      adSubCategory {
+        id
+        name
+        adCategoryID
+        adCategory {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        ads {
           nextToken
         }
         createdAt
@@ -143,6 +185,7 @@ export const onDeleteAd = /* GraphQL */ `
     onDeleteAd {
       id
       title
+      description
       adCategoryID
       adCategory {
         id
@@ -151,6 +194,23 @@ export const onDeleteAd = /* GraphQL */ `
           nextToken
         }
         subCategories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      adSubCategoryID
+      adSubCategory {
+        id
+        name
+        adCategoryID
+        adCategory {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        ads {
           nextToken
         }
         createdAt
@@ -179,6 +239,18 @@ export const onCreateAdSubCategory = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      ads {
+        items {
+          id
+          title
+          description
+          adCategoryID
+          adSubCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -202,6 +274,18 @@ export const onUpdateAdSubCategory = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      ads {
+        items {
+          id
+          title
+          description
+          adCategoryID
+          adSubCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -224,6 +308,18 @@ export const onDeleteAdSubCategory = /* GraphQL */ `
         }
         createdAt
         updatedAt
+      }
+      ads {
+        items {
+          id
+          title
+          description
+          adCategoryID
+          adSubCategoryID
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
