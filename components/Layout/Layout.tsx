@@ -12,7 +12,8 @@ import {
 } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-
+import { Button } from '@material-ui/core';
+import Link from 'next/link';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
+      color: 'white',
     },
     title: {
       flexGrow: 1,
@@ -77,17 +79,10 @@ export default function Layout({ children }) {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant='h6' noWrap>
-            Material-UI
-          </Typography>
+          <Link href='/'>
+            <Button className={classes.menuButton}>HOME</Button>
+          </Link>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

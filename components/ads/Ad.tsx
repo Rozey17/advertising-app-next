@@ -16,8 +16,8 @@ const Ad = ({ title, description, adSubCategoryID, createdAt }: Props) => {
   moment.locale('fr');
   const momentDate = moment(dateToStore).format('LL');
   return (
-    <Paper className={styles.paper} elevation={3}>
-      <div>
+    <Card className={styles.paper}>
+      <div className={styles.box1}>
         <Link href='/'>
           <b>{title}</b>
         </Link>
@@ -25,7 +25,12 @@ const Ad = ({ title, description, adSubCategoryID, createdAt }: Props) => {
         <p>Publié le: {momentDate}</p>
         <p>{description}</p>
       </div>
-    </Paper>
+      <CardMedia
+        className={styles.img}
+        title='Live from space album cover'
+        image='https://www.labaleine.fr/sites/default/files/image-not-found.jpg'
+      />
+    </Card>
   );
 };
 
