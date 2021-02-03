@@ -1,27 +1,31 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import styles from './Ad.module.css';
-import { Paper } from '@material-ui/core';
-
+import { CardContent, CardMedia, Paper } from '@material-ui/core';
+import Link from 'next/link';
+import moment from 'moment';
 interface Props {
   title: string;
   description: string;
   adSubCategoryID: string;
+  createdAt: string;
 }
 
-const Ad = ({ title, description, adSubCategoryID }: Props) => {
+const Ad = ({ title, description, adSubCategoryID, createdAt }: Props) => {
+  const dateToStore = createdAt;
+  moment.locale('fr');
+  const momentDate = moment(dateToStore).format('LL');
   return (
-    <div className={styles.paper}>
-      <Paper elevation={3}>
-        <Card className={styles.card} variant='outlined'>
-          <p>
-            <b>{title}</b>
-          </p>
-          <br />
-          <p>{description}</p>
-        </Card>
-      </Paper>
-    </div>
+    <Paper className={styles.paper} elevation={3}>
+      <div>
+        <Link href='/'>
+          <b>{title}</b>
+        </Link>
+        <br />
+        <p>Publié le: {momentDate}</p>
+        <p>{description}</p>
+      </div>
+    </Paper>
   );
 };
 

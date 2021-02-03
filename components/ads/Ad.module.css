@@ -1,10 +1,29 @@
 .paper {
   margin: auto;
-  margin-bottom: 18px;
-  width: 500px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 800px;
   padding-left: 30px;
+  padding-top: 15px;
+  height: 130px;
+  font-size: larger;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif,
+    'Times New Roman', Times, serif;
+}
+
+.paper b {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,
+    Courier, monospace;
+  font-size: large;
+  color: cornflowerblue;
+}
+
+.img {
+  height: 115px;
+  width: 300px;
 }
 
 .card {
+  padding-top: 20px;
   padding-left: 30px;
 }

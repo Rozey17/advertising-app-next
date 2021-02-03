@@ -1,5 +1,6 @@
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Ad } from './Ad';
+import moment from 'moment';
 
 interface Props {
   adSubCategoryID: string;
@@ -28,6 +29,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
           title={x.title}
           description={x.description}
           adSubCategoryID={x.adSubCategoryID}
+          createdAt={x.createdAt}
           key={x.id}
         />
       ))}
