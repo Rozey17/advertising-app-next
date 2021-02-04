@@ -15,6 +15,7 @@ export const createAdCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -50,6 +51,7 @@ export const updateAdCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -85,6 +87,7 @@ export const deleteAdCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -113,6 +116,7 @@ export const createAd = /* GraphQL */ `
       id
       title
       description
+      image
       adCategoryID
       adCategory {
         id
@@ -154,6 +158,7 @@ export const updateAd = /* GraphQL */ `
       id
       title
       description
+      image
       adCategoryID
       adCategory {
         id
@@ -195,6 +200,7 @@ export const deleteAd = /* GraphQL */ `
       id
       title
       description
+      image
       adCategoryID
       adCategory {
         id
@@ -256,6 +262,7 @@ export const createAdSubCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -294,6 +301,7 @@ export const updateAdSubCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -332,6 +340,7 @@ export const deleteAdSubCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt

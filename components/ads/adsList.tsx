@@ -30,6 +30,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
           description={x.description}
           adSubCategoryID={x.adSubCategoryID}
           createdAt={x.createdAt}
+          image={x.image}
           key={x.id}
         />
       ))}

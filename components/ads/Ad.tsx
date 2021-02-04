@@ -9,9 +9,18 @@ interface Props {
   description: string;
   adSubCategoryID: string;
   createdAt: string;
+  image: string;
 }
 
-const Ad = ({ title, description, adSubCategoryID, createdAt }: Props) => {
+const Ad = ({
+  title,
+  description,
+  adSubCategoryID,
+  createdAt,
+  image,
+}: Props) => {
+  const defaultPhotoUrl =
+    'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
   const dateToStore = createdAt;
   moment.locale('fr');
   const momentDate = moment(dateToStore).format('LL');
@@ -27,8 +36,8 @@ const Ad = ({ title, description, adSubCategoryID, createdAt }: Props) => {
       </div>
       <CardMedia
         className={styles.img}
-        title='Live from space album cover'
-        image='https://www.labaleine.fr/sites/default/files/image-not-found.jpg'
+        title='image for the ad'
+        image={image ? image : defaultPhotoUrl}
       />
     </Card>
   );

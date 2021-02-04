@@ -13,6 +13,7 @@ type Ad
   id: ID!
   title: String!
   description: String!
+  image: String
   adCategoryID: ID!
   adCategory: AdCategory @connection(fields: ["adCategoryID"])
   adSubCategoryID: ID!

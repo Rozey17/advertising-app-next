@@ -12,6 +12,7 @@ export const getAdCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
@@ -63,6 +64,7 @@ export const getAd = /* GraphQL */ `
       id
       title
       description
+      image
       adCategoryID
       adCategory {
         id
@@ -105,6 +107,7 @@ export const listAds = /* GraphQL */ `
         id
         title
         description
+        image
         adCategoryID
         adCategory {
           id
@@ -150,6 +153,7 @@ export const getAdSubCategory = /* GraphQL */ `
           id
           title
           description
+          image
           adCategoryID
           adSubCategoryID
           createdAt
