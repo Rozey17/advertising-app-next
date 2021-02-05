@@ -4,43 +4,39 @@ import styles from './Ad.module.css';
 import { CardContent, CardMedia, Paper } from '@material-ui/core';
 import Link from 'next/link';
 import moment from 'moment';
-interface Props {
-  title: string;
-  description: string;
-  adSubCategoryID: string;
-  createdAt: string;
-  image: string;
+import { Ad } from 'src';
+interface adProps {
+  ad: Ad;
 }
 
-const Ad = ({
-  title,
-  description,
-  adSubCategoryID,
-  createdAt,
-  image,
-}: Props) => {
+const Advertising = ({ ad }: adProps) => {
   const defaultPhotoUrl =
     'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
-  const dateToStore = createdAt;
+  const dateToStore = ad.createdAt;
   moment.locale('fr');
   const momentDate = moment(dateToStore).format('LL');
+  if (!ad) {
+    return <h1>Sorry this Ad doesn't exist </h1>;
+  }
   return (
     <Card className={styles.paper}>
       <div className={styles.box1}>
-        <Link href='/'>
-          <b>{title}</b>
+        <Link href='/ad/id' as={`/${ad.title}/${ad.id}`}>
+          <a>
+            <b>{ad.title}</b>
+          </a>
         </Link>
         <br />
         <p>Publié le: {momentDate}</p>
-        <p>{description}</p>
+        <p>{ad.description}</p>
       </div>
       <CardMedia
         className={styles.img}
         title='image for the ad'
-        image={image ? image : defaultPhotoUrl}
+        image={ad.image ? ad.image : defaultPhotoUrl}
       />
     </Card>
   );
 };
 
-export { Ad };
+export { Advertising };

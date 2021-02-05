@@ -1,6 +1,5 @@
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
-import { Ad } from './Ad';
-import moment from 'moment';
+import { Advertising } from './Ad';
 
 interface Props {
   adSubCategoryID: string;
@@ -16,7 +15,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
         : null,
     limit: 100,
   };
-  const { data, loading } = useListAdsQuery({
+  const { data } = useListAdsQuery({
     variables,
   });
 
@@ -25,14 +24,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   return (
     <div>
       {Ads.map((x) => (
-        <Ad
-          title={x.title}
-          description={x.description}
-          adSubCategoryID={x.adSubCategoryID}
-          createdAt={x.createdAt}
-          image={x.image}
-          key={x.id}
-        />
+        <Advertising ad={x} key={x.id} />
       ))}
     </div>
   );

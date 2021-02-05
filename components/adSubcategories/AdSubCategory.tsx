@@ -14,9 +14,9 @@ const AdSubCategory = ({ name, adSubCategoryID }: Props) => {
     <div className={styles.paper}>
       <Paper elevation={3}>
         <Card className={styles.card} variant='outlined'>
-          <p>
-            <b> {name}</b>
-          </p>
+          <a>
+            <b>{name}</b>
+          </a>
           <AdsList adSubCategoryID={adSubCategoryID} />
         </Card>
       </Paper>

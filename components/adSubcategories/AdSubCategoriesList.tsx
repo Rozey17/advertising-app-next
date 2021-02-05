@@ -4,9 +4,8 @@ import {
   useListAdCategorysQuery,
   useListAdSubCategorysQuery,
 } from 'src';
-import { AdSubCategory } from './AdSubCategory';
 import Link from 'next/link';
-import { AdsList } from 'components/ads/AdsList';
+import slugify from 'slugify';
 
 interface Props {
   adCategoryID: string;
@@ -35,7 +34,7 @@ const AdSubCategoriesList = ({ adCategoryID }: Props) => {
       {AdSubCategories.map((x) => (
         <ul>
           <li>
-            <Link href='/adSubCategory' as={`/${x.name.toLowerCase()}`}>
+            <Link href={`/${x.id}`} as={`/${slugify(x.name, { lower: true })}`}>
               {x.name}
             </Link>
           </li>
