@@ -5,6 +5,7 @@ import { CardContent, CardMedia, Paper } from '@material-ui/core';
 import Link from 'next/link';
 import moment from 'moment';
 import { Ad } from 'src';
+import slugify from 'slugify';
 interface adProps {
   ad: Ad;
 }
@@ -21,7 +22,10 @@ const Advertising = ({ ad }: adProps) => {
   return (
     <Card className={styles.paper}>
       <div className={styles.box1}>
-        <Link href='/ad/id' as={`/${ad.title}/${ad.id}`}>
+        <Link
+          href='/ad/id'
+          as={`/${slugify(ad.title, { lower: true })}/${ad.id}`}
+        >
           <a>
             <b>{ad.title}</b>
           </a>
