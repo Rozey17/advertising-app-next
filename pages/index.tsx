@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <div>
       <Layout>
-        <Link href='/createAd'>
-          <Button variant='outlined'>CREATE AD</Button>
+        <Link href='/create-ad'>
+          <Button variant='outlined'>CREATE AN AD</Button>
         </Link>
         <Link href='/createAdCategory'>
           <Button variant='outlined'>CREATE AD CATEGORY</Button>

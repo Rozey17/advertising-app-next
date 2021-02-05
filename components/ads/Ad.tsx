@@ -23,7 +23,7 @@ const Advertising = ({ ad }: adProps) => {
     <Card className={styles.paper}>
       <div className={styles.box1}>
         <Link
-          href='/ad/id'
+          href='/ad/title/id'
           as={`/${slugify(ad.title, { lower: true })}/${ad.id}`}
         >
           <a>

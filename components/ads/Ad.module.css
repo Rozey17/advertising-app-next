@@ -25,6 +25,14 @@
   text-decoration: none;
 }
 
+.input {
+  margin: 20px;
+}
+
+.select {
+  width: 230px;
+}
+
 .img {
   flex: 1;
   /* height: 130px; */

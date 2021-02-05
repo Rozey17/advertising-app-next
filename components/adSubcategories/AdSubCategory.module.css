@@ -10,3 +10,11 @@
 .card {
   padding-left: 30px;
 }
+
+.input {
+  margin: 20px;
+}
+
+.select {
+  width: 230px;
+}
