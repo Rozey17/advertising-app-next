@@ -68,7 +68,6 @@ export type CreateAdInput = {
   title: string,
   description: string,
   image?: string | null,
-  adCategoryID: string,
   adSubCategoryID: string,
 };
 
@@ -76,7 +75,6 @@ export type ModelAdConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
-  adCategoryID?: ModelIDInput | null,
   adSubCategoryID?: ModelIDInput | null,
   and?: Array< ModelAdConditionInput | null > | null,
   or?: Array< ModelAdConditionInput | null > | null,
@@ -104,7 +102,6 @@ export type UpdateAdInput = {
   title?: string | null,
   description?: string | null,
   image?: string | null,
-  adCategoryID?: string | null,
   adSubCategoryID?: string | null,
 };
 
@@ -149,7 +146,6 @@ export type ModelAdFilterInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
-  adCategoryID?: ModelIDInput | null,
   adSubCategoryID?: ModelIDInput | null,
   and?: Array< ModelAdFilterInput | null > | null,
   or?: Array< ModelAdFilterInput | null > | null,
@@ -175,21 +171,6 @@ export type CreateAdCategoryMutation = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -217,21 +198,6 @@ export type UpdateAdCategoryMutation = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -259,21 +225,6 @@ export type DeleteAdCategoryMutation = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -303,22 +254,6 @@ export type CreateAdMutation = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -356,22 +291,6 @@ export type UpdateAdMutation = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -409,22 +328,6 @@ export type DeleteAdMutation = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -465,10 +368,6 @@ export type CreateAdSubCategoryMutation = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -484,7 +383,6 @@ export type CreateAdSubCategoryMutation = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -511,10 +409,6 @@ export type UpdateAdSubCategoryMutation = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -530,7 +424,6 @@ export type UpdateAdSubCategoryMutation = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -557,10 +450,6 @@ export type DeleteAdSubCategoryMutation = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -576,7 +465,6 @@ export type DeleteAdSubCategoryMutation = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -597,21 +485,6 @@ export type GetAdCategoryQuery = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -642,10 +515,6 @@ export type ListAdCategorysQuery = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -668,22 +537,6 @@ export type GetAdQuery = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -724,14 +577,6 @@ export type ListAdsQuery = {
       title: string,
       description: string,
       image: string | null,
-      adCategoryID: string,
-      adCategory:  {
-        __typename: "AdCategory",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
       adSubCategoryID: string,
       adSubCategory:  {
         __typename: "AdSubCategory",
@@ -762,10 +607,6 @@ export type GetAdSubCategoryQuery = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -781,7 +622,6 @@ export type GetAdSubCategoryQuery = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -830,21 +670,6 @@ export type OnCreateAdCategorySubscription = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -867,21 +692,6 @@ export type OnUpdateAdCategorySubscription = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -904,21 +714,6 @@ export type OnDeleteAdCategorySubscription = {
     __typename: "AdCategory",
     id: string,
     name: string,
-    ads:  {
-      __typename: "ModelAdConnection",
-      items:  Array< {
-        __typename: "Ad",
-        id: string,
-        title: string,
-        description: string,
-        image: string | null,
-        adCategoryID: string,
-        adSubCategoryID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     subCategories:  {
       __typename: "ModelAdSubCategoryConnection",
       items:  Array< {
@@ -943,22 +738,6 @@ export type OnCreateAdSubscription = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -991,22 +770,6 @@ export type OnUpdateAdSubscription = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -1039,22 +802,6 @@ export type OnDeleteAdSubscription = {
     title: string,
     description: string,
     image: string | null,
-    adCategoryID: string,
-    adCategory:  {
-      __typename: "AdCategory",
-      id: string,
-      name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
-      subCategories:  {
-        __typename: "ModelAdSubCategoryConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
     adSubCategoryID: string,
     adSubCategory:  {
       __typename: "AdSubCategory",
@@ -1090,10 +837,6 @@ export type OnCreateAdSubCategorySubscription = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -1109,7 +852,6 @@ export type OnCreateAdSubCategorySubscription = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -1131,10 +873,6 @@ export type OnUpdateAdSubCategorySubscription = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -1150,7 +888,6 @@ export type OnUpdateAdSubCategorySubscription = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,
@@ -1172,10 +909,6 @@ export type OnDeleteAdSubCategorySubscription = {
       __typename: "AdCategory",
       id: string,
       name: string,
-      ads:  {
-        __typename: "ModelAdConnection",
-        nextToken: string | null,
-      } | null,
       subCategories:  {
         __typename: "ModelAdSubCategoryConnection",
         nextToken: string | null,
@@ -1191,7 +924,6 @@ export type OnDeleteAdSubCategorySubscription = {
         title: string,
         description: string,
         image: string | null,
-        adCategoryID: string,
         adSubCategoryID: string,
         createdAt: string,
         updatedAt: string,

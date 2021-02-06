@@ -7,19 +7,6 @@ export const onCreateAdCategory = /* GraphQL */ `
     onCreateAdCategory {
       id
       name
-      ads {
-        items {
-          id
-          title
-          description
-          image
-          adCategoryID
-          adSubCategoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       subCategories {
         items {
           id
@@ -40,19 +27,6 @@ export const onUpdateAdCategory = /* GraphQL */ `
     onUpdateAdCategory {
       id
       name
-      ads {
-        items {
-          id
-          title
-          description
-          image
-          adCategoryID
-          adSubCategoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       subCategories {
         items {
           id
@@ -73,19 +47,6 @@ export const onDeleteAdCategory = /* GraphQL */ `
     onDeleteAdCategory {
       id
       name
-      ads {
-        items {
-          id
-          title
-          description
-          image
-          adCategoryID
-          adSubCategoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       subCategories {
         items {
           id
@@ -108,19 +69,6 @@ export const onCreateAd = /* GraphQL */ `
       title
       description
       image
-      adCategoryID
-      adCategory {
-        id
-        name
-        ads {
-          nextToken
-        }
-        subCategories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       adSubCategoryID
       adSubCategory {
         id
@@ -150,19 +98,6 @@ export const onUpdateAd = /* GraphQL */ `
       title
       description
       image
-      adCategoryID
-      adCategory {
-        id
-        name
-        ads {
-          nextToken
-        }
-        subCategories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       adSubCategoryID
       adSubCategory {
         id
@@ -192,19 +127,6 @@ export const onDeleteAd = /* GraphQL */ `
       title
       description
       image
-      adCategoryID
-      adCategory {
-        id
-        name
-        ads {
-          nextToken
-        }
-        subCategories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       adSubCategoryID
       adSubCategory {
         id
@@ -236,9 +158,6 @@ export const onCreateAdSubCategory = /* GraphQL */ `
       adCategory {
         id
         name
-        ads {
-          nextToken
-        }
         subCategories {
           nextToken
         }
@@ -251,7 +170,6 @@ export const onCreateAdSubCategory = /* GraphQL */ `
           title
           description
           image
-          adCategoryID
           adSubCategoryID
           createdAt
           updatedAt
@@ -272,9 +190,6 @@ export const onUpdateAdSubCategory = /* GraphQL */ `
       adCategory {
         id
         name
-        ads {
-          nextToken
-        }
         subCategories {
           nextToken
         }
@@ -287,7 +202,6 @@ export const onUpdateAdSubCategory = /* GraphQL */ `
           title
           description
           image
-          adCategoryID
           adSubCategoryID
           createdAt
           updatedAt
@@ -308,9 +222,6 @@ export const onDeleteAdSubCategory = /* GraphQL */ `
       adCategory {
         id
         name
-        ads {
-          nextToken
-        }
         subCategories {
           nextToken
         }
@@ -323,7 +234,6 @@ export const onDeleteAdSubCategory = /* GraphQL */ `
           title
           description
           image
-          adCategoryID
           adSubCategoryID
           createdAt
           updatedAt

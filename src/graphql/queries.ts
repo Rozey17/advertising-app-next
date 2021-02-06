@@ -7,19 +7,6 @@ export const getAdCategory = /* GraphQL */ `
     getAdCategory(id: $id) {
       id
       name
-      ads {
-        items {
-          id
-          title
-          description
-          image
-          adCategoryID
-          adSubCategoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       subCategories {
         items {
           id
@@ -45,9 +32,6 @@ export const listAdCategorys = /* GraphQL */ `
       items {
         id
         name
-        ads {
-          nextToken
-        }
         subCategories {
           nextToken
         }
@@ -65,19 +49,6 @@ export const getAd = /* GraphQL */ `
       title
       description
       image
-      adCategoryID
-      adCategory {
-        id
-        name
-        ads {
-          nextToken
-        }
-        subCategories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       adSubCategoryID
       adSubCategory {
         id
@@ -108,13 +79,6 @@ export const listAds = /* GraphQL */ `
         title
         description
         image
-        adCategoryID
-        adCategory {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         adSubCategoryID
         adSubCategory {
           id
@@ -139,9 +103,6 @@ export const getAdSubCategory = /* GraphQL */ `
       adCategory {
         id
         name
-        ads {
-          nextToken
-        }
         subCategories {
           nextToken
         }
@@ -154,7 +115,6 @@ export const getAdSubCategory = /* GraphQL */ `
           title
           description
           image
-          adCategoryID
           adSubCategoryID
           createdAt
           updatedAt

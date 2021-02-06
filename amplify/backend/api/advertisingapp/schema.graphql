@@ -1,21 +1,15 @@
 type AdCategory @model {
   id: ID!
   name: String!
-  ads: [Ad] @connection(keyName: "byAdCategory", fields: ["id"])
   subCategories: [AdSubCategory]
     @connection(keyName: "byAdCategory", fields: ["id"])
 }
 
-type Ad
-  @model
-  @key(name: "byAdCategory", fields: ["adCategoryID"])
-  @key(name: "byAdSubCategory", fields: ["adSubCategoryID"]) {
+type Ad @model @key(name: "byAdSubCategory", fields: ["adSubCategoryID"]) {
   id: ID!
   title: String!
   description: String!
   image: String
-  adCategoryID: ID!
-  adCategory: AdCategory @connection(fields: ["adCategoryID"])
   adSubCategoryID: ID!
   adSubCategory: AdSubCategory @connection(fields: ["adSubCategoryID"])
 }
