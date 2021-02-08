@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
+import Head from 'next/head';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -72,33 +73,49 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Layout({ children }) {
+interface Props {
+  children?: ReactNode;
+  title?: string;
+}
+
+export const Layout: FC<Props> = ({ children, title }: Props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static'>
-        <Toolbar>
-          <Link href='/'>
-            <Button className={classes.menuButton}>HOME</Button>
-          </Link>
+    <div>
+      <Head>
+        <title>
+          {title ? `${title} | Advertising App` : 'Advertising App'}
+        </title>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <link rel='shortcut icon' href='favicon.ico' />
+      </Head>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+      <div className={classes.root}>
+        <AppBar position='static'>
+          <Toolbar>
+            <Link href='/'>
+              <Button className={classes.menuButton}>HOME</Button>
+            </Link>
+
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-      {children}
+          </Toolbar>
+        </AppBar>
+        {children}
+      </div>
     </div>
   );
-}
+};

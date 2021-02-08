@@ -1,6 +1,6 @@
 import { CreateAdForm } from 'components/ads/CreateAdForm';
 import { Container } from '@material-ui/core';
-import Layout from 'components/Layout/Layout';
+import { Layout } from 'components/Layout/Layout';
 
 export default function CreateAd() {
   return (

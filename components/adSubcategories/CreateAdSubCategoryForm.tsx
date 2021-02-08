@@ -86,29 +86,15 @@ const CreateAdSubCategoryForm: FC = () => {
                 // onChange={handleChange}
               />
             </div>
-
-            {/* <Field
-              as={TextField}
-              id='ad-category'
-              name='adCategoryID'
-              helperText={touched.adCategoryID ? errors.adCategoryID : ''}
-              error={touched.adCategoryID && Boolean(errors.adCategoryID)}
-              label='Ad Category ID'
-              variant='outlined'
-              value={values.adCategoryID}
-              // onChange={handleChange}
-            /> */}
             <div className={styles.input}>
               <FormControl className={styles.select}>
-                <InputLabel id='demo-simple-select-label'>
-                  Catégories
-                </InputLabel>
+                <InputLabel id='adSubCategory'>Catégories</InputLabel>
                 <Field
                   as={Select}
                   id='adCategory'
                   name='adCategoryID'
-                  helperText={touched.adCategoryID ? errors.adCategoryID : ''}
-                  error={touched.adCategoryID && Boolean(errors.adCategoryID)}
+                  // helperText={touched.adCategoryID ? errors.adCategoryID : ''}
+                  // error={touched.adCategoryID && Boolean(errors.adCategoryID)}
                   value={values.adCategoryID}
                   onChange={handleChange}
                 >
@@ -119,7 +105,7 @@ const CreateAdSubCategoryForm: FC = () => {
               </FormControl>
             </div>
 
-            <div className={styles.input}>
+            <div className={styles.button}>
               <Button
                 variant='contained'
                 color='primary'

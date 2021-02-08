@@ -8,7 +8,7 @@ import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
 import Link from 'next/link';
 import { FC } from 'react';
-import style from 'style.module.css';
+import styles from 'AdCategory.module.css';
 
 const initialValues: CreateAdCategoryInput = {
   name: '',

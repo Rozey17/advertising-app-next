@@ -25,7 +25,9 @@ const AdSubCategoriesList = ({ adCategoryID }: Props) => {
   const { data, loading } = useListAdSubCategorysQuery({
     variables,
   });
-
+  if (!data || loading) {
+    return <pre>Loading ...</pre>;
+  }
   const AdSubCategories =
     data && data.listAdSubCategorys ? data.listAdSubCategorys.items : [];
 

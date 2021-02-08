@@ -16,16 +16,11 @@ const Advertising = ({ ad }: adProps) => {
   const dateToStore = ad.createdAt;
   moment.locale('fr');
   const momentDate = moment(dateToStore).format('LL');
-  if (!ad) {
-    return <h1>Sorry this Ad doesn't exist </h1>;
-  }
+
   return (
     <Card className={styles.paper}>
       <div className={styles.box1}>
-        <Link
-          href='/ad/title/id'
-          as={`/${slugify(ad.title, { lower: true })}/${ad.id}`}
-        >
+        <Link href={`/ad/${ad.id}`} as={`/ad/${ad.id}`}>
           <a>
             <b>{ad.title}</b>
           </a>

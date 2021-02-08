@@ -100,9 +100,9 @@ const CreateAdForm: FC = () => {
                   value={values.adSubCategoryID}
                   // onChange={handleChange}
                 >
-                  {/* <option value=''>
+                  <option value=''>
                     <em>None</em>
-                  </option> */}
+                  </option>
                   <optgroup label='Véhicules' />
 
                   <option value={'066b9125-9d91-4020-8091-6e2c9835a3cb'}>

@@ -1,5 +1,5 @@
 import { AdsList } from 'components/ads/AdsList';
-import Layout from 'components/Layout/Layout';
+import { Layout } from 'components/Layout/Layout';
 
 export default function Expositions() {
   return (

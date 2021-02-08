@@ -20,7 +20,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-schema": "^1.2.5",
-    "aws-amplify": "^3.3.14",
+    "aws-amplify": "^3.3.17",
     "aws-appsync-auth-link": "^3.0.3",
     "aws-appsync-subscription-link": "^3.0.5",
     "formik": "^2.2.6",

@@ -25,6 +25,9 @@
   text-decoration: none;
 }
 
+.box1 a:hover {
+  color: goldenrod;
+}
 .input {
   margin: 20px;
 }

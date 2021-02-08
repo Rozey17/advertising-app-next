@@ -15,9 +15,13 @@ const AdsList = ({ adSubCategoryID }: Props) => {
         : null,
     limit: 100,
   };
-  const { data } = useListAdsQuery({
+  const { data, loading } = useListAdsQuery({
     variables,
   });
+
+  if (!data || loading) {
+    return <h1>Loading ...</h1>;
+  }
 
   const Ads = data && data.listAds ? data.listAds.items : [];
 
