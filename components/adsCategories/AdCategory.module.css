@@ -1,10 +1,12 @@
 .global {
-  /* margin: auto; */
-  width: 250px;
+  margin: auto;
+  /* width: 400px; */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: medium;
-  margin-bottom: 20px;
   display: flex;
+  height: 100%;
+  flex-direction: row;
+  /* align-items: baseline; */
 }
 
 .global b {
@@ -16,5 +18,5 @@
 }
 
 .card {
-  flex: 3;
+  flex: 1;
 }

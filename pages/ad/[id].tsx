@@ -55,36 +55,31 @@ const AdPage = ({ ad }: AdDetailsProps) => {
     <Layout title={ad.title}>
       <div className='container'>
         <Breadcrumbs
+          color='primary'
           separator={<NavigateNextIcon fontSize='small' />}
           aria-label='breadcrumb'
         >
-          <Typography color='textPrimary'>
+          <Typography color='primary'>
             {ad.adSubCategory.adCategory.name}
           </Typography>
 
-          <Link
-            color='inherit'
-            href={`/${slugify(ad.adSubCategory.name, { lower: true })}`}
-          >
+          <Link href={`/${slugify(ad.adSubCategory.name, { lower: true })}`}>
             {ad.adSubCategory.name}
           </Link>
-          <Typography color='textPrimary'>Annonce</Typography>
+          <Typography color='primary'>Annonce</Typography>
         </Breadcrumbs>
 
         <h2>{ad.title}</h2>
+        <Typography>Annonce publiée le {momentDate}</Typography>
 
-        <a>Annonce publiée le {momentDate}</a>
-        <br />
         <div className='card'>
           <Card>
             <img className='img' src={ad.image ? ad.image : defaultPhotoUrl} />
           </Card>
         </div>
 
-        <div>
-          <Card className='description'>
-            <p>{ad.description}</p>
-          </Card>
+        <div className='description'>
+          <Typography className='typo'>{ad.description}</Typography>
         </div>
         <style jsx>{`
           .container {
@@ -105,15 +100,11 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           }
           .card {
             margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
           }
 
           .description {
-            height: 50%;
-          }
-
-          description p {
-            padding-left: 20px;
+            height: 500px;
           }
         `}</style>
       </div>

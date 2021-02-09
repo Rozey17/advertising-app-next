@@ -84,9 +84,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
   return (
     <div>
       <Head>
-        <title>
-          {title ? `${title} | Advertising App` : 'Advertising App'}
-        </title>
+        <title>{title ? { title } : 'Advertising App'}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <link rel='shortcut icon' href='favicon.ico' />
