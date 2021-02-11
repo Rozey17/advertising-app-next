@@ -2,15 +2,18 @@ import * as React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getAd } from 'src/graphql/queries';
 import {
+  DeleteAdInput,
   GetAdQuery,
   ListAdSubCategorysQueryVariables,
+  useDeleteAdMutation,
   useListAdSubCategorysQuery,
 } from 'src';
 import { GetServerSideProps } from 'next';
 import awsmobile from 'src/aws-exports';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import DeleteIcon from '@material-ui/icons/Delete';
+// import Link from '@material-ui/core/Link';
 import {
   FormControl,
   InputLabel,
@@ -18,12 +21,15 @@ import {
   Select,
   Paper,
   Card,
+  Button,
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import slugify from 'slugify';
 import moment from 'moment';
+import Link from 'next/link';
 
 import { Layout } from 'components/Layout/Layout';
+import { UpdateAdForm } from 'components/ads/UpdateAdForm';
 
 API.configure(awsmobile);
 
@@ -32,27 +38,19 @@ interface AdDetailsProps {
 }
 
 const AdPage = ({ ad }: AdDetailsProps) => {
-  const variables: ListAdSubCategorysQueryVariables = {
-    limit: 100,
+  const [deleteAd] = useDeleteAdMutation();
+  const input: DeleteAdInput = {
+    id: ad?.id,
   };
-
-  const { data, loading } = useListAdSubCategorysQuery({
-    variables,
-  });
-
-  const AdSubCategories =
-    data && data.listAdSubCategorys ? data.listAdSubCategorys.items : [];
+  const variables = { input };
   const defaultPhotoUrl =
     'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
-  const dateToStore = ad.createdAt;
   moment.locale('fr');
-  const momentDate = moment(dateToStore).format('LLL');
-  // const momentDate = moment(dateToStore).calendar();
   if (!ad) {
     return <h1> No ad found</h1>;
   }
   return (
-    <Layout title={ad.title}>
+    <Layout>
       <div className='container'>
         <Breadcrumbs
           color='primary'
@@ -70,7 +68,9 @@ const AdPage = ({ ad }: AdDetailsProps) => {
         </Breadcrumbs>
 
         <h2>{ad.title}</h2>
-        <Typography>Annonce publiée le {momentDate}</Typography>
+        <Typography>
+          Annonce publiée le {moment(ad.createdAt).format('LLL')}
+        </Typography>
 
         <div className='card'>
           <Card>
@@ -80,6 +80,25 @@ const AdPage = ({ ad }: AdDetailsProps) => {
 
         <div className='description'>
           <Typography className='typo'>{ad.description}</Typography>
+        </div>
+        <div className='button'>
+          <UpdateAdForm />
+          <div className='divider' />
+          <Button
+            className='button'
+            variant='contained'
+            color='secondary'
+            endIcon={<DeleteIcon />}
+            onClick={() => {
+              deleteAd({ variables });
+              // window.confirm('Voulez Vous Confirmer La Suppression ?');
+              window.location.href = `/${slugify(ad.adSubCategory.name, {
+                lower: true,
+              })}`;
+            }}
+          >
+            <Typography>SUPPRIMER</Typography>
+          </Button>
         </div>
         <style jsx>{`
           .container {
@@ -104,7 +123,16 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           }
 
           .description {
-            height: 500px;
+            height: 100px;
+          }
+          .button {
+            margin: auto;
+          }
+
+          .divider {
+            width: 10px;
+            height: auto;
+            display: inline-block;
           }
         `}</style>
       </div>

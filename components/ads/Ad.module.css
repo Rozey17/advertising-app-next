@@ -25,8 +25,8 @@
   text-decoration: none;
 }
 
-.box1 a:hover {
-  color: goldenrod;
+.box1 b:hover {
+  color: gold;
 }
 .input {
   margin: 20px;
@@ -45,4 +45,10 @@
 .card {
   padding-top: 20px;
   padding-left: 30px;
+}
+
+.field {
+  margin: auto;
+
+  margin-bottom: 15px;
 }

@@ -13,11 +13,8 @@ const AdSubCategory = ({ name, adSubCategoryID }: Props) => {
   return (
     <div className={styles.paper}>
       <Paper elevation={3}>
-        <Card className={styles.card} variant='outlined'>
-          <a>
-            <LocationCityIcon />
-            <b>{name}</b>
-          </a>
+        <Card variant='outlined'>
+          <a>{name}</a>
           <AdsList adSubCategoryID={adSubCategoryID} />
         </Card>
       </Paper>
