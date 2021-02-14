@@ -2,7 +2,6 @@ import React, { FC, ReactNode } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import {
   createStyles,
@@ -21,6 +20,14 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    search: {
+      marginLeft: 20,
+      // backgroundColor: 'white',
+      paddingLeft: 10,
+    },
+    searchIcon: {
+      // backgroundColor: 'white',
+    },
   })
 );
 
@@ -38,7 +45,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
         <title>{title ? { title } : 'Advertising App'}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <link rel='shortcut icon' href='favicon.ico' />
+        <link rel='shortcut icon' href='browser-web-icon.png' />
       </Head>
       <AppBar position='static'>
         <Toolbar>
@@ -48,6 +55,14 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
               HOME
             </Button>
           </Link>
+          <InputBase
+            className={classes.search}
+            placeholder='Chercher'
+            inputProps={{ 'aria-label': 'search' }}
+          />
+          <IconButton type='submit' className={classes.searchIcon}>
+            <SearchIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <div style={{ minHeight: '85vh' }}>{children}</div>

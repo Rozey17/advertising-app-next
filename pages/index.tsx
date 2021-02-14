@@ -17,8 +17,8 @@ export default function Home() {
         <Link href='/createAdSubCategory'>
           <Button variant='outlined'>CREATE AN AD SUBCATEGORY</Button>
         </Link>
+        <AdCategoriesList />
       </Layout>
-      <AdCategoriesList />
     </div>
   );
 }

@@ -22,6 +22,7 @@ import {
   Paper,
   Card,
   Button,
+  Box,
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import slugify from 'slugify';
@@ -66,8 +67,11 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           </Link>
           <Typography color='primary'>Annonce</Typography>
         </Breadcrumbs>
-
-        <h2>{ad.title}</h2>
+        <Box>
+          <Typography>
+            <h2>{ad.title}</h2>
+          </Typography>
+        </Box>
         <Typography>
           Annonce publiée le {moment(ad.createdAt).format('LLL')}
         </Typography>
@@ -81,7 +85,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
         <div className='description'>
           <Typography className='typo'>{ad.description}</Typography>
         </div>
-        <div className='button'>
+        <div>
           <UpdateAdForm />
           <div className='divider' />
           <Button
@@ -124,9 +128,6 @@ const AdPage = ({ ad }: AdDetailsProps) => {
 
           .description {
             height: 100px;
-          }
-          .button {
-            margin: auto;
           }
 
           .divider {

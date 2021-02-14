@@ -108,17 +108,17 @@ export const UpdateAdForm = () => {
           values,
           dirty,
           submitForm,
+          handleSubmit,
         }) => (
           <div>
             <Button variant='contained' color='primary' onClick={handleOpen}>
               MODIFIER
             </Button>
             <Modal open={open} onClose={handleClose}>
-              <Form>
+              <form onSubmit={handleSubmit}>
                 <div style={modalStyle} className={classes.paper}>
                   <div className={styles.field}>
-                    <Field
-                      as={TextField}
+                    <TextField
                       id='ad-title'
                       name='title'
                       label='Title'
@@ -128,8 +128,7 @@ export const UpdateAdForm = () => {
                     />
                   </div>
                   <div className={styles.field}>
-                    <Field
-                      as={TextField}
+                    <TextField
                       id='ad-description'
                       name='description'
                       label='Description'
@@ -139,8 +138,7 @@ export const UpdateAdForm = () => {
                     />
                   </div>
                   <div className={styles.field}>
-                    <Field
-                      as={TextField}
+                    <TextField
                       id='ad-image'
                       name='image'
                       label='Image'
@@ -155,13 +153,27 @@ export const UpdateAdForm = () => {
                       color='primary'
                       disabled={isSubmitting}
                       type='submit'
-                      onClick={submitForm}
                     >
                       MODIFIER
                     </Button>
+                    <div className='divider' />
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      onClick={handleClose}
+                    >
+                      FERMER
+                    </Button>
                   </div>
+                  <style jsx>{`
+                    .divider {
+                      width: 10px;
+                      height: auto;
+                      display: inline-block;
+                    }
+                  `}</style>
                 </div>
-              </Form>
+              </form>
             </Modal>
           </div>
         )}
