@@ -7,7 +7,15 @@ import {
 } from 'src';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
-import { Button, Modal, TextField, Dialog, Card } from '@material-ui/core';
+import {
+  Button,
+  Modal,
+  TextField,
+  Dialog,
+  Card,
+  Typography,
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import styles from './Ad.module.css';
@@ -42,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const UpdateAdForm = () => {
+export const UpdateAdForm = ({ handleOnCLick }) => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -110,9 +118,18 @@ export const UpdateAdForm = () => {
           submitForm,
           handleSubmit,
         }) => (
-          <div>
+          <div className={styles.updateButtn}>
             <Button variant='contained' color='primary' onClick={handleOpen}>
-              MODIFIER
+              <Typography>MODIFIER</Typography>
+            </Button>
+            <div className={styles.divider} />
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={handleOnCLick}
+              endIcon={<DeleteIcon />}
+            >
+              <Typography>SUPPRIMER</Typography>
             </Button>
             <Modal open={open} onClose={handleClose}>
               <form onSubmit={handleSubmit}>

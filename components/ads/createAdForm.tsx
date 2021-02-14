@@ -26,6 +26,7 @@ const initialValues: CreateAdInput = {
   title: '',
   description: '',
   adSubCategoryID: '',
+  image: '',
 };
 
 const CreateAdForm: FC = () => {
@@ -35,8 +36,8 @@ const CreateAdForm: FC = () => {
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
       .max(50, 'Le nom trop long'),
-    adSubCategoryID: string().required().min(1).max(50),
-    description: string().required().min(10).max(50),
+    image: string().min(2, 'Le lien trop court'),
+    description: string().required().min(10).max(300),
   });
   return (
     <Formik<CreateAdInput>
@@ -49,7 +50,6 @@ const CreateAdForm: FC = () => {
         } catch (e) {
           console.log(e);
         }
-
         resetForm();
       }}
     >
@@ -66,20 +66,20 @@ const CreateAdForm: FC = () => {
       }) => (
         <Form>
           <div className={styles.input}>
-            <div className={styles.input}>
+            <div>
               <Field
                 as={TextField}
                 id='ad-title'
                 name='title'
-                helperText={touched.title ? errors.title : ''}
+                helpertext={touched.title ? errors.title : ''}
                 error={touched.title && Boolean(errors.title)}
                 label='Title'
                 variant='outlined'
                 value={values.title}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </div>
-            <div className={styles.input}>
+            <div>
               <FormControl className={styles.select}>
                 <InputLabel id='demo-simple-select-label'>
                   Catégories
@@ -90,7 +90,7 @@ const CreateAdForm: FC = () => {
                   as={Select}
                   id='adSubCategory'
                   name='adSubCategoryID'
-                  helperText={
+                  helpertext={
                     touched.adSubCategoryID ? errors.adSubCategoryID : ''
                   }
                   error={
@@ -98,7 +98,7 @@ const CreateAdForm: FC = () => {
                   }
                   label='Ad SubCategory ID'
                   value={values.adSubCategoryID}
-                  // onChange={handleChange}
+                  onChange={handleChange}
                 >
                   <option value=''>
                     <em>None</em>
@@ -182,21 +182,33 @@ const CreateAdForm: FC = () => {
               </FormControl>
             </div>
 
-            <div className={styles.input}>
+            <div>
               <Field
                 as={TextField}
                 id='ad-description'
                 name='description'
-                helperText={touched.description ? errors.description : ''}
+                helpertext={touched.description ? errors.description : ''}
                 error={touched.description && Boolean(errors.description)}
                 label='Ad Description'
                 variant='outlined'
                 value={values.description}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </div>
-
-            <div className={styles.input}>
+            <div>
+              <Field
+                as={TextField}
+                id='ad-image'
+                name='image'
+                helpertext={touched.image ? errors.image : ''}
+                error={touched.image && Boolean(errors.image)}
+                label='Ad Image'
+                variant='outlined'
+                value={values.image}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
               <Button
                 variant='contained'
                 color='primary'

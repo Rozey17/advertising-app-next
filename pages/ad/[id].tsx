@@ -65,7 +65,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Link href={`/${slugify(ad.adSubCategory.name, { lower: true })}`}>
             {ad.adSubCategory.name}
           </Link>
-          <Typography color='primary'>Annonce</Typography>
+          <Typography color='inherit'>Annonce</Typography>
         </Breadcrumbs>
         <Box>
           <Typography>
@@ -86,23 +86,15 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Typography className='typo'>{ad.description}</Typography>
         </div>
         <div>
-          <UpdateAdForm />
-          <div className='divider' />
-          <Button
-            className='button'
-            variant='contained'
-            color='secondary'
-            endIcon={<DeleteIcon />}
-            onClick={() => {
+          <UpdateAdForm
+            handleOnCLick={() => {
               deleteAd({ variables });
               // window.confirm('Voulez Vous Confirmer La Suppression ?');
               window.location.href = `/${slugify(ad.adSubCategory.name, {
                 lower: true,
               })}`;
             }}
-          >
-            <Typography>SUPPRIMER</Typography>
-          </Button>
+          />
         </div>
         <style jsx>{`
           .container {
@@ -122,6 +114,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             width: 50%;
           }
           .card {
+            position: relative;
             margin-top: 10px;
             margin-bottom: 15px;
           }
@@ -134,6 +127,14 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             width: 10px;
             height: auto;
             display: inline-block;
+          }
+
+          card .contact {
+            position: absolute;
+            left: auto;
+            width: 100px;
+            height: 120px;
+            border: 3px solid blue;
           }
         `}</style>
       </div>
