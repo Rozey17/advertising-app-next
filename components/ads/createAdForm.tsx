@@ -15,7 +15,9 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Card,
 } from '@material-ui/core';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
 import Link from 'next/link';
@@ -36,8 +38,12 @@ const CreateAdForm: FC = () => {
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
       .max(50, 'Le nom trop long'),
+    adSubCategoryID: string().required('La catégorie est obligatoire'),
     image: string().min(2, 'Le lien trop court'),
-    description: string().required().min(10).max(300),
+    description: string()
+      .required('Une description est obligatoire')
+      .min(10)
+      .max(300),
   });
   return (
     <Formik<CreateAdInput>
@@ -66,31 +72,36 @@ const CreateAdForm: FC = () => {
       }) => (
         <Form>
           <div className={styles.input}>
+            <Typography color='primary'>
+              <EditTwoToneIcon fontSize='small' />
+
+              <b>PUBLIER UNE ANNONCE</b>
+            </Typography>
+            <br />
             <div>
               <Field
                 as={TextField}
                 id='ad-title'
                 name='title'
-                helpertext={touched.title ? errors.title : ''}
+                helperText={touched.title ? errors.title : ''}
                 error={touched.title && Boolean(errors.title)}
-                label='Title'
+                label='Titre'
                 variant='outlined'
                 value={values.title}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <FormControl className={styles.select}>
+              <FormControl>
                 <InputLabel id='demo-simple-select-label'>
                   Catégories
                 </InputLabel>
                 <Field
                   native
-                  defaultValue=''
                   as={Select}
                   id='adSubCategory'
                   name='adSubCategoryID'
-                  helpertext={
+                  helperText={
                     touched.adSubCategoryID ? errors.adSubCategoryID : ''
                   }
                   error={
@@ -100,7 +111,7 @@ const CreateAdForm: FC = () => {
                   value={values.adSubCategoryID}
                   onChange={handleChange}
                 >
-                  <option value=''>None</option>
+                  <option aria-label='None' value='' />
 
                   <optgroup label='Véhicules' />
 
@@ -186,9 +197,9 @@ const CreateAdForm: FC = () => {
                 as={TextField}
                 id='ad-description'
                 name='description'
-                helpertext={touched.description ? errors.description : ''}
+                helperText={touched.description ? errors.description : ''}
                 error={touched.description && Boolean(errors.description)}
-                label='Ad Description'
+                label='Description'
                 variant='outlined'
                 value={values.description}
                 onChange={handleChange}
@@ -199,9 +210,9 @@ const CreateAdForm: FC = () => {
                 as={TextField}
                 id='ad-image'
                 name='image'
-                helpertext={touched.image ? errors.image : ''}
+                helperText={touched.image ? errors.image : ''}
                 error={touched.image && Boolean(errors.image)}
-                label='Ad Image'
+                label='Image'
                 variant='outlined'
                 value={values.image}
                 onChange={handleChange}
@@ -216,7 +227,7 @@ const CreateAdForm: FC = () => {
               >
                 Enregistrer
               </Button>
-
+              <div className={styles.divider} />
               <Button variant='contained' color='secondary'>
                 <Link href='/'>
                   <Typography>Annuler</Typography>

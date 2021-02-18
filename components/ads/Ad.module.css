@@ -41,10 +41,13 @@
   color: gold;
 }
 .input {
-  display: block;
-  margin: auto;
-  /* width: 50%; */
-  align-items: center;
+  text-align: center;
+
+  margin-top: 15px;
+}
+
+.input div {
+  margin-bottom: 5px;
 }
 
 .select {
