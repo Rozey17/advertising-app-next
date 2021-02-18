@@ -65,7 +65,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Link href={`/${slugify(ad.adSubCategory.name, { lower: true })}`}>
             {ad.adSubCategory.name}
           </Link>
-          <Typography color='inherit'>Annonce</Typography>
+          <Typography>{ad.title}</Typography>
         </Breadcrumbs>
         <Box>
           <Typography>
@@ -83,6 +83,10 @@ const AdPage = ({ ad }: AdDetailsProps) => {
         </div>
 
         <div className='description'>
+          <Typography>
+            <b>Description</b>
+          </Typography>
+          <br />
           <Typography className='typo'>{ad.description}</Typography>
         </div>
         <div>

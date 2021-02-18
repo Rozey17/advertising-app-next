@@ -6,7 +6,7 @@ import {
 } from 'src';
 import Link from 'next/link';
 import slugify from 'slugify';
-
+import styles from './AdSubCategory.module.css';
 interface Props {
   adCategoryID: string;
 }
@@ -32,12 +32,12 @@ const AdSubCategoriesList = ({ adCategoryID }: Props) => {
     data && data.listAdSubCategorys ? data.listAdSubCategorys.items : [];
 
   return (
-    <div>
+    <div className={styles.list}>
       {AdSubCategories.map((x) => (
         <ul>
           <li>
             <Link href={`/${x.id}`} as={`/${slugify(x.name, { lower: true })}`}>
-              {x.name}
+              <a>{x.name}</a>
             </Link>
           </li>
         </ul>

@@ -12,21 +12,20 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import Link from 'next/link';
 import Head from 'next/head';
 import { Footer } from './Footer';
-const useStyles = makeStyles((theme: Theme) =>
+import { CreateAdForm } from 'components/ads/CreateAdForm';
+import styles from './Layout.module.css';
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
     },
-    search: {
+    button: {
+      backgroundColor: 'white',
       marginLeft: 20,
-      // backgroundColor: 'white',
-      paddingLeft: 10,
-    },
-    searchIcon: {
-      // backgroundColor: 'white',
     },
   })
 );
@@ -42,27 +41,28 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
   return (
     <div className={classes.root} style={{ backgroundColor: '#eceff1' }}>
       <Head>
-        <title>{title ? { title } : 'Advertising App'}</title>
+        <title>{title ? { title } : 'Annonce 45'}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <link rel='shortcut icon' href='browser-web-icon.png' />
       </Head>
-      <AppBar position='static'>
-        <Toolbar>
+      <AppBar position='static' color='transparent'>
+        <Toolbar className={styles.appbar}>
           <Link href='/'>
-            <Button variant='contained' color='primary'>
-              {' '}
-              HOME
+            <a>
+              <h2>ANNONCE 45</h2>
+            </a>
+          </Link>
+
+          <Link href='/create-ad'>
+            <Button
+              className={classes.button}
+              variant='outlined'
+              startIcon={<AddBoxOutlinedIcon />}
+            >
+              Déposer Une Annonce
             </Button>
           </Link>
-          <InputBase
-            className={classes.search}
-            placeholder='Chercher'
-            inputProps={{ 'aria-label': 'search' }}
-          />
-          <IconButton type='submit' className={classes.searchIcon}>
-            <SearchIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
       <div style={{ minHeight: '85vh' }}>{children}</div>
@@ -70,3 +70,21 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
     </div>
   );
 };
+
+// <header class="site-header">
+//   <div class="wrapper site-header__wrapper">
+//     <a href="#" class="brand">Brand</a>
+//     <nav class="nav">
+//       <button class="nav__toggle" aria-expanded="false" type="button">
+//         menu
+//       </button>
+//       <ul class="nav__wrapper">
+//         <li class="nav__item"><a href="#">Home</a></li>
+//         <li class="nav__item"><a href="#">About</a></li>
+//         <li class="nav__item"><a href="#">Services</a></li>
+//         <li class="nav__item"><a href="#">Hire us</a></li>
+//         <li class="nav__item"><a href="#">Contact</a></li>
+//       </ul>
+//     </nav>
+//   </div>
+// </header>

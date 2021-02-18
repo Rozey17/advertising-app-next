@@ -1,13 +1,17 @@
 .global {
-  margin: auto;
+  margin: 15px;
   /* width: 400px; */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: medium;
-  display: flex;
   height: 100%;
-  flex-direction: row;
-  /* align-items: baseline; */
+  display: inline-flex;
+  align-items: flex-start;
 }
+
+/* .global div {
+  border: 1px #ccc solid;
+  padding: 10px;
+} */
 
 .global b {
   color: limegreen;
