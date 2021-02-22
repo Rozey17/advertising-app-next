@@ -13,11 +13,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Button } from '@material-ui/core';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+
 import Link from 'next/link';
 import Head from 'next/head';
 import { Footer } from './Footer';
 import { CreateAdForm } from 'components/ads/CreateAdForm';
 import styles from './Layout.module.css';
+import { SearchBar } from 'components/searchBar';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -39,7 +41,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} style={{ backgroundColor: '#eceff1' }}>
+    <div className={classes.root}>
       <Head>
         <title>{title ? { title } : 'Annonce 45'}</title>
         <meta charSet='utf-8' />
@@ -63,6 +65,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
               Déposer Une Annonce
             </Button>
           </Link>
+          <SearchBar />
         </Toolbar>
       </AppBar>
       <div style={{ minHeight: '85vh' }}>{children}</div>
@@ -70,21 +73,3 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
     </div>
   );
 };
-
-// <header class="site-header">
-//   <div class="wrapper site-header__wrapper">
-//     <a href="#" class="brand">Brand</a>
-//     <nav class="nav">
-//       <button class="nav__toggle" aria-expanded="false" type="button">
-//         menu
-//       </button>
-//       <ul class="nav__wrapper">
-//         <li class="nav__item"><a href="#">Home</a></li>
-//         <li class="nav__item"><a href="#">About</a></li>
-//         <li class="nav__item"><a href="#">Services</a></li>
-//         <li class="nav__item"><a href="#">Hire us</a></li>
-//         <li class="nav__item"><a href="#">Contact</a></li>
-//       </ul>
-//     </nav>
-//   </div>
-// </header>

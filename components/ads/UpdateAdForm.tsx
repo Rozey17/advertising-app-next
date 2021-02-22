@@ -1,6 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import {
   GetAdQueryVariables,
+  ListAdsQuery,
   UpdateAdInput,
   useGetAdQuery,
   useUpdateAdMutation,
@@ -16,9 +17,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
+import { produce } from 'immer';
 import { useState } from 'react';
 import styles from './Ad.module.css';
+import { listAds } from 'src/graphql/queries';
+import gql from 'graphql-tag';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -42,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    width: 450,
+    width: 300,
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -89,37 +94,20 @@ export const UpdateAdForm = ({ handleOnCLick }) => {
             // const variables = { input };
             await updateAd({
               variables: { input },
-              optimisticResponse: {
-                updateAd: {
-                  __typename: 'Ad',
-                  id: input.id,
-                  adSubCategoryID: ad.adSubCategoryID,
-                  createdAt: ad.createdAt,
-                  description: input.description,
-                  title: input.title,
-                  updatedAt: ad.updatedAt,
-                  adSubCategory: ad.adSubCategory,
-                  image: input.image,
-                },
-              },
             });
           } catch (e) {
             console.log(e);
           }
         }}
       >
-        {({
-          isValid,
-          isSubmitting,
-          handleChange,
-          // handleBlur,
-          values,
-          dirty,
-          submitForm,
-          handleSubmit,
-        }) => (
+        {({ isSubmitting, handleChange, values, handleSubmit }) => (
           <div className={styles.updateButtn}>
-            <Button variant='contained' color='primary' onClick={handleOpen}>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={handleOpen}
+              endIcon={<EditTwoToneIcon />}
+            >
               <Typography>MODIFIER</Typography>
             </Button>
             <div className={styles.divider} />
@@ -200,3 +188,5 @@ export const UpdateAdForm = ({ handleOnCLick }) => {
     return null;
   }
 };
+
+

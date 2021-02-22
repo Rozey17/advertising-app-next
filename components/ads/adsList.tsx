@@ -1,8 +1,8 @@
 import ReactPaginate from 'react-paginate';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
-import styles from './Ad.module.css'
+import styles from './Ad.module.css';
 interface Props {
   adSubCategoryID: string;
 }

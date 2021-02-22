@@ -6,6 +6,7 @@
   height: 100%;
   display: inline-flex;
   align-items: flex-start;
+  /* text-align: center; */
 }
 
 /* .global div {

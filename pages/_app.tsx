@@ -3,7 +3,7 @@ import config from '../src/aws-exports';
 import { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import client from 'src/apolloClient';
-
+import '../styles/globals.css'
 Amplify.configure({
   ...config,
   ssr: true,

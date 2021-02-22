@@ -12,7 +12,10 @@ import { GetServerSideProps } from 'next';
 import awsmobile from 'src/aws-exports';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import CardActions from '@material-ui/core/CardActions';
 // import Link from '@material-ui/core/Link';
 import {
   FormControl,
@@ -68,8 +71,17 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Typography>{ad.title}</Typography>
         </Breadcrumbs>
         <Box>
-          <Typography>
-            <h2>{ad.title}</h2>
+        
+          <Typography >
+
+            <h2>{ad.title}</h2> 
+            {/* <CardActions> */}
+            <IconButton aria-label='add to favorites' className='cardActions'>
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label='share' className='cardActions'>
+            <ShareIcon />
+          </IconButton>
           </Typography>
         </Box>
         <Typography>
@@ -89,6 +101,9 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <br />
           <Typography className='typo'>{ad.description}</Typography>
         </div>
+        <CardActions disableSpacing>
+          
+        </CardActions>
         <div>
           <UpdateAdForm
             handleOnCLick={() => {
@@ -139,6 +154,11 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             width: 100px;
             height: 120px;
             border: 3px solid blue;
+          }
+
+          .cardAction{
+             position: absolute; 
+                right: 0px; 
           }
         `}</style>
       </div>
