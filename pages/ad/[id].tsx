@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CardActions from '@material-ui/core/CardActions';
-// import Link from '@material-ui/core/Link';
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import {
   FormControl,
   InputLabel,
@@ -31,7 +31,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import slugify from 'slugify';
 import moment from 'moment';
 import Link from 'next/link';
-
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { Layout } from 'components/Layout/Layout';
 import { UpdateAdForm } from 'components/ads/UpdateAdForm';
 
@@ -71,18 +71,23 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Typography>{ad.title}</Typography>
         </Breadcrumbs>
         <Box>
-        
-          <Typography >
-
-            <h2>{ad.title}</h2> 
-            {/* <CardActions> */}
-            <IconButton aria-label='add to favorites' className='cardActions'>
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label='share' className='cardActions'>
-            <ShareIcon />
-          </IconButton>
-          </Typography>
+          <div className='cardAction'>
+            <Typography>
+              {/* <span> */}
+              <h2>{ad.title}</h2> {/* </span> */}
+            </Typography>
+            <span>
+              <IconButton aria-label='add to favorites'>
+                <FavoriteBorderOutlinedIcon
+                  fontSize='inherit'
+                  // color='primary'
+                />
+              </IconButton>
+              <IconButton aria-label='share'>
+                <ShareOutlinedIcon fontSize='inherit' />
+              </IconButton>
+            </span>
+          </div>
         </Box>
         <Typography>
           Annonce publiée le {moment(ad.createdAt).format('LLL')}
@@ -101,9 +106,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <br />
           <Typography className='typo'>{ad.description}</Typography>
         </div>
-        <CardActions disableSpacing>
-          
-        </CardActions>
+        <CardActions disableSpacing></CardActions>
         <div>
           <UpdateAdForm
             handleOnCLick={() => {
@@ -136,6 +139,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             position: relative;
             margin-top: 10px;
             margin-bottom: 15px;
+            width: ;
           }
 
           .description {
@@ -156,9 +160,14 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             border: 3px solid blue;
           }
 
-          .cardAction{
-             position: absolute; 
-                right: 0px; 
+          .cardAction {
+            display: flex;
+
+            justify-content: space-between;
+          }
+
+          .icons {
+            text-align: right;
           }
         `}</style>
       </div>
