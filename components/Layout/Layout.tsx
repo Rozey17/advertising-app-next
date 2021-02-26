@@ -19,7 +19,7 @@ import Head from 'next/head';
 import { Footer } from './Footer';
 import { CreateAdForm } from 'components/ads/CreateAdForm';
 import styles from './Layout.module.css';
-import { SearchBar } from 'components/SearchBar';
+import { SearchBar } from './AutoSelectField';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
