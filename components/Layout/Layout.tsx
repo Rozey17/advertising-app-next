@@ -20,6 +20,7 @@ import { Footer } from './Footer';
 import { CreateAdForm } from 'components/ads/CreateAdForm';
 import styles from './Layout.module.css';
 import { SearchBar } from './AutoSelectField';
+import ScrollToTop from 'react-scroll-to-top';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -42,6 +43,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
 
   return (
     <div className={classes.root}>
+      <ScrollToTop smooth />
       <Head>
         <title>{title ? { title } : 'Annonce 45'}</title>
         <meta charSet='utf-8' />

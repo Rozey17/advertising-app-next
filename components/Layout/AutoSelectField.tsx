@@ -6,17 +6,20 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { deburr } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 250,
     flexGrow: 1,
+    width: 500,
   },
   container: {
     position: 'relative',
     marginLeft: 20,
+    width: 500,
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -33,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
     listStyleType: 'none',
-    // width: 500,
   },
 }));
 
@@ -63,15 +65,22 @@ export const SearchBar = () => {
 
     return (
       <TextField
-        // fullWidth
+        className={classes.root}
+        variant='outlined'
         InputProps={{
           inputRef: (node) => {
             ref(node);
+
             inputRef(node);
           },
           classes: {
             input: classes.input,
           },
+          startAdornment: (
+            <InputAdornment position='start'>
+              <SearchIcon />
+            </InputAdornment>
+          ),
         }}
         {...other}
       />
@@ -132,6 +141,7 @@ export const SearchBar = () => {
     }
     setSearchTerm(suggestion.title);
     router.push(`/ad/${suggestion.id}`);
+    setSearchTerm('');
   }
 
   function getSuggestionValue(suggestion) {
@@ -162,7 +172,7 @@ export const SearchBar = () => {
         // onSuggestionSelected={}
         inputProps={{
           classes,
-          placeholder: 'Chercher',
+          placeholder: 'Chercher une annonce...',
           // autoComplete: 'abcd',
           value: searchTerm,
           name: 'annonce',
