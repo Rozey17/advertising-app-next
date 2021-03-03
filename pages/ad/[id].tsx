@@ -65,7 +65,9 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             {ad.adSubCategory.adCategory.name}
           </Typography>
 
-          <Link href={`/${slugify(ad.adSubCategory.name, { lower: true })}`}>
+          <Link
+            href={`/offres/${slugify(ad.adSubCategory.name, { lower: true })}`}
+          >
             {ad.adSubCategory.name}
           </Link>
           <Typography>{ad.title}</Typography>
@@ -111,8 +113,8 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <UpdateAdForm
             handleOnCLick={() => {
               deleteAd({ variables });
-              // window.confirm('Voulez Vous Confirmer La Suppression ?');
-              window.location.href = `/${slugify(ad.adSubCategory.name, {
+              window.confirm('Voulez Vous Confirmer La Suppression ?');
+              window.location.href = `/offres/${slugify(ad.adSubCategory.name, {
                 lower: true,
               })}`;
             }}

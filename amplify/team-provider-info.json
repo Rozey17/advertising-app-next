@@ -10,6 +10,11 @@
       "StackName": "amplify-advertisingappnextjs-dev-173526",
       "StackId": "arn:aws:cloudformation:eu-west-2:016802053153:stack/amplify-advertisingappnextjs-dev-173526/d6140400-6186-11eb-8cc4-0a24f54ba32e",
       "AmplifyAppId": "d30no9jterw07k"
+    },
+    "categories": {
+      "auth": {
+        "advertisingappnextjsf850aad8": {}
+      }
     }
   }
 }

@@ -81,7 +81,6 @@
   margin-bottom: 15px;
 }
 
-
 .updateButtn {
   display: block;
   margin-left: auto;
@@ -124,4 +123,8 @@
 .paginationActive a {
   color: #ffffff;
   background-color: #0000ff;
+}
+
+.btnbase {
+  text-align: center;
 }

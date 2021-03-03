@@ -67,6 +67,7 @@ export type CreateAdInput = {
   id?: string | null,
   title: string,
   description: string,
+  contact?: string | null,
   image?: string | null,
   adSubCategoryID: string,
 };
@@ -74,6 +75,7 @@ export type CreateAdInput = {
 export type ModelAdConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  contact?: ModelStringInput | null,
   image?: ModelStringInput | null,
   adSubCategoryID?: ModelIDInput | null,
   and?: Array< ModelAdConditionInput | null > | null,
@@ -101,6 +103,7 @@ export type UpdateAdInput = {
   id: string,
   title?: string | null,
   description?: string | null,
+  contact?: string | null,
   image?: string | null,
   adSubCategoryID?: string | null,
 };
@@ -145,6 +148,7 @@ export type ModelAdFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  contact?: ModelStringInput | null,
   image?: ModelStringInput | null,
   adSubCategoryID?: ModelIDInput | null,
   and?: Array< ModelAdFilterInput | null > | null,
@@ -253,6 +257,7 @@ export type CreateAdMutation = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -290,6 +295,7 @@ export type UpdateAdMutation = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -327,6 +333,7 @@ export type DeleteAdMutation = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -382,6 +389,7 @@ export type CreateAdSubCategoryMutation = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -423,6 +431,7 @@ export type UpdateAdSubCategoryMutation = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -464,6 +473,7 @@ export type DeleteAdSubCategoryMutation = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -536,6 +546,7 @@ export type GetAdQuery = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -576,6 +587,7 @@ export type ListAdsQuery = {
       id: string,
       title: string,
       description: string,
+      contact: string | null,
       image: string | null,
       adSubCategoryID: string,
       adSubCategory:  {
@@ -621,6 +633,7 @@ export type GetAdSubCategoryQuery = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -737,6 +750,7 @@ export type OnCreateAdSubscription = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -769,6 +783,7 @@ export type OnUpdateAdSubscription = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -801,6 +816,7 @@ export type OnDeleteAdSubscription = {
     id: string,
     title: string,
     description: string,
+    contact: string | null,
     image: string | null,
     adSubCategoryID: string,
     adSubCategory:  {
@@ -851,6 +867,7 @@ export type OnCreateAdSubCategorySubscription = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -887,6 +904,7 @@ export type OnUpdateAdSubCategorySubscription = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,
@@ -923,6 +941,7 @@ export type OnDeleteAdSubCategorySubscription = {
         id: string,
         title: string,
         description: string,
+        contact: string | null,
         image: string | null,
         adSubCategoryID: string,
         createdAt: string,

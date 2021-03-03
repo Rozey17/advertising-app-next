@@ -2,10 +2,22 @@
   color: white;
 }
 
+.button :hover {
+  color: white;
+  background-color: white;
+}
+
 .appbar {
   color: white;
 }
 
 .appbar a {
   text-decoration: none;
+  color: white;
+}
+
+.toolbar {
+  display: flex;
+
+  justify-content: space-between;
 }

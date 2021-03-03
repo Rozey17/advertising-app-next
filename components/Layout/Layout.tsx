@@ -1,8 +1,7 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
 import {
   createStyles,
   fade,
@@ -10,21 +9,26 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 
 import Link from 'next/link';
 import Head from 'next/head';
 import { Footer } from './Footer';
-import { CreateAdForm } from 'components/ads/CreateAdForm';
 import styles from './Layout.module.css';
 import { SearchBar } from './AutoSelectField';
 import ScrollToTop from 'react-scroll-to-top';
-const useStyles = makeStyles(() =>
+import { Auth } from 'aws-amplify';
+import { AmplifySignOut } from '@aws-amplify/ui-react';
+import { UserContext } from 'src/userContext';
+
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
     },
     button: {
       backgroundColor: 'white',
@@ -40,21 +44,35 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title }: Props) => {
   const classes = useStyles();
-
+  // const user = useContext(UserContext);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log('User: ', user);
+        setUser(user);
+      })
+      .catch(() => setUser(null));
+  }, []);
   return (
     <div className={classes.root}>
       <ScrollToTop smooth />
-      <Head>
-        <title>{title ? { title } : 'Annonce 45'}</title>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <link rel='shortcut icon' href='browser-web-icon.png' />
-      </Head>
-      <AppBar position='static' color='transparent'>
+      <AppBar position='static'>
         <Toolbar className={styles.appbar}>
+          <IconButton
+            edge='start'
+            className={classes.menuButton}
+            color='primary'
+            aria-label='menu'
+            onClick={() => {}}
+          >
+            <MenuIcon />
+          </IconButton>
           <Link href='/'>
             <a>
-              <h2>ANNONCE 45</h2>
+              <Typography>
+                <h2>ANNONCE 45</h2>
+              </Typography>
             </a>
           </Link>
 
@@ -68,6 +86,15 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
             </Button>
           </Link>
           <SearchBar />
+          {!user ? (
+            <Link href='/profile'>
+              <Button color='default' variant='outlined'>
+                Se Connecter
+              </Button>
+            </Link>
+          ) : (
+            <AmplifySignOut />
+          )}
         </Toolbar>
       </AppBar>
       <div style={{ minHeight: '85vh' }}>{children}</div>

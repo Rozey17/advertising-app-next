@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/client';
 interface Props {
   adSubCategoryID: string;
 }
 
 const AdsList = ({ adSubCategoryID }: Props) => {
-  const variables: ListAdsQueryVariables = {
+  const variables = {
     filter:
       adSubCategoryID && adSubCategoryID.trim()
         ? {
@@ -17,17 +19,19 @@ const AdsList = ({ adSubCategoryID }: Props) => {
         : null,
     limit: 100,
   };
-  const { data, loading } = useListAdsQuery({
+
+  const { data, loading, error } = useListAdsQuery({
     variables,
     notifyOnNetworkStatusChange: true,
   });
+
   const [pageNumber, setPageNumber] = useState(0);
 
   if (loading) {
     return <h2>Loading...</h2>;
   }
   if (!data) return <h2>No ad found.</h2>;
-
+  if (error) return <div>errors</div>;
   const ads = data && data.listAds ? data.listAds.items : [];
 
   // const [items,setItems]= useState=(ads.slice(0,50))
