@@ -23,6 +23,9 @@ import { string, object } from 'yup';
 import Link from 'next/link';
 import { FC } from 'react';
 import styles from './Ad.module.css';
+import { useRouter } from 'next/router';
+import { listAds } from 'src/graphql/queries';
+import gql from 'graphql-tag';
 
 const initialValues: CreateAdInput = {
   title: '',
@@ -33,6 +36,7 @@ const initialValues: CreateAdInput = {
 
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
+  const router = useRouter();
   const validationSchema = object<Ad>().shape({
     title: string()
       .required('Le nom est obligatoire')
@@ -52,11 +56,15 @@ const CreateAdForm: FC = () => {
       onSubmit={async (input, { resetForm }) => {
         try {
           const variables = { input };
-          await createAd({ variables });
+          const { data } = await createAd({
+            variables,
+            refetchQueries: [{ query: gql(listAds) }],
+          });
+          router.push(`/ads/${data.createAd.id}`);
         } catch (e) {
           console.log(e);
         }
-        resetForm();
+        // resetForm();
       }}
     >
       {({

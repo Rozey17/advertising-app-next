@@ -11,7 +11,7 @@ Amplify.configure({
 });
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={client ?? ''}>
       <Head>
         <title>Annonce 45</title>
         <meta charSet='utf-8' />

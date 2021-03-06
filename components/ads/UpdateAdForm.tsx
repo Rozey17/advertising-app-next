@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const UpdateAdForm = ({ handleOnCLick }) => {
+export const UpdateAdForm = ({ handleOnClick }) => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -114,7 +114,7 @@ export const UpdateAdForm = ({ handleOnCLick }) => {
             <Button
               variant='contained'
               color='secondary'
-              onClick={handleOnCLick}
+              onClick={handleOnClick}
               endIcon={<DeleteIcon />}
             >
               <Typography>SUPPRIMER</Typography>
@@ -188,5 +188,3 @@ export const UpdateAdForm = ({ handleOnCLick }) => {
     return null;
   }
 };
-
-

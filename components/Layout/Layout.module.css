@@ -1,9 +1,4 @@
 .button {
-  color: white;
-}
-
-.button :hover {
-  color: white;
   background-color: white;
 }
 
@@ -20,4 +15,9 @@
   display: flex;
 
   justify-content: space-between;
+}
+
+.loginbtn {
+  margin-left: 20px;
+  background-color: white;
 }

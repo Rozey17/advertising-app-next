@@ -21,6 +21,7 @@ import ScrollToTop from 'react-scroll-to-top';
 import { Auth } from 'aws-amplify';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { UserContext } from 'src/userContext';
+import { SignOut } from './SignOut';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -88,12 +89,12 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
           <SearchBar />
           {!user ? (
             <Link href='/profile'>
-              <Button color='default' variant='outlined'>
+              <Button className={classes.button} variant='outlined'>
                 Se Connecter
               </Button>
             </Link>
           ) : (
-            <AmplifySignOut />
+            <SignOut />
           )}
         </Toolbar>
       </AppBar>

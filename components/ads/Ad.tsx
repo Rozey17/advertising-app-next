@@ -29,19 +29,14 @@ const Advertising = ({ ad }: adProps) => {
   const momentDate = moment(dateToStore).format('LL');
 
   return (
-
-    <Card className={styles.paper} onClick={() => router.push(`/ad/${ad.id}`)}>
-
+    <Card className={styles.paper} onClick={() => router.push(`/ads/${ad.id}`)}>
       <div className={styles.box1}>
-
         <Typography>
           <b>{ad.title}</b>
           <br />
-        <a>Publié le: {momentDate}</a>
-        <p>{ad.description}</p>
+          <a>Publié le: {momentDate}</a>
+          <p>{ad.description}</p>
         </Typography>
-
-        
       </div>
 
       <CardMedia
@@ -49,10 +44,7 @@ const Advertising = ({ ad }: adProps) => {
         title='image for the ad'
         image={ad.image ? ad.image : defaultPhotoUrl}
       />
-
     </Card>
-    
-    
   );
 };
 

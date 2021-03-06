@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/client';
+
 interface Props {
   adSubCategoryID: string;
 }
@@ -26,15 +25,14 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   });
 
   const [pageNumber, setPageNumber] = useState(0);
-
-  if (loading) {
+  if (loading || !data) {
     return <h2>Loading...</h2>;
   }
-  if (!data) return <h2>No ad found.</h2>;
+  if (!data.listAds) return <h2>Pas d'annonce trouvé.</h2>;
+
   if (error) return <div>errors</div>;
   const ads = data && data.listAds ? data.listAds.items : [];
 
-  // const [items,setItems]= useState=(ads.slice(0,50))
   const adsPerPage = 10;
   const pagesVisited = pageNumber * adsPerPage;
   const pageCount = Math.ceil(ads.length / adsPerPage);

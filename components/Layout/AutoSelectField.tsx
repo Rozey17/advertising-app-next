@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: 500,
+    backgroundColor: 'white',
   },
   container: {
     position: 'relative',
@@ -78,7 +79,7 @@ export const SearchBar = () => {
           },
           startAdornment: (
             <InputAdornment position='start'>
-              <SearchIcon />
+              <SearchIcon fontSize='small' />
             </InputAdornment>
           ),
         }}
