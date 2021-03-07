@@ -13,7 +13,7 @@ export default function CreateAd() {
     Auth.currentAuthenticatedUser()
       .then((user) => setUser(user))
       // if there is no authenticated user, redirect to profile page
-      .catch(() => router.push('/profile'));
+      .catch(() => router.push('/auth'));
   }, []);
   if (!user) return null;
   return (

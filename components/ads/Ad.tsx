@@ -29,7 +29,10 @@ const Advertising = ({ ad }: adProps) => {
   const momentDate = moment(dateToStore).format('LL');
 
   return (
-    <Card className={styles.paper} onClick={() => router.push(`/ads/${ad.id}`)}>
+    <Card
+      className={styles.paper}
+      onClick={() => router.push(`/offres/${ad.id}`)}
+    >
       <div className={styles.box1}>
         <Typography>
           <b>{ad.title}</b>

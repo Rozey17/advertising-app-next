@@ -13,13 +13,11 @@ import { Button, Typography } from '@material-ui/core';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 
 import Link from 'next/link';
-import Head from 'next/head';
 import { Footer } from './Footer';
 import styles from './Layout.module.css';
 import { SearchBar } from './AutoSelectField';
 import ScrollToTop from 'react-scroll-to-top';
 import { Auth } from 'aws-amplify';
-import { AmplifySignOut } from '@aws-amplify/ui-react';
 import { UserContext } from 'src/userContext';
 import { SignOut } from './SignOut';
 
@@ -34,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       backgroundColor: 'white',
       marginLeft: 20,
+
+      '&:hover': {
+        backgroundColor: '#DCDCDC',
+      },
     },
   })
 );
@@ -77,7 +79,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
             </a>
           </Link>
 
-          <Link href='/create-ad'>
+          <Link href='/ad/create'>
             <Button
               className={classes.button}
               variant='outlined'
@@ -88,7 +90,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
           </Link>
           <SearchBar />
           {!user ? (
-            <Link href='/profile'>
+            <Link href='/auth'>
               <Button className={classes.button} variant='outlined'>
                 Se Connecter
               </Button>

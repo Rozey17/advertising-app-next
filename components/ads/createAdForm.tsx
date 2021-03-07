@@ -60,7 +60,7 @@ const CreateAdForm: FC = () => {
             variables,
             refetchQueries: [{ query: gql(listAds) }],
           });
-          router.push(`/ads/${data.createAd.id}`);
+          router.push(`/offres/${data.createAd.id}`);
         } catch (e) {
           console.log(e);
         }

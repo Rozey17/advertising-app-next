@@ -1,7 +1,10 @@
 .button {
   background-color: white;
+  height: 30px;
 }
 
+.button:hover {
+}
 .appbar {
   color: white;
 }
@@ -20,4 +23,11 @@
 .loginbtn {
   margin-left: 20px;
   background-color: white;
+}
+
+.navbar {
+  display: flex;
+  background-color: orange;
+  height: 70px;
+  justify-content: space-between;
 }

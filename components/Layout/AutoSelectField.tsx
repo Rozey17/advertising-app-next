@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: 500,
     backgroundColor: 'white',
+    heigth: 45,
   },
   container: {
     position: 'relative',
@@ -61,25 +62,26 @@ export const SearchBar = () => {
   });
 
   const ads = data && data.listAds ? data.listAds.items : [];
+
   function renderInputComponent(inputProps) {
     const { classes, inputRef = () => {}, ref, ...other } = inputProps;
 
     return (
       <TextField
         className={classes.root}
-        variant='outlined'
+        // variant='filled'
         InputProps={{
           inputRef: (node) => {
             ref(node);
 
             inputRef(node);
           },
-          classes: {
-            input: classes.input,
-          },
+          // classes: {
+          //   input: classes.input,
+          // },
           startAdornment: (
             <InputAdornment position='start'>
-              <SearchIcon fontSize='small' />
+              <SearchIcon  fontSize='small' />
             </InputAdornment>
           ),
         }}
@@ -96,15 +98,21 @@ export const SearchBar = () => {
     return inputLength === 0
       ? []
       : ads.filter((suggestion) => {
-          const keep =
-            count < 5 &&
-            suggestion.title.slice(0, inputLength).toLowerCase() === inputValue;
+          // const keep =
+          //   count < 5 &&
+          //   suggestion.title.slice(0, inputLength).toLowerCase() === inputValue;
 
-          if (keep) {
-            count += 1;
+          // if (keep) {
+          //   count += 1;
+          // }
+
+          // return keep;
+
+          if (suggestion==''){
+            return suggestion
+          }else if(suggestion.title.toLowerCase().includes(value.toLowerCase())){
+            return suggestion.title
           }
-
-          return keep;
         });
   }
 
@@ -141,7 +149,7 @@ export const SearchBar = () => {
       event.preventDefault();
     }
     setSearchTerm(suggestion.title);
-    router.push(`/ad/${suggestion.id}`);
+    router.push(`/offres/${suggestion.id}`);
     setSearchTerm('');
   }
 

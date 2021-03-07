@@ -34,6 +34,8 @@ import Link from 'next/link';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { Layout } from 'components/Layout/Layout';
 import { UpdateAdForm } from 'components/ads/UpdateAdForm';
+import {useState,useEffect} from 'react'
+import { Auth } from 'aws-amplify';
 
 API.configure(awsmobile);
 
@@ -42,6 +44,15 @@ interface AdDetailsProps {
 }
 
 const AdPage = ({ ad }: AdDetailsProps) => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log('User: ', user);
+        setUser(user);
+      })
+      .catch(() => setUser(null));
+  }, []);
   const [deleteAd] = useDeleteAdMutation();
   const input: DeleteAdInput = {
     id: ad?.id,
@@ -108,9 +119,9 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <br />
           <Typography className='typo'>{ad.description}</Typography>
         </div>
-        <CardActions disableSpacing></CardActions>
         <div>
-          <UpdateAdForm
+        {
+          user && (<UpdateAdForm
             handleOnClick={() => {
               deleteAd({ variables });
               window.confirm('Voulez Vous Confirmer La Suppression ?');
@@ -118,7 +129,8 @@ const AdPage = ({ ad }: AdDetailsProps) => {
                 lower: true,
               })}`;
             }}
-          />
+          />)
+        }        
         </div>
         <style jsx>{`
           .container {
