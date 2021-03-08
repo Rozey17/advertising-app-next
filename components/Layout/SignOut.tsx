@@ -11,13 +11,27 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundColor: '#DCDCDC',
       },
+      position: 'relative',
+      right: 0,
     },
   })
 );
 const SignOut = () => {
   const classes = useStyles();
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log('User: ', user);
+        setUser(user);
+      })
+      .catch(() => setUser(null));
+  }, []);
   const signOut = () => {
-    Auth.signOut();
+    Auth.signOut().then(() => {
+      setUser(null);
+    });
   };
 
   return (

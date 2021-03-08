@@ -20,6 +20,7 @@ import ScrollToTop from 'react-scroll-to-top';
 import { Auth } from 'aws-amplify';
 import { UserContext } from 'src/userContext';
 import { SignOut } from './SignOut';
+import { useAuth } from 'components/auth/useAuth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +58,8 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
       })
       .catch(() => setUser(null));
   }, []);
+
+  const { logout, authenticated } = useAuth();
   return (
     <div className={classes.root}>
       <ScrollToTop smooth />
@@ -89,14 +92,17 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
             </Button>
           </Link>
           <SearchBar />
-          {!user ? (
+          {authenticated ? (
+            <Button onClick={logout} variant='outlined'>
+              Déconnexion
+            </Button>
+          ) : (
+            // <SignOut />
             <Link href='/auth'>
               <Button className={classes.button} variant='outlined'>
                 Se Connecter
               </Button>
             </Link>
-          ) : (
-            <SignOut />
           )}
         </Toolbar>
       </AppBar>

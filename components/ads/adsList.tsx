@@ -28,7 +28,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   if (loading || !data) {
     return <h2>Loading...</h2>;
   }
-  if (!data.listAds) return <h2>Pas d'annonce trouvé.</h2>;
+  if (!data.listAds.items) return <h2>Pas d'annonce trouvé.</h2>;
 
   if (error) return <div>errors</div>;
   const ads = data && data.listAds ? data.listAds.items : [];

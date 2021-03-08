@@ -34,7 +34,7 @@ import Link from 'next/link';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { Layout } from 'components/Layout/Layout';
 import { UpdateAdForm } from 'components/ads/UpdateAdForm';
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 
 API.configure(awsmobile);
@@ -62,7 +62,11 @@ const AdPage = ({ ad }: AdDetailsProps) => {
     'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
   moment.locale('fr');
   if (!ad) {
-    return <h1> No ad found</h1>;
+    return (
+      <Layout>
+        <h1> No ad found</h1>
+      </Layout>
+    );
   }
   return (
     <Layout>
@@ -120,17 +124,20 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Typography className='typo'>{ad.description}</Typography>
         </div>
         <div>
-        {
-          user && (<UpdateAdForm
-            handleOnClick={() => {
-              deleteAd({ variables });
-              window.confirm('Voulez Vous Confirmer La Suppression ?');
-              window.location.href = `/offres/${slugify(ad.adSubCategory.name, {
-                lower: true,
-              })}`;
-            }}
-          />)
-        }        
+          {user && (
+            <UpdateAdForm
+              handleOnClick={() => {
+                deleteAd({ variables });
+                window.confirm('Voulez Vous Confirmer La Suppression ?');
+                window.location.href = `/offres/${slugify(
+                  ad.adSubCategory.name,
+                  {
+                    lower: true,
+                  }
+                )}`;
+              }}
+            />
+          )}
         </div>
         <style jsx>{`
           .container {
