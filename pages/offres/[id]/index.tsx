@@ -36,6 +36,7 @@ import { Layout } from 'components/Layout/Layout';
 import { UpdateAdForm } from 'components/ads/UpdateAdForm';
 import { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
+import { useAuth } from 'components/auth/useAuth';
 
 API.configure(awsmobile);
 
@@ -44,15 +45,16 @@ interface AdDetailsProps {
 }
 
 const AdPage = ({ ad }: AdDetailsProps) => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log('User: ', user);
-        setUser(user);
-      })
-      .catch(() => setUser(null));
-  }, []);
+  const { logout, authenticated } = useAuth();
+  // const [user, setUser] = useState(null);
+  // useEffect(() => {
+  //   Auth.currentAuthenticatedUser()
+  //     .then((user) => {
+  //       console.log('User: ', user);
+  //       setUser(user);
+  //     })
+  //     .catch(() => setUser(null));
+  // }, []);
   const [deleteAd] = useDeleteAdMutation();
   const input: DeleteAdInput = {
     id: ad?.id,
@@ -124,7 +126,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           <Typography className='typo'>{ad.description}</Typography>
         </div>
         <div>
-          {user && (
+          {authenticated && (
             <UpdateAdForm
               handleOnClick={() => {
                 deleteAd({ variables });

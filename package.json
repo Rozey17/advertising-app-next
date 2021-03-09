@@ -23,6 +23,7 @@
     "apollo-link-schema": "^1.2.5",
     "autosuggest-highlight": "^3.1.1",
     "aws-amplify": "^3.3.17",
+    "aws-appsync": "^4.0.3",
     "aws-appsync-auth-link": "^3.0.3",
     "aws-appsync-subscription-link": "^3.0.5",
     "firebase": "^8.2.10",

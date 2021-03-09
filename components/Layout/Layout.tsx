@@ -93,7 +93,11 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
           </Link>
           <SearchBar />
           {authenticated ? (
-            <Button onClick={logout} variant='outlined'>
+            <Button
+              className={classes.button}
+              onClick={logout}
+              variant='outlined'
+            >
               Déconnexion
             </Button>
           ) : (

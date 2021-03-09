@@ -34,7 +34,7 @@ const AdSubCategoriesList = ({ adCategoryID }: Props) => {
   return (
     <div className={styles.list}>
       {AdSubCategories.map((x) => (
-        <ul>
+        <ul key={x.id}>
           <li>
             <Link
               href={`/${x.id}`}
