@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
+import { Layout } from 'components/Layout/Layout';
 
 interface Props {
   adSubCategoryID: string;
@@ -28,10 +29,10 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   if (loading || !data) {
     return <h2>Loading...</h2>;
   }
-  if (!data.listAds.items) return <h2>Pas d'annonce trouvé.</h2>;
 
   if (error) return <div>errors</div>;
   const ads = data && data.listAds ? data.listAds.items : [];
+  if (ads.length === 0) return <h2>Pas d'annonce trouvée.</h2>;
 
   const adsPerPage = 10;
   const pagesVisited = pageNumber * adsPerPage;
@@ -42,6 +43,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
 
   return (
     <div>
+      <a style={{ textAlign: 'center' }}>Résultats ({ads.length})</a>
       {ads.slice(pagesVisited, pagesVisited + adsPerPage).map((x) => (
         <Advertising ad={x} key={x.id} />
       ))}

@@ -4,6 +4,7 @@ import { getAd } from 'src/graphql/queries';
 import {
   DeleteAdInput,
   GetAdQuery,
+  ListAdSubCategorysQuery,
   ListAdSubCategorysQueryVariables,
   useDeleteAdMutation,
   useListAdSubCategorysQuery,
@@ -37,6 +38,9 @@ import { UpdateAdForm } from 'components/ads/UpdateAdForm';
 import { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { useAuth } from 'components/auth/useAuth';
+import { useQuery } from '@apollo/client';
+import { AdCategory } from 'components/adsCategories/AdCategory';
+import Categories from 'components/Categories';
 
 API.configure(awsmobile);
 
@@ -46,15 +50,6 @@ interface AdDetailsProps {
 
 const AdPage = ({ ad }: AdDetailsProps) => {
   const { logout, authenticated } = useAuth();
-  // const [user, setUser] = useState(null);
-  // useEffect(() => {
-  //   Auth.currentAuthenticatedUser()
-  //     .then((user) => {
-  //       console.log('User: ', user);
-  //       setUser(user);
-  //     })
-  //     .catch(() => setUser(null));
-  // }, []);
   const [deleteAd] = useDeleteAdMutation();
   const input: DeleteAdInput = {
     id: ad?.id,
@@ -63,6 +58,21 @@ const AdPage = ({ ad }: AdDetailsProps) => {
   const defaultPhotoUrl =
     'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
   moment.locale('fr');
+
+  // const { data, loading } = useQuery<ListAdSubCategorysQuery,ListAdSubCategorysQueryVariables>({
+  //   variables: {
+  //     filter:
+  //     ad.adSubCategory.adCategoryID && ad.adSubCategory.adCategoryID.trim()
+  //       ? {
+  //           or: [{ adCategoryID: { contains: ad.adSubCategory.adCategoryID } }],
+  //         }
+  //       : null,
+  //   limit: 100,
+  //   },
+  // });
+
+  // const adSubCategories = data && data.listAdSubCategorys ? data.listAdSubCategorys.items : []
+
   if (!ad) {
     return (
       <Layout>
@@ -78,14 +88,19 @@ const AdPage = ({ ad }: AdDetailsProps) => {
           separator={<NavigateNextIcon fontSize='small' />}
           aria-label='breadcrumb'
         >
-          <Typography color='primary'>
-            {ad.adSubCategory.adCategory.name}
-          </Typography>
+          <Link href='/'>
+            <a>Accueil</a>
+          </Link>
+
+          <Categories
+            name={ad.adSubCategory.adCategory.name}
+            adCategoryID={ad.adSubCategory.adCategoryID}
+          />
 
           <Link
             href={`/offres/${slugify(ad.adSubCategory.name, { lower: true })}`}
           >
-            {ad.adSubCategory.name}
+            <a>{ad.adSubCategory.name}</a>
           </Link>
           <Typography>{ad.title}</Typography>
         </Breadcrumbs>
@@ -149,6 +164,14 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             margin-top: 25px;
             margin-bottom: 25px;
             width: 50%;
+          }
+
+          .container a {
+            text-decoration: none;
+          }
+
+          .container a:hover {
+            text-decoration: underline;
           }
           .img {
             display: block;

@@ -24,6 +24,7 @@ import { useState } from 'react';
 import styles from './Ad.module.css';
 import { listAds } from 'src/graphql/queries';
 import gql from 'graphql-tag';
+import { useAuth } from 'components/auth/useAuth';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export const UpdateAdForm = ({ handleOnClick }) => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -77,6 +79,9 @@ export const UpdateAdForm = ({ handleOnClick }) => {
     variables,
     notifyOnNetworkStatusChange: true,
   });
+  // if (!user) return <div>Please login</div>;
+  // if (user.uid !== data.)
+  // return <div>You don't have permission</div>;
 
   if (data && data.getAd) {
     const ad = data.getAd;

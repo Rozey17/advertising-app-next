@@ -45,6 +45,7 @@
     "react-firebaseui": "^4.1.0",
     "react-paginate": "^7.1.0",
     "react-scroll-to-top": "^1.0.5",
+    "reactstrap": "^8.9.0",
     "slugify": "^1.4.6",
     "use-autocomplete": "^1.1.1",
     "yup": "^0.32.8"
