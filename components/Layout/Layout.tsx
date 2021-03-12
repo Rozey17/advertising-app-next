@@ -26,10 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      margin: 'auto',
     },
     menuButton: {
       marginRight: theme.spacing(2),
+    },
+    appbar: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     button: {
       backgroundColor: 'white',
@@ -64,17 +68,8 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
   return (
     <div className={classes.root}>
       <ScrollToTop smooth />
-      <AppBar position='static'>
+      <AppBar className={classes.appbar} position='static'>
         <Toolbar className={styles.appbar}>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='primary'
-            aria-label='menu'
-            onClick={() => {}}
-          >
-            <MenuIcon />
-          </IconButton>
           <Link href='/'>
             <a>
               <Typography>
