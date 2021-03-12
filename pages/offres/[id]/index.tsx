@@ -41,6 +41,7 @@ import { useAuth } from 'components/auth/useAuth';
 import { useQuery } from '@apollo/client';
 import { AdCategory } from 'components/adsCategories/AdCategory';
 import Categories from 'components/Categories';
+import { AdNav } from 'components/AdNav';
 
 API.configure(awsmobile);
 
@@ -49,29 +50,11 @@ interface AdDetailsProps {
 }
 
 const AdPage = ({ ad }: AdDetailsProps) => {
-  const { logout, authenticated } = useAuth();
-  const [deleteAd] = useDeleteAdMutation();
-  const input: DeleteAdInput = {
-    id: ad?.id,
-  };
-  const variables = { input };
+  const { authenticated } = useAuth();
+
   const defaultPhotoUrl =
     'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
   moment.locale('fr');
-
-  // const { data, loading } = useQuery<ListAdSubCategorysQuery,ListAdSubCategorysQueryVariables>({
-  //   variables: {
-  //     filter:
-  //     ad.adSubCategory.adCategoryID && ad.adSubCategory.adCategoryID.trim()
-  //       ? {
-  //           or: [{ adCategoryID: { contains: ad.adSubCategory.adCategoryID } }],
-  //         }
-  //       : null,
-  //   limit: 100,
-  //   },
-  // });
-
-  // const adSubCategories = data && data.listAdSubCategorys ? data.listAdSubCategorys.items : []
 
   if (!ad) {
     return (
@@ -142,18 +125,13 @@ const AdPage = ({ ad }: AdDetailsProps) => {
         </div>
         <div>
           {authenticated && (
-            <UpdateAdForm
-              handleOnClick={() => {
-                deleteAd({ variables });
-                window.confirm('Voulez Vous Confirmer La Suppression ?');
-                window.location.href = `/offres/${slugify(
-                  ad.adSubCategory.name,
-                  {
-                    lower: true,
-                  }
-                )}`;
-              }}
-            />
+            <Link href={`/offres/${ad.id}/edit`}>
+              <a>
+                <Typography>
+                  <b>Modifier Annonce</b>
+                </Typography>
+              </a>
+            </Link>
           )}
         </div>
         <style jsx>{`
