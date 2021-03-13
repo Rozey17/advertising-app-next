@@ -20,12 +20,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
 import { produce } from 'immer';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styles from './Ad.module.css';
 import { listAds } from 'src/graphql/queries';
 import gql from 'graphql-tag';
 import { useAuth } from 'components/auth/useAuth';
-
+import Link from 'next/link';
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -71,7 +71,13 @@ export const UpdateAdForm = () => {
           }
         }}
       >
-        {({ isSubmitting, handleChange, values, handleSubmit }) => (
+        {({
+          isSubmitting,
+          handleChange,
+          values,
+          handleSubmit,
+          setFieldValue,
+        }) => (
           <form onSubmit={handleSubmit}>
             <div className={styles.input}>
               <Typography color='primary'>
@@ -84,7 +90,7 @@ export const UpdateAdForm = () => {
                 <TextField
                   id='ad-title'
                   name='title'
-                  label='Title'
+                  label='Titre'
                   // fullWidth
                   variant='outlined'
                   value={values.title}
@@ -103,14 +109,18 @@ export const UpdateAdForm = () => {
                 />
               </div>
               <div>
-                <TextField
-                  id='ad-image'
+                <label htmlFor='image'>
+                  <Typography>Ajouter une image</Typography>
+                </label>
+
+                <input
+                  id='image'
                   name='image'
-                  label='Image'
-                  // fullWidth
-                  variant='outlined'
-                  value={values.image}
-                  onChange={handleChange}
+                  type='file'
+                  accept='image/*'
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    setFieldValue('image', event.currentTarget.files[0]);
+                  }}
                 />
               </div>
               <div>
@@ -121,7 +131,12 @@ export const UpdateAdForm = () => {
                   type='submit'
                 >
                   MODIFIER
-                </Button>
+                </Button>{' '}
+                <Link href={`/offres/${ad.id}`}>
+                  <Button variant='contained' color='secondary'>
+                    ANNULER
+                  </Button>
+                </Link>
               </div>
             </div>
           </form>

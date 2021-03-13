@@ -43,7 +43,9 @@ const AdsList = ({ adSubCategoryID }: Props) => {
 
   return (
     <div>
-      <a style={{ textAlign: 'center' }}>Résultats ({ads.length})</a>
+      <div style={{ margin: 'auto' }}>
+        <a>Résultats ({ads.length})</a>
+      </div>
       {ads.slice(pagesVisited, pagesVisited + adsPerPage).map((x) => (
         <Advertising ad={x} key={x.id} />
       ))}

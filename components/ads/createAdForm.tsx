@@ -1,12 +1,4 @@
-import {
-  useCreateAdMutation,
-  Ad,
-  CreateAdInput,
-  ListAdCategorysQueryVariables,
-  useListAdCategorysQuery,
-  ListAdSubCategorysQueryVariables,
-  useListAdSubCategorysQuery,
-} from '@apollo';
+import { useCreateAdMutation, Ad, CreateAdInput } from '@apollo';
 import {
   Button,
   Select,
@@ -14,18 +6,14 @@ import {
   TextField,
   FormControl,
   InputLabel,
-  MenuItem,
-  Card,
 } from '@material-ui/core';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './Ad.module.css';
 import { useRouter } from 'next/router';
-import { listAds } from 'src/graphql/queries';
-import gql from 'graphql-tag';
 
 const initialValues: CreateAdInput = {
   title: '',
@@ -36,6 +24,7 @@ const initialValues: CreateAdInput = {
 
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
+  const [previewImage, setPreviewImage] = useState<string>();
   const router = useRouter();
   const validationSchema = object<Ad>().shape({
     title: string()
@@ -43,7 +32,7 @@ const CreateAdForm: FC = () => {
       .min(2, 'Le nom trop court')
       .max(50, 'Le nom trop long'),
     adSubCategoryID: string().required('La catégorie est obligatoire'),
-    image: string().min(2, 'Le lien trop court'),
+    image: string().min(1, 'Le lien trop court'),
     description: string()
       .required('Une description est obligatoire')
       .min(10)
@@ -58,7 +47,6 @@ const CreateAdForm: FC = () => {
           const variables = { input };
           const { data } = await createAd({
             variables,
-            refetchQueries: [{ query: gql(listAds) }],
           });
           router.push(`/offres/${data.createAd.id}`);
         } catch (e) {
@@ -72,6 +60,7 @@ const CreateAdForm: FC = () => {
         // isSubmitting,
         handleChange,
         // handleBlur,
+        setFieldValue,
         values,
         dirty,
         submitForm,
@@ -91,7 +80,7 @@ const CreateAdForm: FC = () => {
                 as={TextField}
                 id='ad-title'
                 name='title'
-                helperText={touched.title ? errors.title : ''}
+                helpertext={touched.title ? errors.title : ''}
                 error={touched.title && Boolean(errors.title)}
                 label='Titre'
                 variant='outlined'
@@ -109,7 +98,7 @@ const CreateAdForm: FC = () => {
                   as={Select}
                   id='adSubCategory'
                   name='adSubCategoryID'
-                  helperText={
+                  helpertext={
                     touched.adSubCategoryID ? errors.adSubCategoryID : ''
                   }
                   error={
@@ -205,7 +194,7 @@ const CreateAdForm: FC = () => {
                 as={TextField}
                 id='ad-description'
                 name='description'
-                helperText={touched.description ? errors.description : ''}
+                helpertext={touched.description ? errors.description : ''}
                 error={touched.description && Boolean(errors.description)}
                 label='Description'
                 variant='outlined'
@@ -213,18 +202,22 @@ const CreateAdForm: FC = () => {
                 onChange={handleChange}
               />
             </div>
+
             <div>
-              <Field
-                as={TextField}
-                id='ad-image'
+              <label htmlFor='image'>
+                <Typography>Ajouter une image</Typography>
+              </label>
+
+              <input
+                id='image'
                 name='image'
-                helperText={touched.image ? errors.image : ''}
-                error={touched.image && Boolean(errors.image)}
-                label='Image'
-                variant='outlined'
-                value={values.image}
-                onChange={handleChange}
+                type='file'
+                accept='image/*'
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setFieldValue('image', event.currentTarget.files[0]);
+                }}
               />
+              {errors.image && <p>{errors.image}</p>}
             </div>
             <div>
               <Button
