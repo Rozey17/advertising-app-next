@@ -119,7 +119,15 @@ export const UpdateAdForm = () => {
                   type='file'
                   accept='image/*'
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    setFieldValue('image', event.currentTarget.files[0]);
+                    // setFieldValue('image', event.currentTarget.files[0]);
+                    if (event?.target?.files?.[0]) {
+                      const file = event.target.files[0];
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setFieldValue('image', reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }
                   }}
                 />
               </div>

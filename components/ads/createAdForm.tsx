@@ -11,10 +11,10 @@ import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import styles from './Ad.module.css';
 import { useRouter } from 'next/router';
-
+import { Image } from 'cloudinary-react';
 const initialValues: CreateAdInput = {
   title: '',
   description: '',
@@ -24,7 +24,7 @@ const initialValues: CreateAdInput = {
 
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
-  const [previewImage, setPreviewImage] = useState<string>();
+  const [imageData, setImageData] = useState();
   const router = useRouter();
   const validationSchema = object<Ad>().shape({
     title: string()
@@ -38,21 +38,38 @@ const CreateAdForm: FC = () => {
       .min(10)
       .max(300),
   });
+
+  async function uploadImage(image) {
+    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', 'xknylave');
+
+    const response = await fetch(url, {
+      method: 'post',
+      body: formData,
+    });
+    const data = response.json();
+
+    return data;
+  }
+
   return (
     <Formik<CreateAdInput>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (input, { resetForm }) => {
+      onSubmit={async (input, values) => {
         try {
           const variables = { input };
           const { data } = await createAd({
             variables,
           });
+          await uploadImage(input.image);
           router.push(`/offres/${data.createAd.id}`);
         } catch (e) {
           console.log(e);
         }
-        // resetForm();
       }}
     >
       {({
@@ -214,7 +231,15 @@ const CreateAdForm: FC = () => {
                 type='file'
                 accept='image/*'
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                  setFieldValue('image', event.currentTarget.files[0]);
+                  // setFieldValue('image', event.currentTarget.files[0]);
+                  if (event?.target?.files?.[0]) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setFieldValue('image', reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
                 }}
               />
               {errors.image && <p>{errors.image}</p>}
