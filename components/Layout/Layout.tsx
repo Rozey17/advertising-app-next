@@ -53,17 +53,6 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title }: Props) => {
   const classes = useStyles();
-  // const user = useContext(UserContext);
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log('User: ', user);
-        setUser(user);
-      })
-      .catch(() => setUser(null));
-  }, []);
-
   const { logout, authenticated } = useAuth();
   return (
     <div className={classes.root}>

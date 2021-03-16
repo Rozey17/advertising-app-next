@@ -22,9 +22,22 @@ const initialValues: CreateAdInput = {
   image: '',
 };
 
+async function uploadImage(image) {
+  const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+  const formData = new FormData();
+  formData.append('file', image);
+  formData.append('upload_preset', 'xknylave');
+
+  const response = await fetch(url, {
+    method: 'post',
+    body: formData,
+  });
+  return response.json();
+}
+
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
-  const [imageData, setImageData] = useState();
   const router = useRouter();
   const validationSchema = object<Ad>().shape({
     title: string()
@@ -39,22 +52,6 @@ const CreateAdForm: FC = () => {
       .max(300),
   });
 
-  async function uploadImage(image) {
-    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
-
-    const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', 'xknylave');
-
-    const response = await fetch(url, {
-      method: 'post',
-      body: formData,
-    });
-    const data = response.json();
-
-    return data;
-  }
-
   return (
     <Formik<CreateAdInput>
       initialValues={initialValues}
@@ -65,7 +62,6 @@ const CreateAdForm: FC = () => {
           const { data } = await createAd({
             variables,
           });
-          await uploadImage(input.image);
           router.push(`/offres/${data.createAd.id}`);
         } catch (e) {
           console.log(e);
@@ -74,9 +70,9 @@ const CreateAdForm: FC = () => {
     >
       {({
         isValid,
-        // isSubmitting,
+
         handleChange,
-        // handleBlur,
+
         setFieldValue,
         values,
         dirty,
@@ -231,14 +227,11 @@ const CreateAdForm: FC = () => {
                 type='file'
                 accept='image/*'
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                  // setFieldValue('image', event.currentTarget.files[0]);
                   if (event?.target?.files?.[0]) {
                     const file = event.target.files[0];
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setFieldValue('image', reader.result as string);
-                    };
-                    reader.readAsDataURL(file);
+                    uploadImage(file).then((res) => {
+                      setFieldValue('image', res?.secure_url);
+                    });
                   }
                 }}
               />
@@ -251,9 +244,8 @@ const CreateAdForm: FC = () => {
                 onClick={submitForm}
                 disabled={!(isValid && dirty)}
               >
-                Enregistrer
-              </Button>
-              <div className={styles.divider} />
+                PUBLIER
+              </Button>{' '}
               <Button variant='contained' color='secondary'>
                 <Link href='/'>
                   <Typography>Annuler</Typography>

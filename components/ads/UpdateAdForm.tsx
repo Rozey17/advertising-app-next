@@ -34,10 +34,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+async function uploadImage(image) {
+  const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+  const formData = new FormData();
+  formData.append('file', image);
+  formData.append('upload_preset', 'xknylave');
+
+  const response = await fetch(url, {
+    method: 'post',
+    body: formData,
+  });
+  return response.json();
+}
+
 export const UpdateAdForm = () => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
-  const { user } = useAuth();
   const id = router.query.id as string;
 
   const variables: GetAdQueryVariables = {
@@ -119,14 +132,11 @@ export const UpdateAdForm = () => {
                   type='file'
                   accept='image/*'
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    // setFieldValue('image', event.currentTarget.files[0]);
                     if (event?.target?.files?.[0]) {
                       const file = event.target.files[0];
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setFieldValue('image', reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
+                      uploadImage(file).then((res) => {
+                        setFieldValue('image', res?.secure_url);
+                      });
                     }
                   }}
                 />
