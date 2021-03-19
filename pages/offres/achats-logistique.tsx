@@ -8,7 +8,7 @@ export default function Logistics() {
     <Layout>
       <div className={styles.title}>
         <Typography>
-          <h1>Annonces Achats, Logistique</h1>
+          <h2>Annonces Achats, Logistique</h2>
         </Typography>
       </div>
       <AdsList adSubCategoryID='9815c7b4-3adf-437b-b185-a1ccf516782e' />

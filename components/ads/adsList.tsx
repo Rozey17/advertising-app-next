@@ -4,6 +4,7 @@ import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
 import { Layout } from 'components/Layout/Layout';
+import { Typography } from '@material-ui/core';
 
 interface Props {
   adSubCategoryID: string;
@@ -43,8 +44,8 @@ const AdsList = ({ adSubCategoryID }: Props) => {
 
   return (
     <div>
-      <div style={{ margin: 'auto' }}>
-        <a>Résultats ({ads.length})</a>
+      <div className={styles.result}>
+        <Typography>Résultat ({ads.length})</Typography>
       </div>
       {ads.slice(pagesVisited, pagesVisited + adsPerPage).map((x) => (
         <Advertising ad={x} key={x.id} />

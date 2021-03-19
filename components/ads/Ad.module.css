@@ -136,6 +136,10 @@
   cursor: pointer;
   margin: auto;
   width: 200px;
-  height: 200px;
+  /* height: 200px; */
   margin-bottom: 30px;
+}
+
+.result {
+  text-align: center;
 }

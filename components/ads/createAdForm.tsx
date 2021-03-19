@@ -56,7 +56,7 @@ const CreateAdForm: FC = () => {
     <Formik<CreateAdInput>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (input, values) => {
+      onSubmit={async (input) => {
         try {
           const variables = { input };
           const { data } = await createAd({
@@ -70,9 +70,7 @@ const CreateAdForm: FC = () => {
     >
       {({
         isValid,
-
         handleChange,
-
         setFieldValue,
         values,
         dirty,
@@ -89,11 +87,10 @@ const CreateAdForm: FC = () => {
             </Typography>
             <br />
             <div>
-              <Field
-                as={TextField}
+              <TextField
                 id='ad-title'
                 name='title'
-                helpertext={touched.title ? errors.title : ''}
+                helperText={touched.title ? errors.title : ''}
                 error={touched.title && Boolean(errors.title)}
                 label='Titre'
                 variant='outlined'
@@ -101,7 +98,7 @@ const CreateAdForm: FC = () => {
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div style={{ width: 205, margin: 'auto', marginBottom: '15px' }}>
               <FormControl>
                 <InputLabel id='demo-simple-select-label'>
                   Catégories
@@ -111,7 +108,7 @@ const CreateAdForm: FC = () => {
                   as={Select}
                   id='adSubCategory'
                   name='adSubCategoryID'
-                  helpertext={
+                  helperText={
                     touched.adSubCategoryID ? errors.adSubCategoryID : ''
                   }
                   error={
@@ -203,11 +200,10 @@ const CreateAdForm: FC = () => {
             </div>
 
             <div>
-              <Field
-                as={TextField}
+              <TextField
                 id='ad-description'
                 name='description'
-                helpertext={touched.description ? errors.description : ''}
+                helperText={touched.description ? errors.description : ''}
                 error={touched.description && Boolean(errors.description)}
                 label='Description'
                 variant='outlined'
@@ -216,7 +212,7 @@ const CreateAdForm: FC = () => {
               />
             </div>
 
-            <div>
+            <div className={styles.image}>
               <label htmlFor='image'>
                 <Typography>Ajouter une image</Typography>
               </label>
