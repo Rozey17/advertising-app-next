@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     width: 500,
     backgroundColor: 'white',
     heigth: 45,
+    paddingLeft: 5,
   },
   container: {
     position: 'relative',
@@ -81,7 +82,7 @@ export const SearchBar = () => {
           // },
           startAdornment: (
             <InputAdornment position='start'>
-              <SearchIcon  fontSize='small' />
+              <SearchIcon fontSize='small' />
             </InputAdornment>
           ),
         }}
@@ -98,20 +99,8 @@ export const SearchBar = () => {
     return inputLength === 0
       ? []
       : ads.filter((suggestion) => {
-          // const keep =
-          //   count < 5 &&
-          //   suggestion.title.slice(0, inputLength).toLowerCase() === inputValue;
-
-          // if (keep) {
-          //   count += 1;
-          // }
-
-          // return keep;
-
-          if (suggestion==''){
-            return suggestion
-          }else if(suggestion.title.toLowerCase().includes(value.toLowerCase())){
-            return suggestion.title
+          if (suggestion.title.toLowerCase().includes(value.toLowerCase())) {
+            return suggestion.title;
           }
         });
   }

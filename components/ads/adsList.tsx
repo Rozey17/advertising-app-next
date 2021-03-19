@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ListAdsQueryVariables, useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
-import { Layout } from 'components/Layout/Layout';
+import { Layout } from 'components/layout/Layout';
 import { Typography } from '@material-ui/core';
 
 interface Props {

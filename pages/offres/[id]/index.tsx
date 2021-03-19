@@ -32,7 +32,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import slugify from 'slugify';
 import moment from 'moment';
 import Link from 'next/link';
-import { Layout } from 'components/Layout/Layout';
+import { Layout } from 'components/layout/Layout';
 
 import { useAuth } from 'components/auth/useAuth';
 
@@ -90,9 +90,9 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             <Typography>{ad.title}</Typography>
           </Breadcrumbs>
           <Box>
-            <div className='text-xl font-bold my-4'>
+            <div>
               <Typography>
-                <h2>{ad.title}</h2>
+                <h2 className='text-2xl font-bold my-4'>{ad.title}</h2>
               </Typography>
             </div>
           </Box>
@@ -116,11 +116,15 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             <br />
             <Typography className='typo'>{ad.description}</Typography>
           </div>
-          <Typography>
-            {authenticated && (
-              <Link href={`/offres/${ad.id}/edit`}>Modifier Annonce</Link>
-            )}
-          </Typography>
+          <div>
+            <Typography>
+              {authenticated && (
+                <Link href={`/offres/${ad.id}/edit`}>
+                  <h2 className='text-base blue font-bold'>Modifier Annonce</h2>
+                </Link>
+              )}
+            </Typography>
+          </div>
 
           <style jsx>{`
             .container {

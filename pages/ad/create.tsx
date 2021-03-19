@@ -1,6 +1,6 @@
 import { CreateAdForm } from 'components/ads/CreateAdForm';
 import { Container } from '@material-ui/core';
-import { Layout } from 'components/Layout/Layout';
+import { Layout } from 'components/layout/Layout';
 import { Auth, withSSRContext } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

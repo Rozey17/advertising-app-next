@@ -5,7 +5,7 @@ import { GetAdQuery } from 'src';
 import { GetServerSideProps } from 'next';
 import awsmobile from 'src/aws-exports';
 
-import { Layout } from 'components/Layout/Layout';
+import { Layout } from 'components/layout/Layout';
 import { UpdateAdForm } from 'components/ads/UpdateAdForm';
 import { useAuth } from 'components/auth/useAuth';
 

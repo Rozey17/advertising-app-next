@@ -1,14 +1,7 @@
-import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import {
-  createStyles,
-  fade,
-  Theme,
-  makeStyles,
-} from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 
@@ -17,9 +10,7 @@ import { Footer } from './Footer';
 import styles from './Layout.module.css';
 import { SearchBar } from './AutoSelectField';
 import ScrollToTop from 'react-scroll-to-top';
-import { Auth } from 'aws-amplify';
-import { UserContext } from 'src/userContext';
-import { SignOut } from './SignOut';
+
 import { useAuth } from 'components/auth/useAuth';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,7 +53,7 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
           <Link href='/'>
             <a>
               <Typography>
-                <h2>ANNONCE 45</h2>
+                <h2 className='text-xl font-bold'>ANNONCE 45</h2>
               </Typography>
             </a>
           </Link>
