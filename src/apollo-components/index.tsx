@@ -123,6 +123,7 @@ export type Ad = {
   id: Scalars['ID'];
   title: Scalars['String'];
   description: Scalars['String'];
+  contact?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
   adSubCategoryID: Scalars['ID'];
   adSubCategory?: Maybe<AdSubCategory>;
@@ -135,6 +136,7 @@ export type ModelAdFilterInput = {
   id?: Maybe<ModelIdInput>;
   title?: Maybe<ModelStringInput>;
   description?: Maybe<ModelStringInput>;
+  contact?: Maybe<ModelStringInput>;
   image?: Maybe<ModelStringInput>;
   adSubCategoryID?: Maybe<ModelIdInput>;
   and?: Maybe<Array<Maybe<ModelAdFilterInput>>>;
@@ -317,6 +319,7 @@ export type CreateAdInput = {
   id?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   description: Scalars['String'];
+  contact?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
   adSubCategoryID: Scalars['ID'];
 };
@@ -324,6 +327,7 @@ export type CreateAdInput = {
 export type ModelAdConditionInput = {
   title?: Maybe<ModelStringInput>;
   description?: Maybe<ModelStringInput>;
+  contact?: Maybe<ModelStringInput>;
   image?: Maybe<ModelStringInput>;
   adSubCategoryID?: Maybe<ModelIdInput>;
   and?: Maybe<Array<Maybe<ModelAdConditionInput>>>;
@@ -335,6 +339,7 @@ export type UpdateAdInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  contact?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
   adSubCategoryID?: Maybe<Scalars['ID']>;
 };
@@ -380,14 +385,9 @@ export type Subscription = {
   onDeleteAdSubCategory?: Maybe<AdSubCategory>;
 };
 
-export type ModelIntInput = {
-  ne?: Maybe<Scalars['Int']>;
-  eq?: Maybe<Scalars['Int']>;
-  le?: Maybe<Scalars['Int']>;
-  lt?: Maybe<Scalars['Int']>;
-  ge?: Maybe<Scalars['Int']>;
-  gt?: Maybe<Scalars['Int']>;
-  between?: Maybe<Array<Maybe<Scalars['Int']>>>;
+export type ModelBooleanInput = {
+  ne?: Maybe<Scalars['Boolean']>;
+  eq?: Maybe<Scalars['Boolean']>;
   attributeExists?: Maybe<Scalars['Boolean']>;
   attributeType?: Maybe<ModelAttributeTypes>;
 };
@@ -404,9 +404,14 @@ export type ModelFloatInput = {
   attributeType?: Maybe<ModelAttributeTypes>;
 };
 
-export type ModelBooleanInput = {
-  ne?: Maybe<Scalars['Boolean']>;
-  eq?: Maybe<Scalars['Boolean']>;
+export type ModelIntInput = {
+  ne?: Maybe<Scalars['Int']>;
+  eq?: Maybe<Scalars['Int']>;
+  le?: Maybe<Scalars['Int']>;
+  lt?: Maybe<Scalars['Int']>;
+  ge?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  between?: Maybe<Array<Maybe<Scalars['Int']>>>;
   attributeExists?: Maybe<Scalars['Boolean']>;
   attributeType?: Maybe<ModelAttributeTypes>;
 };
@@ -487,7 +492,7 @@ export type CreateAdMutation = (
   { __typename?: 'Mutation' }
   & { createAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -512,7 +517,7 @@ export type UpdateAdMutation = (
   { __typename?: 'Mutation' }
   & { updateAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -537,7 +542,7 @@ export type DeleteAdMutation = (
   { __typename?: 'Mutation' }
   & { deleteAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -575,7 +580,7 @@ export type CreateAdSubCategoryMutation = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -604,7 +609,7 @@ export type UpdateAdSubCategoryMutation = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -633,7 +638,7 @@ export type DeleteAdSubCategoryMutation = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -692,7 +697,7 @@ export type GetAdQuery = (
   { __typename?: 'Query' }
   & { getAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -721,7 +726,7 @@ export type ListAdsQuery = (
     & Pick<ModelAdConnection, 'nextToken'>
     & { items?: Maybe<Array<Maybe<(
       { __typename?: 'Ad' }
-      & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+      & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       & { adSubCategory?: Maybe<(
         { __typename?: 'AdSubCategory' }
         & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -752,7 +757,7 @@ export type GetAdSubCategoryQuery = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -848,7 +853,7 @@ export type OnCreateAdSubscription = (
   { __typename?: 'Subscription' }
   & { onCreateAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -870,7 +875,7 @@ export type OnUpdateAdSubscription = (
   { __typename?: 'Subscription' }
   & { onUpdateAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -892,7 +897,7 @@ export type OnDeleteAdSubscription = (
   { __typename?: 'Subscription' }
   & { onDeleteAd?: Maybe<(
     { __typename?: 'Ad' }
-    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+    & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
     & { adSubCategory?: Maybe<(
       { __typename?: 'AdSubCategory' }
       & Pick<AdSubCategory, 'id' | 'name' | 'adCategoryID' | 'createdAt' | 'updatedAt'>
@@ -927,7 +932,7 @@ export type OnCreateAdSubCategorySubscription = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -953,7 +958,7 @@ export type OnUpdateAdSubCategorySubscription = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -979,7 +984,7 @@ export type OnDeleteAdSubCategorySubscription = (
       & Pick<ModelAdConnection, 'nextToken'>
       & { items?: Maybe<Array<Maybe<(
         { __typename?: 'Ad' }
-        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'contact' | 'image' | 'adSubCategoryID' | 'createdAt' | 'updatedAt'>
       )>>> }
     )> }
   )> }
@@ -1130,6 +1135,7 @@ export const CreateAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1185,6 +1191,7 @@ export const UpdateAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1240,6 +1247,7 @@ export const DeleteAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1309,6 +1317,7 @@ export const CreateAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -1367,6 +1376,7 @@ export const UpdateAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -1425,6 +1435,7 @@ export const DeleteAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -1559,6 +1570,7 @@ export const GetAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1615,6 +1627,7 @@ export const ListAdsDocument = gql`
       id
       title
       description
+      contact
       image
       adSubCategoryID
       adSubCategory {
@@ -1679,6 +1692,7 @@ export const GetAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -1897,6 +1911,7 @@ export const OnCreateAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1947,6 +1962,7 @@ export const OnUpdateAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -1997,6 +2013,7 @@ export const OnDeleteAdDocument = gql`
     id
     title
     description
+    contact
     image
     adSubCategoryID
     adSubCategory {
@@ -2061,6 +2078,7 @@ export const OnCreateAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -2114,6 +2132,7 @@ export const OnUpdateAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt
@@ -2167,6 +2186,7 @@ export const OnDeleteAdSubCategoryDocument = gql`
         id
         title
         description
+        contact
         image
         adSubCategoryID
         createdAt

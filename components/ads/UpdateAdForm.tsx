@@ -45,6 +45,8 @@ async function uploadImage(image) {
     method: 'post',
     body: formData,
   });
+  console.log(response.json());
+
   return response.json();
 }
 

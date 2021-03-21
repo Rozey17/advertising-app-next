@@ -116,6 +116,14 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             <br />
             <Typography className='typo'>{ad.description}</Typography>
           </div>
+          <div className='description'>
+            <Typography>
+              <b>Contact</b>
+            </Typography>
+            <Typography>
+              {ad.contact ? ad.contact : 'Non communiqué'}
+            </Typography>
+          </div>
           <div>
             <Typography>
               {authenticated && (
