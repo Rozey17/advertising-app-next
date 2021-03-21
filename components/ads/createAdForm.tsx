@@ -14,7 +14,6 @@ import Link from 'next/link';
 import { ChangeEvent, FC, useState } from 'react';
 import styles from './Ad.module.css';
 import { useRouter } from 'next/router';
-import { Image } from 'cloudinary-react';
 const initialValues: CreateAdInput = {
   title: '',
   description: '',
@@ -28,7 +27,11 @@ async function uploadImage(image) {
 
   const formData = new FormData();
   formData.append('file', image);
-  formData.append('upload_preset', 'xknylave');
+  formData.append(
+    'upload_preset',
+    // `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
+    'xknylave'
+  );
 
   const response = await fetch(url, {
     method: 'post',
@@ -36,6 +39,8 @@ async function uploadImage(image) {
   });
   return response.json();
 }
+
+const phoneRegEx = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
@@ -51,7 +56,7 @@ const CreateAdForm: FC = () => {
       .required('Une description est obligatoire')
       .min(10)
       .max(300),
-    contact: string().min(6, 'Le lien trop court').max(15),
+    contact: string().matches(phoneRegEx, 'Numéro de téléphone invalide'),
   });
 
   return (
@@ -71,10 +76,10 @@ const CreateAdForm: FC = () => {
       }}
     >
       {({
-        isValid,
         handleChange,
         setFieldValue,
         values,
+        isValid,
         dirty,
         submitForm,
         errors,
@@ -202,7 +207,8 @@ const CreateAdForm: FC = () => {
             </div>
 
             <div>
-              <TextField
+              <Field
+                as={TextField}
                 id='ad-description'
                 name='description'
                 helperText={touched.description ? errors.description : ''}
@@ -214,7 +220,8 @@ const CreateAdForm: FC = () => {
               />
             </div>
             <div>
-              <TextField
+              <Field
+                as={TextField}
                 id='ad-contact'
                 name='contact'
                 helperText={touched.contact ? errors.contact : ''}

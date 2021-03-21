@@ -1,60 +1,55 @@
 import { useRouter } from 'next/dist/client/router';
 import {
   GetAdQueryVariables,
-  ListAdsQuery,
   UpdateAdInput,
   useGetAdQuery,
   useUpdateAdMutation,
 } from 'src';
 import { Formik, Form, Field } from 'formik';
 import { string, object } from 'yup';
-import {
-  Button,
-  Modal,
-  TextField,
-  Dialog,
-  Card,
-  Typography,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Button, TextField, Typography } from '@material-ui/core';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
-import { makeStyles } from '@material-ui/core/styles';
-import { produce } from 'immer';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import styles from './Ad.module.css';
-import { listAds } from 'src/graphql/queries';
-import gql from 'graphql-tag';
-import { useAuth } from 'components/auth/useAuth';
 import Link from 'next/link';
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}));
 
 async function uploadImage(image) {
   const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
 
   const formData = new FormData();
   formData.append('file', image);
-  formData.append('upload_preset', 'xknylave');
+  formData.append(
+    'upload_preset',
+    // `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
+    'xknylave'
+  );
 
   const response = await fetch(url, {
     method: 'post',
     body: formData,
   });
-  console.log(response.json());
 
   return response.json();
 }
+const phoneRegEx = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
 export const UpdateAdForm = () => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
   const id = router.query.id as string;
-
+  const validationSchema = object<UpdateAdInput>().shape({
+    title: string()
+      .required('Le nom est obligatoire')
+      .min(2, 'Le nom trop court')
+      .max(50, 'Le nom trop long'),
+    adSubCategoryID: string().required('La catégorie est obligatoire'),
+    image: string().min(1, 'Le lien trop court'),
+    description: string()
+      .required('Une description est obligatoire')
+      .min(10)
+      .max(300),
+    contact: string().matches(phoneRegEx, 'Numéro de téléphone invalide'),
+  });
   const variables: GetAdQueryVariables = {
     id,
   };
@@ -74,7 +69,9 @@ export const UpdateAdForm = () => {
           description: ad.description,
           image: ad.image,
           title: ad.title,
+          contact: ad.contact,
         }}
+        validationSchema={validationSchema}
         onSubmit={async (input) => {
           try {
             const { data } = await updateAd({
@@ -87,11 +84,15 @@ export const UpdateAdForm = () => {
         }}
       >
         {({
+          touched,
           isSubmitting,
+          errors,
           handleChange,
           values,
           handleSubmit,
           setFieldValue,
+          isValid,
+          dirty,
         }) => (
           <form onSubmit={handleSubmit}>
             <div className={styles.input}>
@@ -102,24 +103,41 @@ export const UpdateAdForm = () => {
               </Typography>
               <br />
               <div>
-                <TextField
+                <Field
+                  as={TextField}
                   id='ad-title'
                   name='title'
+                  helperText={touched.title ? errors.title : ''}
+                  error={touched.title && Boolean(errors.title)}
                   label='Titre'
-                  // fullWidth
                   variant='outlined'
                   value={values.title}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <TextField
+                <Field
+                  as={TextField}
                   id='ad-description'
                   name='description'
+                  helperText={touched.description ? errors.description : ''}
+                  error={touched.description && Boolean(errors.description)}
                   label='Description'
-                  // fullWidth
                   variant='outlined'
                   value={values.description}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Field
+                  as={TextField}
+                  id='ad-contact'
+                  name='contact'
+                  helperText={touched.contact ? errors.contact : ''}
+                  error={touched.contact && Boolean(errors.contact)}
+                  label='Contact'
+                  variant='outlined'
+                  value={values.contact}
                   onChange={handleChange}
                 />
               </div>
@@ -143,11 +161,12 @@ export const UpdateAdForm = () => {
                   }}
                 />
               </div>
-              <div>
+              <div className='mt-2'>
                 <Button
                   variant='contained'
                   color='primary'
-                  disabled={isSubmitting}
+                  // disabled={!(isValid && dirty && isSubmitting)}
+                  disabled={isSubmitting && isValid}
                   type='submit'
                 >
                   MODIFIER

@@ -105,6 +105,11 @@ const AdPage = ({ ad }: AdDetailsProps) => {
               <img
                 className='img'
                 src={ad.image ? ad.image : defaultPhotoUrl}
+                // className='mt-4 mb-4 mx-auto my-auto'
+                // style={{ width: '576px', height: `${(9 / 16) * 576}px` }}
+                //     sizes='(max-width: 320px) 280px,
+                // (max-width: 480px) 440px,
+                // 800px'
               />
             </Card>
           </div>
