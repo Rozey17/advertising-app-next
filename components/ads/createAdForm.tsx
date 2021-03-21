@@ -20,6 +20,7 @@ const initialValues: CreateAdInput = {
   description: '',
   adSubCategoryID: '',
   image: '',
+  contact: '',
 };
 
 async function uploadImage(image) {
@@ -50,6 +51,7 @@ const CreateAdForm: FC = () => {
       .required('Une description est obligatoire')
       .min(10)
       .max(300),
+    contact: string().min(6, 'Le lien trop court').max(15),
   });
 
   return (
@@ -211,7 +213,18 @@ const CreateAdForm: FC = () => {
                 onChange={handleChange}
               />
             </div>
-
+            <div>
+              <TextField
+                id='ad-contact'
+                name='contact'
+                helperText={touched.contact ? errors.contact : ''}
+                error={touched.contact && Boolean(errors.contact)}
+                label='Contact'
+                variant='outlined'
+                value={values.contact}
+                onChange={handleChange}
+              />
+            </div>
             <div className={styles.image}>
               <label htmlFor='image'>
                 <Typography>Ajouter une image</Typography>
