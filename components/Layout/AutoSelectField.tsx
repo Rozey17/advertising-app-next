@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     width: 500,
     backgroundColor: 'white',
     heigth: 45,
-    paddingLeft: 5,
   },
   container: {
     position: 'relative',
@@ -82,7 +81,12 @@ export const SearchBar = () => {
           // },
           startAdornment: (
             <InputAdornment position='start'>
-              <SearchIcon fontSize='small' />
+              <SearchIcon
+                fontSize='small'
+                style={{
+                  paddingLeft: 5,
+                }}
+              />
             </InputAdornment>
           ),
         }}

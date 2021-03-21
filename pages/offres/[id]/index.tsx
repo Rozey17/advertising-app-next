@@ -120,7 +120,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
             <Typography>
               {authenticated && (
                 <Link href={`/offres/${ad.id}/edit`}>
-                  <h2 className='text-base blue font-bold'>Modifier Annonce</h2>
+                  <a className='text-blue-800 font-bold'>Modifier Annonce</a>
                 </Link>
               )}
             </Typography>
