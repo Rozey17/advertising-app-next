@@ -44,7 +44,7 @@ const phoneRegEx = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
   const router = useRouter();
-  const validationSchema = object<Ad>().shape({
+  const validationSchema = object().shape({
     title: string()
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')

@@ -36,7 +36,7 @@ export const UpdateAdForm = () => {
   const [updateAd] = useUpdateAdMutation();
   const router = useRouter();
   const id = router.query.id as string;
-  const validationSchema = object<UpdateAdInput>().shape({
+  const validationSchema = object().shape({
     title: string()
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
