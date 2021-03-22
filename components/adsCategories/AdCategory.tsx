@@ -1,7 +1,6 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
 import styles from './AdCategory.module.css';
-import { Box, Grid, Paper } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { AdSubCategoriesList } from 'components/adSubcategories/AdSubCategoriesList';
 
 interface Props {

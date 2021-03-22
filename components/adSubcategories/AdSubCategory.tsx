@@ -2,8 +2,8 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import styles from './AdSubCategory.module.css';
 import { Paper } from '@material-ui/core';
-import { AdsList } from 'components/ads/AdsList';
-import LocationCityIcon from '@material-ui/icons/LocationCity';
+import { AdsList } from 'components/ads/adsList';
+
 interface Props {
   name: string;
   adSubCategoryID: string;
