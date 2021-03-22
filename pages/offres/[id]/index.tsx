@@ -63,6 +63,7 @@ const AdPage = ({ ad }: AdDetailsProps) => {
     <div>
       <Head>
         <title>{ad.title}</title>
+        <link rel='shortcut icon' href='browser-web-icon.png' />
       </Head>
       <Layout>
         <div className='container'>
@@ -107,8 +108,8 @@ const AdPage = ({ ad }: AdDetailsProps) => {
                 src={ad.image ? ad.image : defaultPhotoUrl}
                 // className='mt-4 mb-4 mx-auto my-auto'
                 // style={{ width: '576px', height: `${(9 / 16) * 576}px` }}
-                //     sizes='(max-width: 320px) 280px,
-                // (max-width: 480px) 440px,
+                sizes='(max-width: 320px) 280px,
+                (max-width: 480px) 440px'
                 // 800px'
               />
             </Card>

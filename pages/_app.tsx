@@ -18,11 +18,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <Head>
           <title>Annonce 45</title>
-          <meta charSet='utf-8' />
-          <meta
-            name='viewport'
-            content='initial-scale=1.0, width=device-width'
-          />
+
           <link rel='shortcut icon' href='browser-web-icon.png' />
         </Head>
         <Component {...pageProps} />

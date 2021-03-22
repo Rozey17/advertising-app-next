@@ -20,8 +20,7 @@ async function uploadImage(image) {
   formData.append('file', image);
   formData.append(
     'upload_preset',
-    // `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
-    'xknylave'
+    `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
   );
 
   const response = await fetch(url, {
@@ -48,7 +47,9 @@ export const UpdateAdForm = () => {
       .required('Une description est obligatoire')
       .min(10)
       .max(300),
-    contact: string().matches(phoneRegEx, 'Numéro de téléphone invalide'),
+    contact: string()
+      .matches(phoneRegEx, 'Numéro de téléphone invalide')
+      .nullable(),
   });
   const variables: GetAdQueryVariables = {
     id,
