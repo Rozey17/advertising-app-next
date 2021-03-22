@@ -1,9 +1,8 @@
 import ReactPaginate from 'react-paginate';
 import { useState } from 'react';
-import { ListAdsQueryVariables, useListAdsQuery } from 'src';
+import { useListAdsQuery } from 'src';
 import { Advertising } from './Ad';
 import styles from './Ad.module.css';
-import { Layout } from 'components/layout/Layout';
 import { Typography } from '@material-ui/core';
 
 interface Props {
@@ -35,7 +34,7 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   const ads = data && data.listAds ? data.listAds.items : [];
   if (ads.length === 0) return <h2>Pas d'annonce trouvée.</h2>;
 
-  const adsPerPage = 10;
+  const adsPerPage = 6;
   const pagesVisited = pageNumber * adsPerPage;
   const pageCount = Math.ceil(ads.length / adsPerPage);
   const changePage = ({ selected }) => {
