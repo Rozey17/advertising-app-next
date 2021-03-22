@@ -16,7 +16,7 @@ const initialValues: CreateAdCategoryInput = {
 
 const CreateAdCategoryForm: FC = () => {
   const [createAdCategory] = useCreateAdCategoryMutation();
-  const validationSchema = object<AdCategory>().shape({
+  const validationSchema = object().shape({
     name: string()
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
