@@ -1,9 +1,15 @@
 import fetch from 'node-fetch';
-import { ApolloClient } from 'apollo-client';
+// import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+// import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import awsmobile from './aws-exports';
+// import { NormalizedCacheObject } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from '@apollo/client';
 // optional, this configuration is only necessary if you're working with AWS AppSync
 const middlewareLink = setContext(() => ({
   headers: {
@@ -18,8 +24,8 @@ const httpLink = new HttpLink({
 
 const link = middlewareLink.concat(httpLink);
 
-const client = new ApolloClient({
-  link,
+const client = new ApolloClient<NormalizedCacheObject>({
+  link: link as any,
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
