@@ -250,7 +250,6 @@ const CreateAdForm: FC = () => {
                   }
                 }}
               />
-              {errors.image && <p>{errors.image}</p>}
             </div>
             <div>
               <Button

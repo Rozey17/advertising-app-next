@@ -28,7 +28,7 @@ const initialValues: CreateAdSubCategoryInput = {
 
 const CreateAdSubCategoryForm: FC = () => {
   const [createAdSubCategory] = useCreateAdSubCategoryMutation();
-  const validationSchema = object<AdSubCategory>().shape({
+  const validationSchema = object().shape({
     name: string()
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
