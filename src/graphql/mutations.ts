@@ -269,12 +269,3 @@ export const deleteAdSubCategory = /* GraphQL */ `
     }
   }
 `;
-
-export const signatureMutation = /* GraphQL */ `
-  mutation CreateSignatureMutation {
-    createImageSignature {
-      signature
-      timestamp
-    }
-  }
-`;

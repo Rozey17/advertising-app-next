@@ -14,12 +14,12 @@ import Link from 'next/link';
 import { ChangeEvent, FC, useState } from 'react';
 import styles from './Ad.module.css';
 import { useRouter } from 'next/router';
-import { Image } from 'cloudinary-react';
 const initialValues: CreateAdInput = {
   title: '',
   description: '',
   adSubCategoryID: '',
   image: '',
+  contact: '',
 };
 
 async function uploadImage(image) {
@@ -27,7 +27,10 @@ async function uploadImage(image) {
 
   const formData = new FormData();
   formData.append('file', image);
-  formData.append('upload_preset', 'xknylave');
+  formData.append(
+    'upload_preset',
+    `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
+  );
 
   const response = await fetch(url, {
     method: 'post',
@@ -36,10 +39,12 @@ async function uploadImage(image) {
   return response.json();
 }
 
+const phoneRegEx = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+
 const CreateAdForm: FC = () => {
   const [createAd] = useCreateAdMutation();
   const router = useRouter();
-  const validationSchema = object<Ad>().shape({
+  const validationSchema = object().shape({
     title: string()
       .required('Le nom est obligatoire')
       .min(2, 'Le nom trop court')
@@ -50,6 +55,7 @@ const CreateAdForm: FC = () => {
       .required('Une description est obligatoire')
       .min(10)
       .max(300),
+    contact: string().matches(phoneRegEx, 'Numéro de téléphone invalide'),
   });
 
   return (
@@ -69,10 +75,10 @@ const CreateAdForm: FC = () => {
       }}
     >
       {({
-        isValid,
         handleChange,
         setFieldValue,
         values,
+        isValid,
         dirty,
         submitForm,
         errors,
@@ -200,7 +206,8 @@ const CreateAdForm: FC = () => {
             </div>
 
             <div>
-              <TextField
+              <Field
+                as={TextField}
                 id='ad-description'
                 name='description'
                 helperText={touched.description ? errors.description : ''}
@@ -211,7 +218,19 @@ const CreateAdForm: FC = () => {
                 onChange={handleChange}
               />
             </div>
-
+            <div>
+              <Field
+                as={TextField}
+                id='ad-contact'
+                name='contact'
+                helperText={touched.contact ? errors.contact : ''}
+                error={touched.contact && Boolean(errors.contact)}
+                label='Contact'
+                variant='outlined'
+                value={values.contact}
+                onChange={handleChange}
+              />
+            </div>
             <div className={styles.image}>
               <label htmlFor='image'>
                 <Typography>Ajouter une image</Typography>
