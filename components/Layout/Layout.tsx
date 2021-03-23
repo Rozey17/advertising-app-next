@@ -77,7 +77,6 @@ export const Layout: FC<Props> = ({ children, title }: Props) => {
               Déconnexion
             </Button>
           ) : (
-            // <SignOut />
             <Link href='/auth'>
               <Button className={classes.button} variant='outlined'>
                 Se Connecter

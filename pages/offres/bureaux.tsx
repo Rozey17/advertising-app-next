@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
-import { AdsList } from 'components/ads/adsList';
-import { Layout } from 'components/layout/layout';
+import { AdsList } from 'components/ads/AdsList';
+import { Layout } from 'components/layout/Layout';
 import styles from './Ads.module.css';
 
 export default function Bureau() {

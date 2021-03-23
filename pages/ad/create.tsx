@@ -1,7 +1,7 @@
-import { CreateAdForm } from 'components/ads/createAdForm';
-import { Layout } from 'components/layout/layout';
 import { GetServerSideProps, NextApiRequest } from 'next';
 import { loadIdToken } from 'components/auth/firebaseAdmin';
+import { Layout } from 'components/layout/Layout';
+import { CreateAdForm } from 'components/ads/CreateAdForm';
 
 export default function CreateAd() {
   return (

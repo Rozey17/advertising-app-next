@@ -1,8 +1,7 @@
-import { AdsList } from 'components/ads/adsList';
 import styles from './Ads.module.css';
 import { Typography } from '@material-ui/core';
-import { Layout } from 'components/layout/layout';
-
+import { AdsList } from 'components/ads/AdsList';
+import { Layout } from 'components/layout/Layout';
 export default function Cars() {
   return (
     <Layout>

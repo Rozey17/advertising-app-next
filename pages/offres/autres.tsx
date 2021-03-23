@@ -1,5 +1,5 @@
-import { AdsList } from 'components/ads/adsList';
-import { Layout } from 'components/layout/layout';
+import { AdsList } from 'components/ads/AdsList';
+import { Layout } from 'components/layout/Layout';
 import styles from './Ads.module.css';
 import { Typography } from '@material-ui/core';
 
