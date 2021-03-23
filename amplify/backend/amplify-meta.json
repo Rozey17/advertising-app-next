@@ -31,11 +31,12 @@
         "GraphQLAPIEndpointOutput": "https://hc7ptqtja5bzpg576iov7527pm.appsync-api.eu-west-2.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-3ajduac2xnhq7pg4i4d6sznx7i"
       },
-      "lastPushTimeStamp": "2021-03-22T11:20:26.253Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadvertisingapp"
-      }
+      },
+      "lastPushTimeStamp": "2021-03-03T10:46:12.513Z",
+      "lastPushDirHash": "SJ6QgpeZCIcbtyY7VCHQr0tGkoc="
     }
   },
   "auth": {
@@ -44,6 +45,11 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/auth/advertisingappnextjsf850aad8-cloudformation-template.yml",
+        "logicalId": "authadvertisingappnextjsf850aad8"
+      },
+      "lastPushTimeStamp": "2021-03-03T10:46:12.513Z",
       "output": {
         "AppClientSecret": "1p52heb8kn46ani1te8egbepm6lui8vqjdiqord8vnnomntr6hu",
         "UserPoolId": "eu-west-2_PNZB8sqXQ",
@@ -53,11 +59,7 @@
         "IdentityPoolName": "advertisingappnextjsf850aad8_identitypool_f850aad8__dev",
         "UserPoolName": "advertisingappnextjsf850aad8_userpool_f850aad8"
       },
-      "lastPushTimeStamp": "2021-03-22T11:20:26.284Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/auth/advertisingappnextjsf850aad8-cloudformation-template.yml",
-        "logicalId": "authadvertisingappnextjsf850aad8"
-      }
+      "lastPushDirHash": "7+2CBS89lSZHr5ds1KG/SUldzHg="
     }
   }
 }
