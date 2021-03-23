@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
-import { AdsList } from 'components/ads/AdsList';
-import { Layout } from 'components/layout/Layout';
+import { AdsList } from 'components/ads/adsList';
+import { Layout } from 'components/layout/layout';
 import styles from './Ads.module.css';
 
 export default function Electronics() {
@@ -8,7 +8,7 @@ export default function Electronics() {
     <Layout>
       <div className={styles.title}>
         <Typography>
-          <h2>Annonces Electroménager</h2>
+          <h2 className='text-2xl font-bold'>Annonces Electroménager</h2>
         </Typography>
       </div>
       <AdsList adSubCategoryID='9b3c82f9-1969-4001-90d9-e4aca828725a' />

@@ -1,25 +1,9 @@
-import { CreateAdForm } from 'components/ads/CreateAdForm';
-import { Container } from '@material-ui/core';
-import { Layout } from 'components/layout/Layout';
-import { Auth, withSSRContext } from 'aws-amplify';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { CreateAdForm } from 'components/ads/createAdForm';
+import { Layout } from 'components/layout/layout';
 import { GetServerSideProps, NextApiRequest } from 'next';
 import { loadIdToken } from 'components/auth/firebaseAdmin';
-import { useAuth } from 'components/auth/useAuth';
 
 export default function CreateAd() {
-  const { logout, authenticated } = useAuth();
-
-  // const [user, setUser] = useState(null);
-  // const router = useRouter();
-  // useEffect(() => {
-  //   Auth.currentAuthenticatedUser()
-  //     .then((user) => setUser(user))
-  //     // if there is no authenticated user, redirect to profile page
-  //     .catch(() => router.push('/auth'));
-  // }, []);
-  // if (!user) return null;
   return (
     <Layout>
       <CreateAdForm />
@@ -31,9 +15,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const uid = await loadIdToken(ctx.req as NextApiRequest);
 
   if (!uid) {
-    // ctx.res.setHeader('location', '/auth');
-    // ctx.res.statusCode = 302;
-    // ctx.res.end();
     return {
       redirect: {
         permanent: false,

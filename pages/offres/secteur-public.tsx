@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
-import { AdsList } from 'components/ads/AdsList';
-import { Layout } from 'components/layout/Layout';
+import { AdsList } from 'components/ads/adsList';
+import { Layout } from 'components/layout/layout';
 import styles from './Ads.module.css';
 
 export default function PublicSector() {
@@ -8,7 +8,7 @@ export default function PublicSector() {
     <Layout>
       <div className={styles.title}>
         <Typography>
-          <h2>Annonces Secteur Public</h2>
+          <h2 className='text-2xl font-bold'>Annonces Secteur Public</h2>
         </Typography>
       </div>
       <AdsList adSubCategoryID='fa64bb8d-8dcc-4b46-94b7-8311e734fc81' />

@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
-import { AdsList } from 'components/ads/AdsList';
-import { Layout } from 'components/layout/Layout';
+import { AdsList } from 'components/ads/adsList';
+import { Layout } from 'components/layout/layout';
 import styles from './Ads.module.css';
 
 export default function Internet() {
@@ -8,7 +8,9 @@ export default function Internet() {
     <Layout>
       <div className={styles.title}>
         <Typography>
-          <h2>Annonces Informatique, Internet</h2>
+          <h2 className='text-2xl font-bold'>
+            Annonces Informatique, Internet
+          </h2>
         </Typography>
       </div>
       <AdsList adSubCategoryID='5d26d488-b5d7-4fa8-a1ee-71accae15378' />
