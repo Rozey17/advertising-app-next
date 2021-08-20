@@ -97,34 +97,33 @@ export const UpdateAdForm = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className={styles.input}>
-              <Typography color='primary'>
-                <EditTwoToneIcon fontSize='small' />
+              <Typography color="primary">
+                <EditTwoToneIcon fontSize="small" />
 
                 <b>MODIFIER UNE ANNONCE</b>
               </Typography>
               <br />
               <div>
-                <Field
-                  as={TextField}
-                  id='ad-title'
-                  name='title'
-                  helperText={touched.title ? errors.title : ''}
-                  error={touched.title && Boolean(errors.title)}
-                  label='Titre'
-                  variant='outlined'
+                <input
+                  id="ad-title"
+                  name="title"
+                  // helperText={touched.title ? errors.title : ''}
+                  // error={touched.title && Boolean(errors.title)}
+                  // label='Titre'
+                  // variant="outlined"
                   value={values.title}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <Field
-                  as={TextField}
-                  id='ad-description'
-                  name='description'
-                  helperText={touched.description ? errors.description : ''}
-                  error={touched.description && Boolean(errors.description)}
-                  label='Description'
-                  variant='outlined'
+                <input
+                  // as={TextField}
+                  id="ad-description"
+                  name="description"
+                  // helperText={touched.description ? errors.description : ''}
+                  // error={touched.description && Boolean(errors.description)}
+                  // label='Description'
+                  // variant="outlined"
                   value={values.description}
                   onChange={handleChange}
                 />
@@ -132,48 +131,48 @@ export const UpdateAdForm = () => {
               <div>
                 <Field
                   as={TextField}
-                  id='ad-contact'
-                  name='contact'
-                  helperText={touched.contact ? errors.contact : ''}
+                  id="ad-contact"
+                  name="contact"
+                  helperText={touched.contact ? errors.contact : ""}
                   error={touched.contact && Boolean(errors.contact)}
-                  label='Contact'
-                  variant='outlined'
+                  label="Contact"
+                  variant="outlined"
                   value={values.contact}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <label htmlFor='image'>
+                <label htmlFor="image">
                   <Typography>Ajouter une image</Typography>
                 </label>
 
                 <input
-                  id='image'
-                  name='image'
-                  type='file'
-                  accept='image/*'
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     if (event?.target?.files?.[0]) {
                       const file = event.target.files[0];
                       uploadImage(file).then((res) => {
-                        setFieldValue('image', res?.secure_url);
+                        setFieldValue("image", res?.secure_url);
                       });
                     }
                   }}
                 />
               </div>
-              <div className='mt-2'>
+              <div className="mt-2">
                 <Button
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   // disabled={!(isValid && dirty && isSubmitting)}
                   disabled={isSubmitting && isValid}
-                  type='submit'
+                  type="submit"
                 >
                   MODIFIER
-                </Button>{' '}
+                </Button>{" "}
                 <Link href={`/offres/${ad.id}`}>
-                  <Button variant='contained' color='secondary'>
+                  <Button variant="contained" color="secondary">
                     ANNULER
                   </Button>
                 </Link>

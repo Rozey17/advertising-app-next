@@ -1,17 +1,10 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-
+import React from "react";
 import {
-  ListAdCategorysQueryVariables,
   ListAdSubCategorysQueryVariables,
-  useListAdCategorysQuery,
-  useListAdSubCategorysLazyQuery,
   useListAdSubCategorysQuery,
-} from 'src';
-import Link from 'next/link';
-import slugify from 'slugify';
+} from "src";
+import Link from "next/link";
+import slugify from "slugify";
 interface Props {
   adCategoryID: string;
 }
@@ -40,14 +33,14 @@ const SubCategories = ({ adCategoryID }: Props) => {
     <div>
       {AdSubCategories.map((x) => (
         <ul key={x.id}>
-          <MenuItem>
+          <menuitem>
             <Link
               href={`/${x.id}`}
               as={`/offres/${slugify(x.name, { lower: true })}`}
             >
               <a>{x.name}</a>
             </Link>
-          </MenuItem>
+          </menuitem>
         </ul>
       ))}
     </div>

@@ -1,12 +1,10 @@
 import {
-  ListAdCategorysQueryVariables,
   ListAdSubCategorysQueryVariables,
-  useListAdCategorysQuery,
   useListAdSubCategorysQuery,
-} from 'src';
-import Link from 'next/link';
-import slugify from 'slugify';
-import styles from './AdSubCategory.module.css';
+} from "src";
+import Link from "next/link";
+import slugify from "slugify";
+import styles from "./AdSubCategory.module.css";
 interface Props {
   adCategoryID: string;
 }

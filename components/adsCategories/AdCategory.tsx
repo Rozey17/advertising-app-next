@@ -1,7 +1,5 @@
-import React from 'react';
-import styles from './AdCategory.module.css';
-import { Box } from '@material-ui/core';
-import { AdSubCategoriesList } from 'components/adSubcategories/AdSubCategoriesList';
+import React from "react";
+import { AdSubCategoriesList } from "components/adSubcategories/AdSubCategoriesList";
 
 interface Props {
   name: string;
@@ -10,12 +8,10 @@ interface Props {
 
 const AdCategory = ({ name, adCategoryID }: Props) => {
   return (
-    <div className={styles.global}>
-      <Box>
-        <b> {name}</b>
-        <hr />
-        <AdSubCategoriesList adCategoryID={adCategoryID} />
-      </Box>
+    <div className=" text-center mb-3">
+      <b className="text-green-400 text-lg">{name}</b>
+
+      <AdSubCategoriesList adCategoryID={adCategoryID} />
     </div>
   );
 };

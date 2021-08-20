@@ -34,32 +34,15 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   const ads = data && data.listAds ? data.listAds.items : [];
   if (ads.length === 0) return <h2>Pas d'annonce trouvée.</h2>;
 
-  const adsPerPage = 6;
-  const pagesVisited = pageNumber * adsPerPage;
-  const pageCount = Math.ceil(ads.length / adsPerPage);
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
 
   return (
     <div>
-      <div className={styles.result}>
-        <Typography>Résultat ({ads.length})</Typography>
+      <div className="text-center font-bold mb-3">
+        <label>Résultat ({ads.length})</label>
       </div>
-      {ads.slice(pagesVisited, pagesVisited + adsPerPage).map((x) => (
+      {ads.map((x) => (
         <Advertising ad={x} key={x.id} />
       ))}
-      <ReactPaginate
-        previousLabel={'Précédent'}
-        nextLabel={'Suivant'}
-        pageCount={pageCount}
-        onPageChange={changePage}
-        containerClassName={styles.paginationBttns}
-        // previousLinkClassName={}
-        // nextLinkClassName={}
-        // disabledClassName={}
-        activeClasName={styles.paginationActive}
-      />
     </div>
   );
 };

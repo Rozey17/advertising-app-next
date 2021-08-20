@@ -1,6 +1,6 @@
 import { ListAdCategorysQueryVariables, useListAdCategorysQuery } from 'src';
 import { AdCategory } from './AdCategory';
-import styles from './AdCategory.module.css';
+import styles from "./adCategory.module.css";
 
 const AdCategoriesList = () => {
   const variables: ListAdCategorysQueryVariables = { limit: 100 };
@@ -13,7 +13,7 @@ const AdCategoriesList = () => {
     data && data.listAdCategorys ? data.listAdCategorys.items : [];
 
   return (
-    <div className={styles.global}>
+    <div>
       {AdCategories.map((x) => (
         <AdCategory name={x.name} adCategoryID={x.id} key={x.id} />
       ))}

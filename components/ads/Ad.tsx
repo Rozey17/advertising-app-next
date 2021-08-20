@@ -1,53 +1,33 @@
-import React from 'react';
-import Card from '@material-ui/core/Card';
-import styles from './Ad.module.css';
-import {
-  CardContent,
-  CardMedia,
-  Paper,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
-import { CardActionArea } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import Link from 'next/link';
-import moment from 'moment';
-import { Ad } from 'src';
-import slugify from 'slugify';
-import { useRouter } from 'next/router';
+import React from "react";
+import moment from "moment";
+import Link from "next/link";
+import { Ad } from "@apollo";
 interface adProps {
   ad: Ad;
 }
 
 const Advertising = ({ ad }: adProps) => {
-  const router = useRouter();
   const defaultPhotoUrl =
-    'https://www.labaleine.fr/sites/default/files/image-not-found.jpg';
+    "https://www.labaleine.fr/sites/default/files/image-not-found.jpg";
   const dateToStore = ad.createdAt;
-  moment.locale('fr');
-  const momentDate = moment(dateToStore).format('LL');
+  moment.locale("fr");
+  const momentDate = moment(dateToStore).format("LL");
 
   return (
-    <Card
-      className={styles.paper}
-      onClick={() => router.push(`/offres/${ad.id}`)}
-    >
-      <div className={styles.box1}>
-        <Typography>
-          <b>{ad.title}</b>
+    <Link href={`/offres/${ad.id}`}>
+      <div className="cursor-pointer flex justify-center mb-3 bg-white w-full md:w-1/3 h-40 m-auto p-4 hover:shadow-md rounded-lg">
+        <img
+          className="h-full w-1/3 mr-6"
+          src={ad.image ? ad.image : defaultPhotoUrl}
+        />
+        <div>
+          <span className="hover:text-yellow-500 font-bold">{ad.title}</span>
           <br />
           <a>Publié le: {momentDate}</a>
           <p>{ad.description}</p>
-        </Typography>
+        </div>
       </div>
-
-      <CardMedia
-        className={styles.img}
-        title='image for the ad'
-        image={ad.image ? ad.image : defaultPhotoUrl}
-      />
-    </Card>
+    </Link>
   );
 };
 
