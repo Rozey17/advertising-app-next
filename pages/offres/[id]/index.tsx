@@ -1,16 +1,6 @@
 import * as React from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { getAd } from 'src/graphql/queries';
-import {
-  DeleteAdInput,
-  GetAdQuery,
-  ListAdSubCategorysQuery,
-  ListAdSubCategorysQueryVariables,
-  useDeleteAdMutation,
-  useListAdSubCategorysQuery,
-} from 'src';
-import { GetServerSideProps } from 'next';
-import awsmobile from "src/aws-exports";
+
+import { useGetAdQuery } from "src";
 import slugify from "slugify";
 import moment from "moment";
 import Link from "next/link";
@@ -18,14 +8,20 @@ import { useAuth } from "components/auth/useAuth";
 import Categories from "components/Categories";
 import Head from "next/head";
 import { Layout } from "components/Layout/Layout";
+import { useRouter } from "next/router";
+import { GetAdQueryVariables } from "src/API";
 
-API.configure(awsmobile);
+const AdPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const variables: GetAdQueryVariables = {
+    id: id as string,
+  };
+  const { data, loading } = useGetAdQuery({
+    variables,
+  });
 
-interface AdDetailsProps {
-  ad: GetAdQuery["getAd"] | null | undefined;
-}
-
-const AdPage = ({ ad }: AdDetailsProps) => {
+  const ad = data && data.getAd ? data.getAd : null;
   const { authenticated } = useAuth();
 
   const defaultPhotoUrl =
@@ -97,17 +93,5 @@ const AdPage = ({ ad }: AdDetailsProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<AdDetailsProps> = async (
-  context
-) => {
-  //   const id = context.params.id;
-  const { id } = context.query;
-  const ad = (await API.graphql({
-    ...graphqlOperation(getAd),
-    variables: { id },
-  })) as { data: GetAdQuery };
-
-  return { props: { ad: ad.data.getAd || null } };
-};
 
 export default AdPage;

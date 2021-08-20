@@ -1,21 +1,23 @@
 import * as React from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { getAd } from 'src/graphql/queries';
-import { GetAdQuery } from 'src';
-import { GetServerSideProps } from 'next';
-import awsmobile from 'src/aws-exports';
+import { useGetAdQuery } from "src";
+import awsmobile from "src/aws-exports";
+import { UpdateAdForm } from "components/ads/UpdateAdForm";
+import { useAuth } from "components/auth/useAuth";
+import { Layout } from "components/Layout/Layout";
+import { useRouter } from "next/router";
+import { GetAdQueryVariables } from "src/API";
 
-import { Layout } from 'components/layout/Layout';
-import { UpdateAdForm } from 'components/ads/UpdateAdForm';
-import { useAuth } from 'components/auth/useAuth';
+const EditPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const variables: GetAdQueryVariables = {
+    id: id as string,
+  };
+  const { data, loading } = useGetAdQuery({
+    variables,
+  });
 
-API.configure(awsmobile);
-
-interface AdDetailsProps {
-  ad: GetAdQuery['getAd'] | null | undefined;
-}
-
-const EditPage = ({ ad }: AdDetailsProps) => {
+  const ad = data && data.getAd ? data.getAd : null;
   const { authenticated } = useAuth();
 
   if (!ad) {
@@ -26,19 +28,6 @@ const EditPage = ({ ad }: AdDetailsProps) => {
     );
   }
   return <Layout>{authenticated && <UpdateAdForm />}</Layout>;
-};
-
-export const getServerSideProps: GetServerSideProps<AdDetailsProps> = async (
-  context
-) => {
-  //   const id = context.params.id;
-  const { id } = context.query;
-  const ad = (await API.graphql({
-    ...graphqlOperation(getAd),
-    variables: { id },
-  })) as { data: GetAdQuery };
-
-  return { props: { ad: ad.data.getAd || null } };
 };
 
 export default EditPage;

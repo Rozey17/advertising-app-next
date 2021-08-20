@@ -1,6 +1,7 @@
 import { loadIdToken } from 'components/auth/firebaseAdmin';
-import FirebaseAuth from 'components/FirebaseAuth';
-import { Layout } from 'components/layout/Layout';
+import FirebaseAuth from "components/firebaseAuth";
+import { Layout } from "components/Layout/Layout";
+
 import { GetServerSideProps, NextApiRequest } from 'next';
 
 export default function Auth() {
