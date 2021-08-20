@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useAuth } from "../auth/useAuth";
-import { SearchBar } from "./AutoSelectField";
+// import { SearchBar } from "./AutoSelectField";
 
 export const Navbar = () => {
   const { logout, authenticated } = useAuth();
@@ -30,7 +30,7 @@ export const Navbar = () => {
           Déposer Une Annonce
         </button>
       </Link>
-      <SearchBar />
+      {/* <SearchBar /> */}
       {authenticated ? (
         <button
           className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg"

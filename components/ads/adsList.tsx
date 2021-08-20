@@ -1,9 +1,6 @@
-import ReactPaginate from 'react-paginate';
-import { useState } from 'react';
-import { useListAdsQuery } from 'src';
-import { Advertising } from './Ad';
-import styles from './Ad.module.css';
-import { Typography } from '@material-ui/core';
+import { useState } from "react";
+import { useListAdsQuery } from "src";
+import { Advertising } from "./Ad";
 
 interface Props {
   adSubCategoryID: string;
@@ -33,7 +30,6 @@ const AdsList = ({ adSubCategoryID }: Props) => {
   if (error) return <div>errors</div>;
   const ads = data && data.listAds ? data.listAds.items : [];
   if (ads.length === 0) return <h2>Pas d'annonce trouvée.</h2>;
-
 
   return (
     <div>

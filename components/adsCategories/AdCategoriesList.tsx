@@ -13,7 +13,7 @@ const AdCategoriesList = () => {
     data && data.listAdCategorys ? data.listAdCategorys.items : [];
 
   return (
-    <div>
+    <div className="grid grid-rows-2 grid-flow-col gap-4 justify-center mt-6">
       {AdCategories.map((x) => (
         <AdCategory name={x.name} adCategoryID={x.id} key={x.id} />
       ))}

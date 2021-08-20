@@ -6,31 +6,30 @@ import {
   useUpdateAdMutation,
 } from 'src';
 import { Formik, Form, Field } from 'formik';
-import { string, object } from 'yup';
-import { Button, TextField, Typography } from '@material-ui/core';
-import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
-import { ChangeEvent } from 'react';
-import styles from './Ad.module.css';
-import Link from 'next/link';
+import { string, object } from "yup";
+import { ChangeEvent } from "react";
+import styles from "./Ad.module.css";
+import Link from "next/link";
 
 async function uploadImage(image) {
   const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
 
   const formData = new FormData();
-  formData.append('file', image);
+  formData.append("file", image);
   formData.append(
-    'upload_preset',
+    "upload_preset",
     `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
   );
 
   const response = await fetch(url, {
-    method: 'post',
+    method: "post",
     body: formData,
   });
 
   return response.json();
 }
-const phoneRegEx = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+const phoneRegEx =
+  /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
 export const UpdateAdForm = () => {
   const [updateAd] = useUpdateAdMutation();
@@ -38,17 +37,17 @@ export const UpdateAdForm = () => {
   const id = router.query.id as string;
   const validationSchema = object().shape({
     title: string()
-      .required('Le nom est obligatoire')
-      .min(2, 'Le nom trop court')
-      .max(50, 'Le nom trop long'),
-    adSubCategoryID: string().required('La catégorie est obligatoire'),
-    image: string().min(1, 'Le lien trop court'),
+      .required("Le nom est obligatoire")
+      .min(2, "Le nom trop court")
+      .max(50, "Le nom trop long"),
+    adSubCategoryID: string().required("La catégorie est obligatoire"),
+    image: string().min(1, "Le lien trop court"),
     description: string()
-      .required('Une description est obligatoire')
+      .required("Une description est obligatoire")
       .min(10)
       .max(300),
     contact: string()
-      .matches(phoneRegEx, 'Numéro de téléphone invalide')
+      .matches(phoneRegEx, "Numéro de téléphone invalide")
       .nullable(),
   });
   const variables: GetAdQueryVariables = {
@@ -97,54 +96,39 @@ export const UpdateAdForm = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className={styles.input}>
-              <Typography color="primary">
-                <EditTwoToneIcon fontSize="small" />
+              <div className="font-bold">MODIFIER UNE ANNONCE</div>
 
-                <b>MODIFIER UNE ANNONCE</b>
-              </Typography>
               <br />
               <div>
+                <label>Titre</label>
                 <input
                   id="ad-title"
                   name="title"
-                  // helperText={touched.title ? errors.title : ''}
-                  // error={touched.title && Boolean(errors.title)}
-                  // label='Titre'
-                  // variant="outlined"
                   value={values.title}
                   onChange={handleChange}
                 />
               </div>
               <div>
+                <label>Description</label>
+
                 <input
-                  // as={TextField}
                   id="ad-description"
                   name="description"
-                  // helperText={touched.description ? errors.description : ''}
-                  // error={touched.description && Boolean(errors.description)}
-                  // label='Description'
-                  // variant="outlined"
                   value={values.description}
                   onChange={handleChange}
                 />
               </div>
               <div>
+                <label>Contact</label>
                 <Field
-                  as={TextField}
                   id="ad-contact"
                   name="contact"
-                  helperText={touched.contact ? errors.contact : ""}
-                  error={touched.contact && Boolean(errors.contact)}
-                  label="Contact"
-                  variant="outlined"
                   value={values.contact}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <label htmlFor="image">
-                  <Typography>Ajouter une image</Typography>
-                </label>
+                <label htmlFor="image">Ajouter une image</label>
 
                 <input
                   id="image"
@@ -162,19 +146,17 @@ export const UpdateAdForm = () => {
                 />
               </div>
               <div className="mt-2">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  // disabled={!(isValid && dirty && isSubmitting)}
+                <button
+                  className="text-white bg-blue-600 hover:bg-blue-700"
                   disabled={isSubmitting && isValid}
                   type="submit"
                 >
                   MODIFIER
-                </Button>{" "}
+                </button>{" "}
                 <Link href={`/offres/${ad.id}`}>
-                  <Button variant="contained" color="secondary">
+                  <button className="text-white bg-blue-600 hover:bg-blue-700">
                     ANNULER
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>

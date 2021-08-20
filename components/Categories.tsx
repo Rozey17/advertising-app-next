@@ -1,6 +1,6 @@
+import Link from "next/link";
 import React from "react";
 import { SubCategories } from "./SubCategories";
-import { Link } from "@material-ui/core";
 
 interface Props {
   name: string;
