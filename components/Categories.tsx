@@ -10,9 +10,9 @@ interface Props {
 export default function Categories({ name, adCategoryID }: Props) {
   return (
     <div>
-      <Link href="#">
-        <a>{name}</a>
-      </Link>
+      {/* <Link href="#"> */}
+      <a>{name}</a>
+      {/* </Link> */}
 
       <menu>
         <SubCategories adCategoryID={adCategoryID} />
