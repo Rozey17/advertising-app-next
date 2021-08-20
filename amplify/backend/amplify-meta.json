@@ -35,7 +35,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadvertisingapp"
       },
-      "lastPushTimeStamp": "2021-03-03T10:46:12.513Z",
+      "lastPushTimeStamp": "2021-03-24T00:29:35.660Z",
       "lastPushDirHash": "SJ6QgpeZCIcbtyY7VCHQr0tGkoc="
     }
   },
@@ -49,7 +49,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/auth/advertisingappnextjsf850aad8-cloudformation-template.yml",
         "logicalId": "authadvertisingappnextjsf850aad8"
       },
-      "lastPushTimeStamp": "2021-03-03T10:46:12.513Z",
+      "lastPushTimeStamp": "2021-03-24T00:27:52.172Z",
       "output": {
         "AppClientSecret": "1p52heb8kn46ani1te8egbepm6lui8vqjdiqord8vnnomntr6hu",
         "UserPoolId": "eu-west-2_PNZB8sqXQ",
@@ -60,6 +60,17 @@
         "UserPoolName": "advertisingappnextjsf850aad8_userpool_f850aad8"
       },
       "lastPushDirHash": "7+2CBS89lSZHr5ds1KG/SUldzHg="
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/hosting/template.json",
+        "logicalId": "hostingS3AndCloudFront"
+      },
+      "lastPushTimeStamp": "2021-03-24T00:29:35.645Z"
     }
   }
 }

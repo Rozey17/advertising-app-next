@@ -133,6 +133,15 @@
         }
       }
     },
+    "hostingS3AndCloudFront": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-advertisingappnextjs-dev-173526-deployment/amplify-cfn-templates/hosting/template.json",
+        "Parameters": {
+          "env": "dev"
+        }
+      }
+    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",
