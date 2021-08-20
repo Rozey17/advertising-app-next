@@ -9,10 +9,15 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title }: Props) => {
   return (
-    <header className="min-h-screen bg-gray-100">
-      <ScrollToTop />
-      <Navbar />
-      {children}
-    </header>
+    <div className="flex flex-col h-screen">
+      <header className="bg-gray-100">
+        <ScrollToTop />
+        <Navbar />
+      </header>
+      <main>{children}</main>
+      <footer className="absolute bottom-0 w-full p-4 bg-gradient-to-r from-indigo-700 to-blue-500 text-center text-white uppercase">
+        Annonce 45
+      </footer>
+    </div>
   );
 };

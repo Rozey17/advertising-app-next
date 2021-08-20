@@ -8,7 +8,6 @@ import {
 import { Formik, Form, Field } from 'formik';
 import { string, object } from "yup";
 import { ChangeEvent } from "react";
-import styles from "./Ad.module.css";
 import Link from "next/link";
 
 async function uploadImage(image) {
