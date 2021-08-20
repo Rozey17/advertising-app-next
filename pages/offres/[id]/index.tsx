@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useGetAdQuery } from "src";
+import { DeleteAdInput, useDeleteAdMutation, useGetAdQuery } from "src";
 import slugify from "slugify";
 import moment from "moment";
 import Link from "next/link";
@@ -8,12 +8,21 @@ import { useAuth } from "components/auth/useAuth";
 import Categories from "components/Categories";
 import Head from "next/head";
 import { Layout } from "components/Layout/Layout";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { GetAdQueryVariables } from "src/API";
 
 const AdPage = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  let deleteInput: DeleteAdInput;
+
+  deleteInput = { id: id as string };
+
+  const [deleteAd] = useDeleteAdMutation({
+    variables: { input: deleteInput },
+    notifyOnNetworkStatusChange: true,
+  });
   const variables: GetAdQueryVariables = {
     id: id as string,
   };
@@ -105,9 +114,28 @@ const AdPage = () => {
           <div>{ad!.contact ? ad!.contact : "Non communiqué"}</div>
           <div className="my-4">
             {authenticated && (
-              <Link href={`/offres/${ad!.id}/edit`}>
-                <a className="text-blue-800 font-bold">Modifier Annonce</a>
-              </Link>
+              <div className="flex justify-center font-bold">
+                <Link href={`/offres/${ad!.id}/edit`}>
+                  <a className="text-blue-800 ">Modifier Annonce</a>
+                </Link>
+                <button
+                  className="ml-6 text-red-500"
+                  onClick={() => {
+                    if (confirm("Êtes-vous sûr de supprimer ?")) {
+                      deleteAd({
+                        variables: { input: deleteInput },
+                      });
+                      router.push(
+                        `/offres/${slugify(ad!.adSubCategory.name, {
+                          lower: true,
+                        })}`
+                      );
+                    }
+                  }}
+                >
+                  Supprimer annonce
+                </button>
+              </div>
             )}
           </div>
         </div>

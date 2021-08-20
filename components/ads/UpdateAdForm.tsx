@@ -95,12 +95,23 @@ export const UpdateAdForm = () => {
           dirty,
         }) => (
           <form onSubmit={handleSubmit}>
-            <div className={styles.input}>
-              <div className="font-bold">MODIFIER UNE ANNONCE</div>
+            <div className="justify-center text-center my-3">
+              <div className="flex justify-center font-bold text-blue-600 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-4 "
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                MODIFIER UNE ANNONCE
+              </div>
 
               <br />
+              <label>Titre</label>
               <div>
-                <label>Titre</label>
                 <input
                   id="ad-title"
                   name="title"
@@ -108,9 +119,8 @@ export const UpdateAdForm = () => {
                   onChange={handleChange}
                 />
               </div>
+              <label>Description</label>
               <div>
-                <label>Description</label>
-
                 <input
                   id="ad-description"
                   name="description"
@@ -118,8 +128,8 @@ export const UpdateAdForm = () => {
                   onChange={handleChange}
                 />
               </div>
+              <label>Contact</label>
               <div>
-                <label>Contact</label>
                 <Field
                   id="ad-contact"
                   name="contact"
@@ -127,9 +137,8 @@ export const UpdateAdForm = () => {
                   onChange={handleChange}
                 />
               </div>
+              <label htmlFor="image">Ajouter une image</label>
               <div>
-                <label htmlFor="image">Ajouter une image</label>
-
                 <input
                   id="image"
                   name="image"
@@ -147,14 +156,14 @@ export const UpdateAdForm = () => {
               </div>
               <div className="mt-2">
                 <button
-                  className="text-white bg-blue-600 hover:bg-blue-700"
+                  className="text-white bg-blue-600 hover:bg-blue-700 p-2 uppercase rounded-md shadow-md"
                   disabled={isSubmitting && isValid}
                   type="submit"
                 >
                   MODIFIER
                 </button>{" "}
                 <Link href={`/offres/${ad.id}`}>
-                  <button className="text-white bg-blue-600 hover:bg-blue-700">
+                  <button className="text-white bg-red-600 hover:bg-red-700 p-2 uppercase rounded-md shadow-md">
                     ANNULER
                   </button>
                 </Link>
