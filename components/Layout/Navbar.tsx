@@ -7,12 +7,12 @@ export const Navbar = () => {
 
   return (
     // <header className="min-h-screen bg-gray-100">
-    <nav className="flex items-center justify-between p-6 h-20 bg-white shadow-sm">
-      <div className="py-5 px-3 rounded-full bg-gradient-to-r from-indigo-700 to-blue-500 text-sm text-white font-semibold shadow-lg hover:cursor-pointer hover:shadow-lg">
+    <nav className=" md:flex items-center justify-between p-6 h-20 bg-white shadow-sm sm: h-42">
+      <div className=" py-5 px-3 rounded-full bg-gradient-to-r from-indigo-700 to-blue-500 text-sm text-white font-semibold shadow-lg hover:cursor-pointer hover:shadow-lg sm: text-center ">
         <Link href="/">ANNONCE 45</Link>
       </div>
       <Link href="/ad/create">
-        <button className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg">
+        <button className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg focus:outline-none sm:my-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mr-2"
@@ -33,7 +33,7 @@ export const Navbar = () => {
       {/* <SearchBar /> */}
       {authenticated ? (
         <button
-          className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg"
+          className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg focus:outline-none "
           onClick={logout}
         >
           <svg
@@ -54,7 +54,7 @@ export const Navbar = () => {
         </button>
       ) : (
         <Link href="/auth">
-          <button className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg">
+          <button className="flex items-center h-10 px-3 bg-blue-500 hover:bg-blue-700 text-white uppercase rounded-lg shadow-lg focus:outline-none">
             Se Connecter
           </button>
         </Link>

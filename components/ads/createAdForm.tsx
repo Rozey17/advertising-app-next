@@ -2,8 +2,7 @@ import { useCreateAdMutation, Ad, CreateAdInput } from "@apollo";
 import { Formik, Form, Field } from "formik";
 import { string, object } from "yup";
 import Link from "next/link";
-import { ChangeEvent, FC, useState } from "react";
-import styles from "./Ad.module.css";
+import { ChangeEvent, FC } from "react";
 import { useRouter } from "next/router";
 const initialValues: CreateAdInput = {
   title: "",
@@ -73,11 +72,12 @@ const CreateAdForm: FC = () => {
         isValid,
         dirty,
         submitForm,
+        handleSubmit,
         errors,
         touched,
       }) => (
-        <Form>
-          <div className="justify-center text-center mt-4">
+        <Form onSubmit={handleSubmit}>
+          <div className="justify-center text-center mt-4 ">
             <div className="flex justify-center font-bold text-blue-600 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -94,29 +94,23 @@ const CreateAdForm: FC = () => {
             <br />
             <label>Titre</label>
             <div>
-              <input
+              <Field
+                className="focus:outline-none"
                 id="ad-title"
                 name="title"
-                // helperText={touched.title ? errors.title : ''}
-                // error={touched.title && Boolean(errors.title)}
-                // label='Titre'
-                // variant='outlined'
                 value={values.title}
                 onChange={handleChange}
               />
+              {touched.title && errors.title && (
+                <div className="text-red-500">{errors.title}</div>
+              )}
             </div>
             <div style={{ width: 205, margin: "auto", marginBottom: "15px" }}>
               <label>Catégories</label>
               <select
+                className="focus:outline-none"
                 id="adSubCategory"
                 name="adSubCategoryID"
-                // helperText={
-                //   touched.adSubCategoryID ? errors.adSubCategoryID : ''
-                // }
-                // error={
-                //   touched.adSubCategoryID && Boolean(errors.adSubCategoryID)
-                // }
-                // label='Ad SubCategory ID'
                 value={values.adSubCategoryID}
                 onChange={handleChange}
               >
@@ -198,37 +192,41 @@ const CreateAdForm: FC = () => {
                   Sécurité, Gardiennage
                 </option>
               </select>
+              {touched.adSubCategoryID && errors.adSubCategoryID && (
+                <div className="text-red-500">{errors.adSubCategoryID}</div>
+              )}
             </div>
             <label>Description</label>
             <div>
-              <input
+              <textarea
+                className="focus:outline-none"
                 id="ad-description"
                 name="description"
-                // helperText={touched.description ? errors.description : ''}
-                // error={touched.description && Boolean(errors.description)}
-                // label='Description'
-                // variant='outlined'
                 value={values.description}
                 onChange={handleChange}
               />
+              {touched.description && errors.description && (
+                <div className="text-red-500">{errors.description}</div>
+              )}
             </div>
             <label>Contact</label>
             <div>
-              <input
+              <Field
+                className="focus:outline-none"
                 id="ad-contact"
                 name="contact"
-                // helperText={touched.contact ? errors.contact : ''}
-                // error={touched.contact && Boolean(errors.contact)}
-                // label='Contact'
-                // variant='outlined'
                 value={values.contact}
                 onChange={handleChange}
               />
+              {touched.contact && errors.contact && (
+                <div className="text-red-500">{errors.contact}</div>
+              )}
             </div>
             <div className="cursor-pointer m-auto my-3">
               <label htmlFor="image">Ajouter une image</label>
 
               <input
+                className="focus:outline-none"
                 id="image"
                 name="image"
                 type="file"
@@ -246,7 +244,7 @@ const CreateAdForm: FC = () => {
             <div>
               <button
                 className="text-white bg-blue-600 hover:bg-blue-700 p-2 uppercase rounded-md shadow-md"
-                onClick={submitForm}
+                type="submit"
                 disabled={!(isValid && dirty)}
               >
                 Publier

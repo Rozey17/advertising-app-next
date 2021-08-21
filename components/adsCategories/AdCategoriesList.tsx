@@ -1,6 +1,5 @@
 import { ListAdCategorysQueryVariables, useListAdCategorysQuery } from 'src';
-import { AdCategory } from './AdCategory';
-import styles from "./adCategory.module.css";
+import { AdCategory } from "./AdCategory";
 
 const AdCategoriesList = () => {
   const variables: ListAdCategorysQueryVariables = { limit: 100 };
